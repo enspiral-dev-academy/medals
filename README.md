@@ -1,5 +1,8 @@
-# Dev Academy GradS
+# enspiral dev academy grads
 
-> A Dev Academy grad profile explorer
+> an enspiral dev academy grad profile explorer
 
-Work in progress. It's still early days.
+work in progress
+it's still early days
+
+using the [craftworks business stack](https://github.com/enspiral-craftworks/business-stack)
