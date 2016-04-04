@@ -38,7 +38,7 @@ exports = module.exports = function (config) {
       db.get(key.key || key, cb)
     },
     read: function (opts) {
-      return pl.read(db, {valueEncoding: 'utf8'})
+      return pl.read(db)
     },
     blobs: blobs
   }
