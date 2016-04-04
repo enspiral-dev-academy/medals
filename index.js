@@ -5,15 +5,20 @@ var Sublevel = require('level-sublevel/bytewise')
 var Blobs = require('multiblob')
 var pl = require('pull-level')
 var path = require('path')
+var MuxRpc = require('muxrpc')
+var WS = require('pull-ws-server')
+var pull = require('pull-stream')
+var JSONDL = require('pull-serializer')
+var BlobsHttp = require('./blobs-http')
 
-var MuxHttp = require('muxhttp')
+var Tiny = require('tiny-route')
 
 var config = require('rc')('eda-grads', {
   path: path.join(process.env.HOME, '.eda-grads'),
   port: 8000,
 })
 
-var merge = require('deep-merge')
+var merge = require('deep-merge')(function (a, b, k) { a[k] = b[k] })
 
 exports = module.exports = function (config) {
 
@@ -22,25 +27,22 @@ exports = module.exports = function (config) {
 
   return {
     put: function (opts, cb) {
-      console.log('put', opts)
       db.get(opts.key, function (err, _value) {
-        console.log(err, opts.key, opts.value, _value)
-        if(err || !_value) db.put(opts.key, opts.value, cb)
+        if(err || !_value) db.put(opts.key, opts.value || {}, cb)
         else {
-          console.log(opts.key, merge(opts.value, _value))
-          db.put(opts.key, merge(opts.value, _value), cb)
+          db.put(opts.key, merge(opts.value, _value) || {}, cb)
         }
       })
     },
     get: function (key, cb) {
-      console.log('GET', key)
       db.get(key.key || key, cb)
     },
     read: function (opts) {
-      return pl.read(db, opts)
+      return pl.read(db, {valueEncoding: 'utf8'})
     },
     blobs: blobs
   }
+
 }
 
 exports.manifest = {
@@ -54,22 +56,45 @@ exports.manifest = {
   }
 }
 
-var frontend = fs.readFileSync('./static/index.html')
+var index = path.join(__dirname, 'static/index.html')
 
 if(!module.parent) {
-  if(process.argv[2] === 'server')
+  if(!process.argv[2]) {
+    fs.writeFileSync(
+      path.join(__dirname, 'manifest.json'),
+      JSON.stringify(exports.manifest, null, 2)
+    )
+
+    var api = exports(config)
+
     var server = http.createServer(require('stack')(
       function (req, res, next) {
-        if(req.url == '/') res.end(frontend)
+        if(req.method !== 'GET') return next()
+        if(req.url == '/') fs.createReadStream(index).pipe(res)
         else next()
       },
-      MuxHttp.createServer(exports.manifest, exports(config))
+      BlobsHttp(api.blobs, '/blobs')
     ))
     .listen(config.port, function () {
       console.log('listening on:', server.address())
     })
+
+    function log (n) {
+      return pull.through(function (e) {
+        console.log(n, e)
+      })
+    }
+
+    console.log(api, exports.manifest)
+
+    WS.createServer({server: server}, function (ws) {
+      var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL) (api)
+      pull(ws, rpc.createStream(), ws)
+    })
+
+  }
   else
-  require('muxrpcli')
-    (process.argv.slice(2), exports.manifest, exports(config))
+    require('muxrpcli')
+      (process.argv.slice(2), exports.manifest, exports(config))
 }
 
