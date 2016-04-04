@@ -18,7 +18,10 @@ var config = require('rc')('eda-grads', {
   port: 8000,
 })
 
-var merge = require('deep-merge')(function (a, b, k) { a[k] = b[k] })
+var merge = require('deep-merge')(function (a, b, k) {
+  console.log(a, b)
+  return b != null ? b : a
+})
 
 exports = module.exports = function (config) {
 
@@ -30,7 +33,11 @@ exports = module.exports = function (config) {
       db.get(opts.key, function (err, _value) {
         if(err || !_value) db.put(opts.key, opts.value || {}, cb)
         else {
-          db.put(opts.key, merge(opts.value, _value) || {}, cb)
+          console.log('old', _value)
+          console.log('new', opts.value)
+          console.log('mrg', merge(_value, opts.value))
+          console.log()
+          db.put(opts.key, merge(_value, opts.value) || {}, cb)
         }
       })
     },
@@ -97,4 +104,5 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
+
 
