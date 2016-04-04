@@ -125,7 +125,8 @@ document.body.appendChild(
     h('div.state',
       link('all', function () { mode ('list') }),
       link('edit', function () { mode ('edit') }),
-      link('view', function () { mode ('view') })
+      link('view', function () { mode ('view') }),
+      link('new', function () { current(); mode('edit') })
     ),
     h('div.content', content))
 )
