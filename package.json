@@ -11,18 +11,29 @@
     "deep-merge": "^1.0.0",
     "html-element": "^1.5.0",
     "hyperscript": "^1.4.7",
+    "json-buffer": "^2.0.11",
     "level": "^1.4.0",
     "level-sublevel": "^6.5.4",
     "marked": "^0.3.5",
     "multiblob": "^1.8.2",
+    "muxrpc": "^6.2.2",
     "muxrpcli": "^1.0.5",
+    "observable": "^2.1.4",
+    "pull-json-doubleline": "^1.1.0",
     "pull-level": "^1.4.1",
+    "pull-serializer": "^0.3.2",
+    "pull-ws-server": "^1.7.0",
     "rc": "^1.1.6",
-    "stack": "^0.1.0"
+    "reconnect-core": "^1.2.0",
+    "stack": "^0.1.0",
+    "stream-to-pull-stream": "^1.6.6",
+    "tiny-route": "~2.1.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "set -e; for t in test/*.js; do node $t; done"
+    "test": "set -e; for t in test/*.js; do node $t; done",
+    "build": "browserify client.js | indexhtmlify --style style.css > ./static/index.html",
+    "start": "node index.js"
   },
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
   "license": "MIT"
