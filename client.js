@@ -23,6 +23,7 @@ var client
 
 var merge = require('deep-merge')
 //client side data.
+
 var all = [], keys = {}
 function add (data) {
   console.log('ADD', data)
@@ -106,15 +107,12 @@ require('./reconnect')(function (cb) {
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
 
   pull(ws, client.createStream(), pull.through(null, cb), ws)
-  console.log('connected')
 
   pull(
     client.read(),
     pull.drain(add, function (err) {
-      //if('list'===mode())
-        content(list())
+      content(list())
       if(err) console.log(err)
-        //list.appendChild(h('pre', err.stack))
     })
   )
 })
@@ -130,5 +128,4 @@ document.body.appendChild(
     ),
     h('div.content', content))
 )
-
 
