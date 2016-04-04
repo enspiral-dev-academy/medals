@@ -1,4 +1,4 @@
-# eda-grads
+# enspiral dev academy grads
 
 a grad has the following data
 
@@ -50,5 +50,8 @@ sync, async, and source should all use GET. sink can use POST.
 ## License
 
 MIT
+
+
+
 
 
