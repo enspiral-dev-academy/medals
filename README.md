@@ -1,5 +1,17 @@
 # enspiral dev academy grads
 
+# running
+
+```
+git clone git@github.com:enspiral-dev-academy/grads.git
+cd grads
+npm install
+npm run build
+npm start
+# open localhost:8000 in your favorite browser.
+
+```
+
 a grad has the following data
 
 - links to profiles (github, linkedin, twitter, etc)
