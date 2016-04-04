@@ -6,9 +6,10 @@ module.exports = function (uploadUrl, onUpload) {
   return h('input', {
     type: 'file',
     onchange: function (ev) {
+      var filename = ev.target.files[0].name
       var xhr = XHR = new XMLHttpRequest()
       xhr.addEventListener('load', function (ev) {
-        onUpload(null, xhr.responseText)
+        onUpload(null, xhr.responseText, filename)
       })
       xhr.addEventListener('error', function (ev) {
         onUpload(ev)
@@ -22,5 +23,6 @@ module.exports = function (uploadUrl, onUpload) {
   })
 
 }
+
 
 

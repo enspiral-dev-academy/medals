@@ -1,3 +1,5 @@
+var o = require('observable')
+var h = require('hyperscript')
 
 module.exports = function field (name, object, type) {
     var v = o()

@@ -1,5 +1,7 @@
 var h = require('hyperscript')
 
+//edit a short list of times.
+
 module.exports = function (array, onChange) {
   //copy the input array,
   //treat the array as a single value.
@@ -20,7 +22,8 @@ module.exports = function (array, onChange) {
         _array[i] = this.value; update()
       }}),
       //link to delete this item from array.
-      h('a', {href: '#', onclick: function () {
+      h('a', {href: '#', onclick: function (ev) {
+        ev.preventDefault()
         delete _array[i]; update();
         ul.removeChild(this)
       }}, 'remove')
@@ -36,5 +39,4 @@ module.exports = function (array, onChange) {
     }}, 'add')
   )
 }
-
 
