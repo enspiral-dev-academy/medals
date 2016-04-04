@@ -1,0 +1,10 @@
+{
+  "get": "async",
+  "put": "async",
+  "read": "source",
+  "blobs": {
+    "get": "source",
+    "add": "sink",
+    "ls": "source"
+  }
+}
