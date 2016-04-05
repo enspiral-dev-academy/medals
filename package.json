@@ -8,6 +8,7 @@
     "url": "git://github.com/dominictarr/eda-grads.git"
   },
   "dependencies": {
+    "cookie": "^0.2.3",
     "deep-merge": "^1.0.0",
     "html-element": "^1.5.0",
     "hyperscript": "^1.4.7",
