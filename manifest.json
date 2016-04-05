@@ -6,5 +6,11 @@
     "get": "source",
     "add": "sink",
     "ls": "source"
+  },
+  "auth": {
+    "create": "async",
+    "redeem": "async",
+    "check": "async",
+    "dump": "source"
   }
 }

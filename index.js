@@ -11,6 +11,8 @@ var pull = require('pull-stream')
 var JSONDL = require('pull-serializer')
 var BlobsHttp = require('./blobs-http')
 
+var Auth = require('./auth')
+
 var Tiny = require('tiny-route')
 
 var config = require('rc')('eda-grads', {
@@ -27,6 +29,7 @@ exports = module.exports = function (config) {
 
   var db = Sublevel(Level(path.join(config.path, 'db'), {valueEncoding: 'json'}))
   var blobs = Blobs({dir: path.join(config.path, 'blobs'), alg: 'sha256'})
+  var auth = Auth(db.sublevel('auth'))
 
   return {
     put: function (opts, cb) {
@@ -47,7 +50,9 @@ exports = module.exports = function (config) {
     read: function (opts) {
       return pl.read(db)
     },
-    blobs: blobs
+    blobs: blobs,
+    db: db,
+    auth: auth
   }
 
 }
@@ -60,6 +65,12 @@ exports.manifest = {
     get: 'source',
     add: 'sink',
     ls: 'source'
+  },
+  auth: {
+    create: 'async',
+    redeem: 'async',
+    check: 'async',
+    dump: 'source'
   }
 }
 
@@ -75,11 +86,30 @@ if(!module.parent) {
     var api = exports(config)
 
     var server = http.createServer(require('stack')(
+      Tiny.get(/^\/redeem\/([0-9a-f]+)/, function (req, res, next) {
+        console.log('REDEEM', req.params[0])
+        api.auth.redeem(req.params[0], function (err, cookie) {
+          console.log(err, cookie)
+          if(err) return next(err)
+          res.setHeader('Set-Cookie', cookie)
+          res.setHeader('Location', '/')
+          res.end()
+        })
+      }),
       function (req, res, next) {
         if(req.method !== 'GET') return next()
         if(req.url == '/') fs.createReadStream(index).pipe(res)
         else next()
+        api.auth.check(req.headers.cookie, function (err, id) { 
+          console.log('access granted?', err, id)
+        })
       },
+      Tiny.get(/^\/whoami/, function (req, res, next) {
+        api.auth.check(req.headers.cookie, function (err, id) {
+          console.log('ACCESS', err, id)
+          res.end(JSON.stringify({id: id, cookie: req.headers.cookie}))
+        })
+      }),
       BlobsHttp(api.blobs, '/blobs')
     ))
     .listen(config.port, function () {
@@ -95,6 +125,7 @@ if(!module.parent) {
     console.log(api, exports.manifest)
 
     WS.createServer({server: server}, function (ws) {
+      console.log(ws)
       var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL) (api)
       pull(ws, rpc.createStream(), ws)
     })
@@ -104,5 +135,4 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
-
 
