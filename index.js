@@ -10,6 +10,7 @@ var WS = require('pull-ws-server')
 var pull = require('pull-stream')
 var JSONDL = require('pull-serializer')
 var BlobsHttp = require('./blobs-http')
+var mkdirp = require('mkdirp')
 
 var Auth = require('./auth')
 
@@ -26,6 +27,8 @@ var merge = require('deep-merge')(function (a, b, k) {
 })
 
 exports = module.exports = function (config) {
+
+  mkdirp.sync(config.path)
 
   var db = Sublevel(Level(path.join(config.path, 'db'), {valueEncoding: 'json'}))
   var blobs = Blobs({dir: path.join(config.path, 'blobs'), alg: 'sha256'})
