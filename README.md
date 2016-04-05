@@ -12,6 +12,60 @@ npm start
 
 ```
 
+## authorization
+
+Authorization uses "cookies". Cookies are something delicious you eat,
+so it really doesn't make any sense to call things used for authentication
+"cookies", especially when those things behave a lot like a familiar ticket
+and ticket stub, as is familiar to people who have ridden a bus or gone to
+the movies.
+
+first a "ticket" is created. this is a high entropy (unguessable) token.
+```
+node index.js auth.create <resource>
+1d67c0e114b10dc9cc96ea9cd2966f76c42539db
+```
+in this case, `<resource>` should probably be an email address.
+this token would be emailed to the user, embedded in a link back to the server.
+
+`http://localhost:8000/redeem/1d67c0e114b10dc9cc96ea9cd2966f76c42539db`
+the server creates a cookie and sends it to you in the response,
+which is also a redirect to the rest of the app (though it could easily
+be a redirect to edit your newly created profile)
+
+This is exactly like tearing off the ticket and givening you back the ticket
+stub when you enter the theater. Possession of the ticket stub shows you are
+authorized to see the movie.
+
+To can test this using `curl`
+
+```
+
+curl localhost:8000/redeem/1d67c0e114b10dc9cc96ea9cd2966f76c42539db -c jar -b jar -v
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8000 (#0)
+> GET /redeem/1d67c0e114b10dc9cc96ea9cd2966f76c42539db HTTP/1.1
+> Host: localhost:8000
+> User-Agent: curl/7.43.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+* Replaced cookie cookie="437734b0886caf51a8961b1033abb392b07333c1" for domain localhost, path /, expire 1491397335
+< Set-Cookie: cookie=437734b0886caf51a8961b1033abb392b07333c1;Path=/;Expires=Wed Apr 05 2017 13:02:15 GMT+1200 (NZST)FirstPartyOnly;HttpOnly;
+< Location: /
+< Date: Tue, 05 Apr 2016 01:02:15 GMT
+< Connection: keep-alive
+< Content-Length: 0
+< 
+* Connection #0 to host localhost left intact
+```
+
+note that `curl` can be quite finnecky about using cookies
+and to both write and read cookies you need to use `-c jar -b jar`
+arguments where `jar` is the "cookie jar"
+
+## Notes
+
 a grad has the following data
 
 - links to profiles (github, linkedin, twitter, etc)
@@ -62,6 +116,9 @@ sync, async, and source should all use GET. sink can use POST.
 ## License
 
 MIT
+
+
+
 
 
 
