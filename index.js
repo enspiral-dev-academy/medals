@@ -22,7 +22,6 @@ var config = require('rc')('eda-grads', {
 })
 
 var merge = require('deep-merge')(function (a, b, k) {
-  console.log(a, b)
   return b != null ? b : a
 })
 
@@ -39,10 +38,6 @@ exports = module.exports = function (config) {
       db.get(opts.key, function (err, _value) {
         if(err || !_value) db.put(opts.key, opts.value || {}, cb)
         else {
-          console.log('old', _value)
-          console.log('new', opts.value)
-          console.log('mrg', merge(_value, opts.value))
-          console.log()
           db.put(opts.key, merge(_value, opts.value) || {}, cb)
         }
       })
@@ -89,48 +84,46 @@ if(!module.parent) {
     var api = exports(config)
 
     var server = http.createServer(require('stack')(
+
       Tiny.get(/^\/redeem\/([0-9a-f]+)/, function (req, res, next) {
-        console.log('REDEEM', req.params[0])
         api.auth.redeem(req.params[0], function (err, cookie) {
-          console.log(err, cookie)
           if(err) return next(err)
           res.setHeader('Set-Cookie', cookie)
           res.setHeader('Location', '/')
           res.end()
         })
       }),
+
+      //check cookies, and authorize this connection (or not)
+      function (req, res, next) {
+        api.auth.check(req.headers.cookie, function (err, id) {
+          req.access = id; next()
+        })
+      },
+
       function (req, res, next) {
         if(req.method !== 'GET') return next()
         if(req.url == '/') fs.createReadStream(index).pipe(res)
         else next()
-        api.auth.check(req.headers.cookie, function (err, id) { 
-          console.log('access granted?', err, id)
-        })
       },
+
+      //return list of the current access rights. (for debugging)
       Tiny.get(/^\/whoami/, function (req, res, next) {
-        api.auth.check(req.headers.cookie, function (err, id) {
-          console.log('ACCESS', err, id)
-          res.end(JSON.stringify({id: id, cookie: req.headers.cookie}))
-        })
+        res.end(JSON.stringify(req.access)+'\n')
       }),
+
       BlobsHttp(api.blobs, '/blobs')
     ))
     .listen(config.port, function () {
       console.log('listening on:', server.address())
     })
 
-    function log (n) {
-      return pull.through(function (e) {
-        console.log(n, e)
-      })
-    }
-
-    console.log(api, exports.manifest)
-
     WS.createServer({server: server}, function (ws) {
-      console.log(ws)
-      var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL) (api)
-      pull(ws, rpc.createStream(), ws)
+      api.auth.check(ws.headers.cookie, function (err, id) {
+        ws.access = id
+        var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL) (api)
+        pull(ws, rpc.createStream(), ws)
+      })
     })
 
   }
@@ -138,4 +131,7 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
+
+
+
 

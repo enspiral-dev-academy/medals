@@ -20,14 +20,9 @@ module.exports = function (blobs, url) {
         })
       )
     else if(req.url.indexOf(url+'/get/') == 0) {
-      console.log()
-      console.log(req.url)
-
-
       var u = URL.parse('http://makeurlparseright.com'+req.url)
       var hash = u.pathname.substring((url+'/get/').length)
       var q = qs.parse(u.query)
-      console.log(hash, u)
       //Response.AddHeader("content-disposition", "inline; filename=File.doc")
       if(q.filename)
         res.setHeader('Content-Discosition', 'inline; filename='+q.filename)
@@ -43,6 +38,8 @@ module.exports = function (blobs, url) {
     else next()
   }
 }
+
+
 
 
 
