@@ -1,5 +1,5 @@
 var pl = require('pull-level')
-
+var Cookie = require('cookie')
 /*
 create
 
@@ -94,8 +94,6 @@ module.exports = function (db) {
   //TICKET STUB.
   //now stub (cookie) represents
   function redeem (ticket, cb) {
-
-    console.log('GET', ['ticket', ticket])
     db.get(['ticket', ticket], function (err, id) {
       if(err) return cb(new Error('unknown or expired ticket'))
       var stub = random()
@@ -118,8 +116,9 @@ module.exports = function (db) {
     redeem: redeem,
     check: function (cookie, cb) {
       //check whether this cookie is valid.
+      cookie = Cookie.parse(cookie).cookie
       if(!cookie) return cb(new Error('no cookie'))
-      db.get(['stub', cookie.replace(/^cookie=/, '')], function (err, id) {
+      db.get(['stub', cookie], function (err, id) {
         if(!id) return cb(new Error('unknown cookie'))
         cb(null, id)
       })
@@ -158,6 +157,7 @@ module.exports = function (db) {
 //if(!module.parent) {
 //  require('http').createServer(module.exports()).listen(8000)
 //}
+
 
 
 
