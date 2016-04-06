@@ -1,5 +1,11 @@
 var pl = require('pull-level')
 var Cookie = require('cookie')
+var crypto = require('crypto')
+
+function isString (s) {
+  return 'string' === typeof s
+}
+
 /*
 create
 
@@ -41,11 +47,6 @@ Without `Path=/` the browser will only send the cookie on the path
 that it got it from.
 
 */
-
-var Stack = require('stack')
-var Tiny = require('tiny-route')
-var crypto = require('crypto')
-
 function random () {
   return crypto.randomBytes(20).toString('hex')
 }
@@ -116,7 +117,7 @@ module.exports = function (db) {
     redeem: redeem,
     check: function (cookie, cb) {
       //check whether this cookie is valid.
-      cookie = Cookie.parse(cookie).cookie
+      cookie = isString(cookie) ? Cookie.parse(cookie).cookie : null
       if(!cookie) return cb(new Error('no cookie'))
       db.get(['stub', cookie], function (err, id) {
         if(!id) return cb(new Error('unknown cookie'))
@@ -127,51 +128,5 @@ module.exports = function (db) {
       return pl.read(db)
     }
   }
-
-//  auth.create('foobar', console.log)
-
-//  return Stack(
-//    // GET /redeem/<code>
-//    // this route is hit once, by clicking on a link in an email.
-//    // this tears the ticket, and the cookie represents the validated
-//    // ticket stub (or: clipped ticket which shows they paid to be on the bus)
-//    Tiny.get(/\/redeem\/([0-9a-f]+)/, function (req, res, next) {
-//      auth.redeem(req.params[0], function (err, cookie) {
-//        if(err) return next(err)
-//        res.setHeader('Set-Cookie', cookie)
-//        res.setHeader('Location', '/')
-//        res.statusCode = 303
-//        res.end('accepted')
-//      })
-//    }),
-//    function (req, res, next) {
-//      auth.check(req.headers.cookie, function (err, resource) {
-//        console.log(err, resource)
-//        if(err) return next(403) //unauthorized
-//        res.end("OKAY:" + req.headers.cookie + ' ' + resource)
-//      })
-//    }
-//  )
 }
-
-//if(!module.parent) {
-//  require('http').createServer(module.exports()).listen(8000)
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
