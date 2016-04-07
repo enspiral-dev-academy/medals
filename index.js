@@ -12,7 +12,7 @@ var JSONDL = require('pull-serializer')
 var BlobsHttp = require('./blobs-http')
 var mkdirp = require('mkdirp')
 
-var Auth = require('./auth')
+var Auth = require('cookie-auth')
 
 var Tiny = require('tiny-route')
 
@@ -46,6 +46,7 @@ exports = module.exports = function (config) {
       db.get(key.key || key, cb)
     },
     read: function (opts) {
+      console.log(this)
       return pl.read(db)
     },
     blobs: blobs,
@@ -88,8 +89,10 @@ if(!module.parent) {
       Tiny.get(/^\/redeem\/([0-9a-f]+)/, function (req, res, next) {
         api.auth.redeem(req.params[0], function (err, cookie) {
           if(err) return next(err)
+          console.log('code redeemed', cookie)
           res.setHeader('Set-Cookie', cookie)
           res.setHeader('Location', '/')
+          res.statusCode = 303
           res.end()
         })
       }),
@@ -121,7 +124,21 @@ if(!module.parent) {
     WS.createServer({server: server}, function (ws) {
       api.auth.check(ws.headers.cookie, function (err, id) {
         ws.access = id
-        var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL) (api)
+        var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL)
+          (api,
+            //PERMS.
+            function (name, args) {
+              if(name[0] !== 'put' || id === 'admin') return //allowed
+              if(name[0] === 'put') {
+                if(args[0].key !== id) {
+                  console.log('permission-error', args[0].key, id)
+                  throw new Error('do not have permission to access:'+args[0].key)
+                }
+              }
+              if(name[0] === 'auth' && id != 'admin')
+                throw new Error('only admin may access auth methods')
+            }
+          )
         pull(ws, rpc.createStream(), ws)
       })
     })
@@ -131,7 +148,4 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
-
-
-
 

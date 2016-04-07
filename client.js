@@ -9,6 +9,7 @@ var o = require('observable')
 
 var Grad = require('./views/grad')
 var Edit = require('./views/edit-grad')
+var Admin = require('./views/admin')
 
 //switch between states - state + value
 //list, view (feed), edit(feed)
@@ -49,10 +50,13 @@ function view () {
 function edit (data) {
   data = data || {}
   return Edit(data.value, function (err, value) {
+    console.log('edited', err, value)
     if(!value) mode('list')
     var _value = {key: data.key || value.email, value: value}
-    client.put(_value, function () {
-      current(_value)
+    client.put(_value, function (err) {
+      console.log(err, _value, data)
+      if(err) { current(data); alert(err.message) }
+      else current(_value)
       mode('view')
     })
   })
@@ -61,6 +65,7 @@ function edit (data) {
 function link (name, onclick) {
   return h('a', name, {href: '#', onclick: onclick})
 }
+
 
 function editLink (data) {
   return link( data ? 'edit' : 'new', function () {
@@ -95,6 +100,10 @@ mode(function (m) {
     title(current() ? 'edit:'+current().value.name: 'enter new grad')
     content(edit(current()))
   }
+  else if('admin' == m) {
+    title('admin')
+    content(Admin(client))
+  }
   else {
     title('eda-grads')
     content(list())
@@ -124,8 +133,10 @@ document.body.appendChild(
       link('all', function () { mode ('list') }),
       link('edit', function () { mode ('edit') }),
       link('view', function () { mode ('view') }),
-      link('new', function () { current(); mode('edit') })
+      link('new', function () { current({value: {}}); mode('edit') }),
+      link('admin', function () { mode('admin') })
     ),
     h('div.content', content))
 )
+
 
