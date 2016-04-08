@@ -18,7 +18,7 @@ var mode = o() //list, view, edit
 var current = o() //current grad
 
 var client
-
+var resource = o()
 // --- client side dataset ---
 // TODO: move into module ...
 
@@ -27,18 +27,15 @@ var merge = require('deep-merge')
 
 var all = [], keys = {}
 function add (data) {
-  console.log('ADD', data)
   if(!keys[data.key]) {
     keys[data.key] = data
     all.push(data)
   }
-  else {
+  else
     keys[data.key].value = merge(keys[data.key].value, data.value)
-  }
 }
 
 // --------
-
 
 var title = o()
 var content = o()
@@ -74,13 +71,21 @@ function editLink (data) {
   })
 }
 
+function canAccess(obv, set, value) {
+  return o.transform(obv, function (val) {
+    return ~set.indexOf(val) ? value : null
+  })
+}
+
 function list () {
   return h('ol',
     Object.keys(keys).map(function (key) {
       var value = keys[key].value
       return h('li',
         h('div.links',
-          link('edit', function () { current(keys[key]); mode ('edit') }),
+          canAccess(resource, [key, 'admin'],
+            link('edit', function () { current(keys[key]); mode ('edit') })
+          ),
           link('view', function () { current(keys[key]); mode ('view') })
         ),
         Grad(value))
@@ -117,6 +122,10 @@ require('./reconnect')(function (cb) {
 
   pull(ws, client.createStream(), pull.through(null, cb), ws)
 
+  client.whoami(function (err, _resource) {
+    resource(window.RESOURCE = _resource)
+  })
+
   pull(
     client.read(),
     pull.drain(add, function (err) {
@@ -131,12 +140,13 @@ document.body.appendChild(
     h('h1', title),
     h('div.state',
       link('all', function () { mode ('list') }),
-      link('edit', function () { mode ('edit') }),
       link('view', function () { mode ('view') }),
-      link('new', function () { current({value: {}}); mode('edit') }),
-      link('admin', function () { mode('admin') })
+      canAccess(resource, ['admin'],
+        link('admin', function () { mode ('admin') })
+      )
     ),
     h('div.content', content))
 )
+
 
 
