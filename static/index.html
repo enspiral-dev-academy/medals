@@ -59,7 +59,7 @@ var mode = o() //list, view, edit
 var current = o() //current grad
 
 var client
-
+var resource = o()
 // --- client side dataset ---
 // TODO: move into module ...
 
@@ -115,13 +115,21 @@ function editLink (data) {
   })
 }
 
+function canAccess(obv, set, value) {
+  return o.transform(obv, function (val) {
+    return ~set.indexOf(val) ? value : null
+  })
+}
+
 function list () {
   return h('ol',
     Object.keys(keys).map(function (key) {
       var value = keys[key].value
       return h('li',
         h('div.links',
-          link('edit', function () { current(keys[key]); mode ('edit') }),
+          canAccess(resource, [key, 'admin'],
+            link('edit', function () { current(keys[key]); mode ('edit') })
+          ),
           link('view', function () { current(keys[key]); mode ('view') })
         ),
         Grad(value))
@@ -158,6 +166,10 @@ require('./reconnect')(function (cb) {
 
   pull(ws, client.createStream(), pull.through(null, cb), ws)
 
+  client.whoami(function (err, _resource) {
+    resource(window.RESOURCE = _resource)
+  })
+
   pull(
     client.read(),
     pull.drain(add, function (err) {
@@ -175,11 +187,12 @@ document.body.appendChild(
       link('edit', function () { mode ('edit') }),
       link('view', function () { mode ('view') }),
       link('new', function () { current({value: {}}); mode('edit') }),
-      link('admin', function () { mode('admin') })
+      canAccess(resource, ['admin'],
+        link('admin', function () { mode ('admin') })
+      )
     ),
     h('div.content', content))
 )
-
 
 
 },{"./manifest.json":2,"./reconnect":54,"./views/admin":55,"./views/edit-grad":56,"./views/grad":57,"deep-merge":9,"hyperscript":13,"muxrpc":62,"observable":20,"pull-serializer":23,"pull-stream":31,"pull-ws-server":43}],2:[function(require,module,exports){
@@ -197,7 +210,8 @@ module.exports={
     "redeem": "async",
     "check": "async",
     "dump": "source"
-  }
+  },
+  "whoami": "sync"
 }
 },{}],3:[function(require,module,exports){
 'use strict'

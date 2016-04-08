@@ -12,5 +12,6 @@
     "redeem": "async",
     "check": "async",
     "dump": "source"
-  }
+  },
+  "whoami": "sync"
 }
