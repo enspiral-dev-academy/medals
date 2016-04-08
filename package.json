@@ -30,6 +30,7 @@
     "reconnect-core": "^1.2.0",
     "stack": "^0.1.0",
     "stream-to-pull-stream": "^1.6.6",
+    "ticket-auth": "0.0.1",
     "tiny-route": "~2.1.2",
     "validate-email": "^1.0.0"
   },
