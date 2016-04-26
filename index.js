@@ -1,3 +1,4 @@
+'use strict'
 var http = require('http')
 var fs = require('fs')
 var Level = require('level')
@@ -131,7 +132,7 @@ if(!module.parent) {
           (api,
             //PERMS.
             function (name, args) {
-              if(name[0] !== 'put' || id === 'admin') return //allowed
+              if(name[0] !== 'put' || resource === 'admin') return //allowed
               if(name[0] === 'put') {
                 if(args[0].key !== resource) {
                   console.log('permission-error', args[0].key, resource)
