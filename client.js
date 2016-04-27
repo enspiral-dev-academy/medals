@@ -81,7 +81,7 @@ function list () {
   return h('ol',
     Object.keys(keys).map(function (key) {
       var value = keys[key].value
-      return h('li',
+      return h('li.grad--card',
         h('div.links',
           canAccess(resource, [key, 'admin'],
             link('edit', function () { current(keys[key]); mode ('edit') })
@@ -136,16 +136,19 @@ require('./reconnect')(function (cb) {
 })
 
 document.body.appendChild(
-  h('div',
-    h('h1', title),
-    h('div.state',
-      link('all', function () { mode ('list') }),
-      link('view', function () { mode ('view') }),
-      canAccess(resource, ['admin'],
-        link('admin', function () { mode ('admin') })
-      )
-    ),
-    h('div.content', content))
+  h('div.page--wrapper',
+    h('header',
+      h('div.title',
+        h('h1', link(title, function () { mode ('list') }))
+      ),
+      h('nav',
+        canAccess(resource, ['admin'],
+          link('admin', function () { mode ('admin') })
+        )
+      )),
+    h('section.main',
+      h('div.content', content))
+    )
 )
 
 
