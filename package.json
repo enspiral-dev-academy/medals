@@ -40,7 +40,7 @@
   },
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done",
-    "build": "browserify client.js | indexhtmlify --style style.css > ./static/index.html",
+    "build": "browserify client.js ./static/index.js",
     "start": "node index.js"
   },
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
