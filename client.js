@@ -7,6 +7,7 @@ var WS = require('pull-ws-server')
 var JSONDL = require('pull-serializer')
 var o = require('observable')
 
+var ListGrad = require('./views/list-grad')
 var Grad = require('./views/grad')
 var Edit = require('./views/edit-grad')
 var Admin = require('./views/admin')
@@ -88,7 +89,7 @@ function list () {
           ),
           link('view', function () { current(keys[key]); mode ('view') })
         ),
-        Grad(value))
+        ListGrad(value))
     }),
     editLink()
   )
@@ -138,8 +139,8 @@ require('./reconnect')(function (cb) {
 document.body.appendChild(
   h('div.page--wrapper',
     h('header',
-      h('div.title',
-        h('h1', link(title, function () { mode ('list') }))
+      h('div.logo--wrapper',
+        h('h2', link("Home", function () { mode ('list') }))
       ),
       h('nav',
         canAccess(resource, ['admin'],
