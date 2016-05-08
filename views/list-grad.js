@@ -20,9 +20,6 @@ module.exports = function (grad) {
     ),
     h('div.grad--list-content',
       h('h2', grad.name),
-      h('div.info',
-        grad.cv ? h('a', {href: grad.cv}) : 'cv is missing'
-      ),
       (function () {
         var div = h('div.bio')
         div.innerHTML = marked(grad.bio || '')
@@ -30,3 +27,4 @@ module.exports = function (grad) {
       })()
     )
   )
+}

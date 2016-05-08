@@ -36,11 +36,12 @@
   },
   "devDependencies": {
     "browserify": "^13.0.0",
+    "ecstatic": "^1.4.0",
     "indexhtmlify": "^1.2.1"
   },
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done",
-    "build": "browserify client.js | indexhtmlify --style style.css > ./static/index.html",
+    "build": "browserify client.js > ./static/index.js",
     "start": "node index.js"
   },
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",

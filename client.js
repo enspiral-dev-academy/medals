@@ -66,7 +66,7 @@ function link (name, onclick) {
 
 
 function editLink (data) {
-  return link( data ? 'edit' : 'new', function () {
+  return link( data ? 'edit' : h('div.add'), function () {
     current(data)
     mode('edit')
   })
@@ -86,12 +86,10 @@ function list () {
         h('div.links',
           canAccess(resource, [key, 'admin'],
             link('edit', function () { current(keys[key]); mode ('edit') })
-          ),
-          link('view', function () { current(keys[key]); mode ('view') })
+          )
         ),
-        ListGrad(value))
-    }),
-    editLink()
+        link(ListGrad(value), function () { current(keys[key]); mode ('view') }))
+    })
   )
 }
 
@@ -139,12 +137,13 @@ require('./reconnect')(function (cb) {
 document.body.appendChild(
   h('div.page--wrapper',
     h('header',
-      h('div.logo--wrapper',
-        h('h2', link("Home", function () { mode ('list') }))
+      h('div.logo', link( h('img', {src:'/assets/logo.png', alt:'enspiral dev academy'}),
+          function () { mode ('list') })
       ),
       h('nav',
+        editLink(),
         canAccess(resource, ['admin'],
-          link('admin', function () { mode ('admin') })
+          link( h('img', {src:'/assets/admin-logo.png', alt:'admin portal'}), function () { mode ('admin') })
         )
       )),
     h('section.main',

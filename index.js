@@ -12,6 +12,7 @@ var pull = require('pull-stream')
 var JSONDL = require('pull-serializer')
 var BlobsHttp = require('./blobs-http')
 var mkdirp = require('mkdirp')
+var Ecstatic = require('ecstatic')
 
 var Auth = require('ticket-auth')
 
@@ -90,6 +91,8 @@ if(!module.parent) {
 
     var server = http.createServer(require('stack')(
 
+      Ecstatic(path.join(__dirname, 'static')),
+
       Tiny.get(/^\/redeem\/([0-9a-f]+)/, function (req, res, next) {
         api.auth.redeem(req.params[0], function (err, cookie) {
           if(err) return next(err)
@@ -108,12 +111,12 @@ if(!module.parent) {
         })
       },
 
-      function (req, res, next) {
-        if(req.method !== 'GET') return next()
-        if(req.url == '/') fs.createReadStream(index).pipe(res)
-        else next()
-      },
-
+//      function (req, res, next) {
+//        if(req.method !== 'GET') return next()
+//        if(req.url == '/') fs.createReadStream(index).pipe(res)
+//        else next()
+//      },
+//
       //return list of the current access rights. (for debugging)
       Tiny.get(/^\/whoami/, function (req, res, next) {
         res.end(JSON.stringify(req.access)+'\n')

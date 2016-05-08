@@ -31,6 +31,7 @@ img.favicon {
 
 .links {
   padding: 10px;
+  position: absolute;
 }
 
 .links a {
@@ -41,10 +42,10 @@ img.favicon {
 /*Header*/
 
 header {
+  z-index: 100;
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 0 5px;
   min-height: 56px;
   background: #e84c3d;
   display: flex;
@@ -52,16 +53,32 @@ header {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-.logo--wrapper {
+.logo {
   order: 1;
+  height: 57px;
 }
 
-.logo {
-  background: url('/assets/logo.png');
+.logo img {
+  height: 57px;
 }
 
 nav {
   order: 2;
+  height: 57px;
+  display: flex;
+}
+
+nav .add {
+  margin-top: 2px;
+  width: 53px;
+  display: block;
+  height: 53px;
+  background: url('/assets/add-circular-button.svg');
+  background-size: contain center;
+}
+
+nav img {
+  height: 57px;
 }
 
 /*Section: Content*/
@@ -88,18 +105,11 @@ nav {
 
 .grad {
   display: flex;
-}
-
-.grad--list-image {
-  order: 1;
-  flex-grow:1;
-}
-
-.grad--list-image--wrapper {
-  align-self:center;
+  padding: 40px 0;
 }
 
 .grad--list-content {
+  width: 20%;
   order: 2;
   flex-grow: 2;
 }
@@ -109,20 +119,21 @@ nav {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
 }
 
-.profile {
-  max-width: 120px;
-  max-height: 120px;
+.grad--list-image {
+  order: 1;
+  flex-grow:1;
+  display: flex;
+  justify-content: center;
+}
+
+.grad--list-image--wrapper {     
+  width: 120px;
+  height: 120px;
+  overflow: hidden; 
   border-radius: 50%;
 }
-
-.crop {
-    width: 200px;
-    height: 150px;
-    overflow: hidden;
-}
-
-.crop img {
-    width: 400px;
-    height: 300px;
-    margin: -75px 0 0 -100px;
+.grad--list-image--wrapper img { 
+  position: relative;
+  left: -16.5%;
+  width: 133%;
 }
