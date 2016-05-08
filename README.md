@@ -1,8 +1,16 @@
 # enspiral dev academy grads
 
+# node version
+
+This project uses node v 5.6 - be sure to be using 5.6 before running `npm intstall`. If using nvm use the command below to change automatically as per the .nvmrc file. 
+```bash
+nvm use
+```
+
+
 # running
 
-```
+```bash
 git clone git@github.com:enspiral-dev-academy/grads.git
 cd grads
 npm install
@@ -21,7 +29,7 @@ and ticket stub, as is familiar to people who have ridden a bus or gone to
 the movies.
 
 first a "ticket" is created. this is a high entropy (unguessable) token.
-```
+```bash
 node index.js auth.create <resource>
 1d67c0e114b10dc9cc96ea9cd2966f76c42539db
 ```
@@ -39,8 +47,7 @@ authorized to see the movie.
 
 To can test this using `curl`
 
-```
-
+```bash
 curl localhost:8000/redeem/1d67c0e114b10dc9cc96ea9cd2966f76c42539db -c jar -b jar -v
 *   Trying 127.0.0.1...
 * Connected to localhost (127.0.0.1) port 8000 (#0)
