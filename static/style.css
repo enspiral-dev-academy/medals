@@ -75,6 +75,7 @@ nav .add {
   height: 53px;
   background: url('/assets/add-circular-button.svg');
   background-size: contain center;
+  z-index: 200;
 }
 
 nav img {
