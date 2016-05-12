@@ -2,7 +2,7 @@
 
 # node version
 
-This project uses node v 5.6 - be sure to be using 5.6 before running `npm intstall`. If using nvm use the command below to change automatically as per the .nvmrc file. 
+This project uses node v 4.1 - be sure to be using 5.6 before running `npm intstall`. If using nvm use the command below to change automatically as per the .nvmrc file. 
 ```bash
 nvm use
 ```

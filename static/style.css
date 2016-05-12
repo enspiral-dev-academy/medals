@@ -70,11 +70,12 @@ nav {
 
 nav .add {
   margin-top: 2px;
+  margin-right: 2px;
   width: 53px;
   display: block;
   height: 53px;
   background: url('/assets/add-circular-button.svg');
-  background-size: contain center;
+  background-size: contain;
   z-index: 200;
 }
 
