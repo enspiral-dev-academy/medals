@@ -124,7 +124,7 @@ if(!module.parent) {
 
       BlobsHttp(api.blobs, '/blobs')
     ))
-    .listen(config.port, function () {
+    .listen(process.env.PORT || config.port, function () {
       console.log('listening on:', server.address())
     })
 
