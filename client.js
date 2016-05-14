@@ -115,7 +115,7 @@ mode(function (m) {
 })
 
 require('./reconnect')(function (cb) {
-  var ws = WS.connect('https://quiet-brook-61744.herokuapp.com/')
+  var ws = WS.connect('wss://quiet-brook-61744.herokuapp.com/')
   //var ws = WS.connect('ws://localhost:8000/')
 
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
