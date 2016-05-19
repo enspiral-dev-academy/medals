@@ -13150,7 +13150,7 @@ module.exports = function (grad) {
         h('ol',
           toArray(grad.links).map(function (e) {
             return h('li',
-              h('a', {href: e},
+              h('a', {href: e, target:"_blank"},
                 h('div.icon', 
                   (function () {
                     var div = h('div')
