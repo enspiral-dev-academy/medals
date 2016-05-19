@@ -13143,7 +13143,7 @@ module.exports = function (grad) {
     h('div.details',
       (function () {
         var div = h('div.bio')
-        div.innerHTML = marked(grad.bio || '')
+        div.innerHTML = "<h4>About me...</h4>" + marked(grad.bio || '')
         return div
       })(),
       h('div.links',

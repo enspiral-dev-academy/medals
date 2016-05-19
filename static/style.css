@@ -19,6 +19,10 @@ html {
 
 /*General Styles*/
 
+* {
+  font-family: 'PT Sans', sans-serif;
+}
+
 img.profile {
   width: 250px;
 }
@@ -101,7 +105,7 @@ nav img {
 
 .grad--single {
   margin:10px;
-  padding: 40px 0;
+  padding-top: 30px;
   background: #cfedf3;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -120,7 +124,7 @@ nav img {
 .grad--list-content__wrapper {
   position: relative;
   height: 120px;
-  padding: 10px;
+  padding: 0 10px;
 }
 
 .grad--card {
@@ -179,7 +183,7 @@ nav img {
 
 .grad--card .action {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   color: #e84c3d;
 }
 
@@ -189,6 +193,11 @@ nav img {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
+}
+
+.person h1 {
+  font-size: 3em;
+  font-weight: bold;
 }
 
 .person * {
@@ -236,6 +245,8 @@ nav img {
 .grad--single .links{
   display: flex;
   justify-content: space-between;
+  padding: 30px;
+  padding-bottom: 40px;
 }
 
 .grad--single .links a {
@@ -243,12 +254,25 @@ nav img {
 }
 
 .grad--single .links ol {
+  display: flex;
+  justify-content: flex-start;
   margin: 0;
 }
 
 .grad--single .links li {
-  float: left;
-  height: 40px;
+  margin-right: 10px;
+  height: 50px;
+}
+
+.grad--single .bio  {
+  margin: 0 30px;
+  padding: 15px 30px;
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.grad--single .bio p {
+  margin-left: 10px;
 }
 
 .bio label {
@@ -268,17 +292,32 @@ nav img {
 
 .view .back {
   position: absolute;
-  margin: 10px 20px;
+  margin: 30px 40px;
   width: 53px;
   display: block;
   height: 53px;
   background: url('/assets/back-arrow.svg');
   background-size: contain;
-  z-index: 200;
   fill:#e7c31c;
 }
 
 .icon {
   color: #35110e;
-  font-size: 30px;
+  font-size: 50px;
+}
+
+.cv {
+  position: relative;
+  height: 50px;
+  width: 200px;
+}
+
+.cv a {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-decoration: none;
+  color: #e84c3d;
+  font-weight: bold;
+  font-size: 1.5em;
 }
