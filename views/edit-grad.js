@@ -29,29 +29,37 @@ module.exports = function (object, cb) {
 
   return h('div.edit',
     Field('name', object),
-
-    img,
-    Upload('/blobs/add', function (err, hash, name) {
-      console.log('upload', hash, name)
-      object.image = img.src = '/blobs/get/'+hash+'?filename='+name
-    }),
-
     Field('email', object),
-    h('div.links', List(object.links)),
 
-    Field('bio', object, 'textarea'),
+    h('div.image',
+      img,
+      Upload('/blobs/add', function (err, hash, name) {
+        console.log('upload', hash, name)
+        object.image = img.src = '/blobs/get/'+hash+'?filename='+name
+      })
+    ),
 
-    cv,
-    Upload('/blobs/add', function (err, hash, name) {
-      object.cv = cv.href = '/blobs/get/'+hash+'?filename='+name
-    }),
+    h('div.bio',
+      Field('bio', object, 'textarea')
+    ),
+    
+    h('div.links', h('h3', 'Links'), List(object.links)),
 
-    h('button', {onclick: function () {
-      cb(null, object)
-    }}, 'Save'),
-    h('button', {onclick: function () {
-      cb()
-    }}, 'Cancel')
+    h('div',
+      cv,
+      Upload('/blobs/add', function (err, hash, name) {
+        object.cv = cv.href = '/blobs/get/'+hash+'?filename='+name
+      })
+    ),
+
+    h('div',
+      h('button', {onclick: function () {
+        cb(null, object)
+      }}, 'Save'),
+      h('button', {onclick: function () {
+        cb()
+      }}, 'Cancel')
+    )
   )
 
 }

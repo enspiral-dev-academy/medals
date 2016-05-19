@@ -37,13 +37,39 @@ function add (data) {
     keys[data.key].value = merge(keys[data.key].value, data.value)
 }
 
-// --------
+var backgrounds = [
+  {  image: '/assets/bg_01.png'
+  },
+  {  image: '/assets/bg_02.png'
+  },
+  {  image: '/assets/bg_03.png'
+  },
+  {  image: '/assets/bg_04.png'
+  },
+  {  image: '/assets/bg_05.png'
+  },
+]
+
+// event handler function
+function handler(e) {
+  var key = window.event ? e.keyCode : e.which;
+  if (key == 27) {
+    mode('list')
+  }
+  //console.log(key, e.shiftKey, e.altKey, e.ctrlKey);
+}
+
+// attach handler to the keydown event of the document
+if (document.attachEvent) document.attachEvent('onkeydown', handler);
+else document.addEventListener('keydown', handler);
+
+// -------
 
 var title = o()
 var content = o()
 
 function view () {
-  return h('div.view', Grad(current().value))
+  return h('div.view', link(h('img.back', {src:'/assets/back-arrow.svg', alt:'back to home page'}), function () { mode ('list') }), Grad(current().value))
 }
 
 function edit (data) {
@@ -94,6 +120,10 @@ function list () {
   )
 }
 
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 mode('list')
 
 mode(function (m) {
@@ -116,8 +146,8 @@ mode(function (m) {
 })
 
 require('./reconnect')(function (cb) {
-  var ws = WS.connect('ws://quiet-brook-61744.herokuapp.com:8000/')
-  //var ws = WS.connect('ws://localhost:8000/')
+  //var ws = WS.connect('wss://quiet-brook-61744.herokuapp.com:/')
+  var ws = WS.connect('ws://localhost:8000/')
 
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
 
@@ -152,6 +182,15 @@ document.body.appendChild(
       h('div.content', content))
     )
 )
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+  var bgNumber = getRandomInt(0, backgrounds.length-1)
+  document.body.style.background = 'url(' + backgrounds[bgNumber].image + ')'
+  //bug! make it so that a click on the bg will go back to main view
+  document.querySelector('.page--wrapper').addEventListener('click', mode('list'), false)
+})
+
+
 
 
 
@@ -13015,29 +13054,37 @@ module.exports = function (object, cb) {
 
   return h('div.edit',
     Field('name', object),
-
-    img,
-    Upload('/blobs/add', function (err, hash, name) {
-      console.log('upload', hash, name)
-      object.image = img.src = '/blobs/get/'+hash+'?filename='+name
-    }),
-
     Field('email', object),
-    h('div.links', List(object.links)),
 
-    Field('bio', object, 'textarea'),
+    h('div.image',
+      img,
+      Upload('/blobs/add', function (err, hash, name) {
+        console.log('upload', hash, name)
+        object.image = img.src = '/blobs/get/'+hash+'?filename='+name
+      })
+    ),
 
-    cv,
-    Upload('/blobs/add', function (err, hash, name) {
-      object.cv = cv.href = '/blobs/get/'+hash+'?filename='+name
-    }),
+    h('div.bio',
+      Field('bio', object, 'textarea')
+    ),
+    
+    h('div.links', h('h3', 'Links'), List(object.links)),
 
-    h('button', {onclick: function () {
-      cb(null, object)
-    }}, 'Save'),
-    h('button', {onclick: function () {
-      cb()
-    }}, 'Cancel')
+    h('div',
+      cv,
+      Upload('/blobs/add', function (err, hash, name) {
+        object.cv = cv.href = '/blobs/get/'+hash+'?filename='+name
+      })
+    ),
+
+    h('div',
+      h('button', {onclick: function () {
+        cb(null, object)
+      }}, 'Save'),
+      h('button', {onclick: function () {
+        cb()
+      }}, 'Cancel')
+    )
   )
 
 }
@@ -13067,28 +13114,57 @@ function favicon (url) {
   return URL.format(u)
 }
 
+function icon(url) {
+  if('string' !== typeof url) return
+  var u = URL.parse(url)
+  var host = u.host
+  console.log(url, u, URL.format(u))
+  if (host.includes('linkedin')) {
+    return "<i class='fa fa-linkedin'></i>"
+  } else if (host.includes('github')) {
+    return "<i class='fa fa-github'></i>"
+  } else if (host.includes('twitter')) {
+    return "<i class='fa fa-twitter'></i>"
+  } else {
+    return ''
+  }
+}
+
 module.exports = function (grad) {
-  return h('div.grad',
-    h('h1', grad.name),
-    h('div.info',
-      h('img.profile', {
-        src: grad.image
-      }, 'profile:' + grad.name),
-      h('ol',
-        toArray(grad.links).map(function (e) {
-          return h('li',
-            h('img.favicon', {src: favicon(e)}),
-            h('a', {href: e}, e)
-          )
-        })
+  return h('div.grad--single',
+    h('div.person', 
+      h('div.image',
+        h('img.profile', {
+          src: grad.image
+        }, 'profile:' + grad.name)
       ),
-      grad.cv ? h('a', {href: grad.cv}) : 'cv is missing'
+      h('div', h('h1', grad.name))
     ),
-    (function () {
-      var div = h('div.bio')
-      div.innerHTML = marked(grad.bio || '')
-      return div
-    })()
+    h('div.details',
+      (function () {
+        var div = h('div.bio')
+        div.innerHTML = marked(grad.bio || '')
+        return div
+      })(),
+      h('div.links',
+        h('ol',
+          toArray(grad.links).map(function (e) {
+            return h('li',
+              h('a', {href: e},
+                h('div.icon', 
+                  (function () {
+                    var div = h('div')
+                    div.innerHTML = icon(e)
+                    return div
+                  })
+                )
+              )
+            )
+          })
+        ),
+        h('div.cv', grad.cv ? h('a', {href: grad.cv}, 'Download CV') : 'cv is missing')
+      )
+    )
   )
 
 }
@@ -13116,12 +13192,16 @@ module.exports = function (grad) {
       )
     ),
     h('div.grad--list-content',
-      h('h2', grad.name),
-      (function () {
-        var div = h('div.bio')
-        div.innerHTML = marked(grad.bio || '')
-        return div
-      })()
+      h('div.triangle'),
+      h('div.grad--list-content__wrapper',
+        h('h2', grad.name),
+        (function () {
+          var div = h('div.bio')
+          div.innerHTML = marked('\“'+grad.bio+'\”' || '')
+          return div
+        }), 
+        h('h5.action', 'Read more about ' + grad.name)
+      )
     )
   )
 }
@@ -13188,8 +13268,8 @@ module.exports = function (array, onChange) {
 
   var ul = h('ul', _array.map(item))
 
-  return h('div', ul,
-    h('a', {href: '#', onclick: function () {
+  return h('div', {id:'links'}, ul,
+    h('a', {href: '#links', onclick: function () {
       ul.appendChild(item('', _array.length))
     }}, 'add')
   )

@@ -21,28 +21,57 @@ function favicon (url) {
   return URL.format(u)
 }
 
+function icon(url) {
+  if('string' !== typeof url) return
+  var u = URL.parse(url)
+  var host = u.host
+  console.log(url, u, URL.format(u))
+  if (host.includes('linkedin')) {
+    return "<i class='fa fa-linkedin'></i>"
+  } else if (host.includes('github')) {
+    return "<i class='fa fa-github'></i>"
+  } else if (host.includes('twitter')) {
+    return "<i class='fa fa-twitter'></i>"
+  } else {
+    return ''
+  }
+}
+
 module.exports = function (grad) {
-  return h('div.grad',
-    h('h1', grad.name),
-    h('div.info',
-      h('img.profile', {
-        src: grad.image
-      }, 'profile:' + grad.name),
-      h('ol',
-        toArray(grad.links).map(function (e) {
-          return h('li',
-            h('img.favicon', {src: favicon(e)}),
-            h('a', {href: e}, e)
-          )
-        })
+  return h('div.grad--single',
+    h('div.person', 
+      h('div.image',
+        h('img.profile', {
+          src: grad.image
+        }, 'profile:' + grad.name)
       ),
-      grad.cv ? h('a', {href: grad.cv}) : 'cv is missing'
+      h('div', h('h1', grad.name))
     ),
-    (function () {
-      var div = h('div.bio')
-      div.innerHTML = marked(grad.bio || '')
-      return div
-    })()
+    h('div.details',
+      (function () {
+        var div = h('div.bio')
+        div.innerHTML = marked(grad.bio || '')
+        return div
+      })(),
+      h('div.links',
+        h('ol',
+          toArray(grad.links).map(function (e) {
+            return h('li',
+              h('a', {href: e},
+                h('div.icon', 
+                  (function () {
+                    var div = h('div')
+                    div.innerHTML = icon(e)
+                    return div
+                  })
+                )
+              )
+            )
+          })
+        ),
+        h('div.cv', grad.cv ? h('a', {href: grad.cv}, 'Download CV') : 'cv is missing')
+      )
+    )
   )
 
 }

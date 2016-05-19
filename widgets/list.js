@@ -33,8 +33,8 @@ module.exports = function (array, onChange) {
 
   var ul = h('ul', _array.map(item))
 
-  return h('div', ul,
-    h('a', {href: '#', onclick: function () {
+  return h('div', {id:'links'}, ul,
+    h('a', {href: '#links', onclick: function () {
       ul.appendChild(item('', _array.length))
     }}, 'add')
   )

@@ -36,13 +36,39 @@ function add (data) {
     keys[data.key].value = merge(keys[data.key].value, data.value)
 }
 
-// --------
+var backgrounds = [
+  {  image: '/assets/bg_01.png'
+  },
+  {  image: '/assets/bg_02.png'
+  },
+  {  image: '/assets/bg_03.png'
+  },
+  {  image: '/assets/bg_04.png'
+  },
+  {  image: '/assets/bg_05.png'
+  },
+]
+
+// event handler function
+function handler(e) {
+  var key = window.event ? e.keyCode : e.which;
+  if (key == 27) {
+    mode('list')
+  }
+  //console.log(key, e.shiftKey, e.altKey, e.ctrlKey);
+}
+
+// attach handler to the keydown event of the document
+if (document.attachEvent) document.attachEvent('onkeydown', handler);
+else document.addEventListener('keydown', handler);
+
+// -------
 
 var title = o()
 var content = o()
 
 function view () {
-  return h('div.view', Grad(current().value))
+  return h('div.view', link(h('img.back', {src:'/assets/back-arrow.svg', alt:'back to home page'}), function () { mode ('list') }), Grad(current().value))
 }
 
 function edit (data) {
@@ -93,6 +119,10 @@ function list () {
   )
 }
 
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 mode('list')
 
 mode(function (m) {
@@ -115,8 +145,8 @@ mode(function (m) {
 })
 
 require('./reconnect')(function (cb) {
-  var ws = WS.connect('wss://quiet-brook-61744.herokuapp.com:/')
-  //var ws = WS.connect('ws://localhost:8000/')
+  //var ws = WS.connect('wss://quiet-brook-61744.herokuapp.com:/')
+  var ws = WS.connect('ws://localhost:8000/')
 
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
 
@@ -151,6 +181,15 @@ document.body.appendChild(
       h('div.content', content))
     )
 )
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+  var bgNumber = getRandomInt(0, backgrounds.length-1)
+  document.body.style.background = 'url(' + backgrounds[bgNumber].image + ')'
+  //bug! make it so that a click on the bg will go back to main view
+  document.querySelector('.page--wrapper').addEventListener('click', mode('list'), false)
+})
+
+
 
 
 

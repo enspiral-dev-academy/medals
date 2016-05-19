@@ -19,12 +19,16 @@ module.exports = function (grad) {
       )
     ),
     h('div.grad--list-content',
-      h('h2', grad.name),
-      (function () {
-        var div = h('div.bio')
-        div.innerHTML = marked(grad.bio || '')
-        return div
-      })()
+      h('div.triangle'),
+      h('div.grad--list-content__wrapper',
+        h('h2', grad.name),
+        (function () {
+          var div = h('div.bio')
+          div.innerHTML = marked('\“'+grad.bio+'\”' || '')
+          return div
+        }), 
+        h('h5.action', 'Read more about ' + grad.name)
+      )
     )
   )
 }
