@@ -23,24 +23,26 @@ module.exports = function (blobs, url) {
       var u = URL.parse('http://makeurlparseright.com'+req.url)
       var hash = u.pathname.substring((url+'/get/').length)
       var q = qs.parse(u.query)
-      //Response.AddHeader("content-disposition", "inline; filename=File.doc")
+
       if(q.filename)
         res.setHeader('Content-Discosition', 'inline; filename='+q.filename)
 
-      pull(
-        blobs.get(hash),
-        //since this is an http stream, handle error the http way.
-        pull.through(null, function (err) {
-          if(err) next(err)
-        }),
-        toPull(res))
+      blobs.has(hash, function (err, has) {
+        if(err) return next(err)
+
+        res.writeHead(200)
+        pull(
+          blobs.get(hash),
+          //since this is an http stream, handle error the http way.
+          pull.through(null, function (err) {
+            if(err) throw err //DEBUG
+            if(err) next(err)
+          }),
+          toPull(res)
+        )
+      })
     }
     else next()
   }
 }
-
-
-
-
-
 
