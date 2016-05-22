@@ -14,7 +14,7 @@ var BlobsHttp = require('./blobs-http')
 var mkdirp = require('mkdirp')
 var Ecstatic = require('ecstatic')
 
-var Auth = require('ticket-auth')
+var Auth = require('./ticket-auth')
 
 var Tiny = require('tiny-route')
 
