@@ -19,7 +19,7 @@ var Auth = require('ticket-auth')
 var Tiny = require('tiny-route')
 
 var config = require('rc')('eda-grads', {
-  path: path.join(process.env.HOME, 'storage/.eda-grads'),
+  path: path.join('storage', '.eda-grads'),
   port: 8000,
 })
 
