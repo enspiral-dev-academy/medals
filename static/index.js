@@ -1,4 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (process){
 'use strict'
 //var Client = require('muxhttp/client')
 var pull = require('pull-stream')
@@ -146,8 +147,14 @@ mode(function (m) {
 })
 
 require('./reconnect')(function (cb) {
-  //var ws = WS.connect('ws://124.150.139.107/')
-  var ws = WS.connect('ws://localhost:8000/')
+  if (process.env.NODE_ENV == 'production') {
+    var ws = WS.connect('ws://124.150.139.107/')
+  } 
+  else {
+    var ws = WS.connect('ws://localhost:8000/')
+  }
+
+
 
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
 
@@ -195,7 +202,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-},{"./manifest.json":2,"./reconnect":106,"./views/admin":107,"./views/edit-grad":108,"./views/grad":109,"./views/list-grad":110,"deep-merge":9,"hyperscript":14,"muxrpc":23,"observable":60,"pull-serializer":75,"pull-stream":83,"pull-ws-server":89}],2:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./manifest.json":2,"./reconnect":106,"./views/admin":107,"./views/edit-grad":108,"./views/grad":109,"./views/list-grad":110,"_process":64,"deep-merge":9,"hyperscript":14,"muxrpc":23,"observable":60,"pull-serializer":75,"pull-stream":83,"pull-ws-server":89}],2:[function(require,module,exports){
 module.exports={
   "get": "async",
   "put": "async",

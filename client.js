@@ -146,10 +146,10 @@ mode(function (m) {
 
 require('./reconnect')(function (cb) {
   if (process.env.NODE_ENV == 'production') {
-      var ws = WS.connect('ws://124.150.139.107/')
+    var ws = WS.connect('ws://124.150.139.107/')
   } 
   else {
-      var ws = WS.connect('ws://localhost:8000/')
+    var ws = WS.connect('ws://localhost:8000/')
   }
 
 
