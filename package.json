@@ -37,6 +37,10 @@
     "tiny-route": "~2.1.2",
     "validate-email": "^1.0.0"
   },
+  "engines": {
+    "node": "^4.0.0",
+    "npm": "^3.0.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done",
