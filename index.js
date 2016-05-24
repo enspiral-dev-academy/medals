@@ -1,7 +1,7 @@
 'use strict'
 var http = require('http')
 var fs = require('fs')
-var Level = require('level')
+var Level = require('level-party')
 var Sublevel = require('level-sublevel/bytewise')
 var Blobs = require('multiblob')
 var pl = require('pull-level')
