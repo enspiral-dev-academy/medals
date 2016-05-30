@@ -130,6 +130,7 @@ if(!module.parent) {
 
     WS.createServer({server: server}, function (ws) {
       api.auth.check(ws.headers.cookie, function (err, resource) {
+        console.log('connection granted to:', resource, 'via', ws.headers.cookie)
         ws.access = resource
         var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL)
           (api,
