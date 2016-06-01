@@ -91,7 +91,7 @@ if(!module.parent) {
 
     var server = http.createServer(require('stack')(
       function (req, res, next) {
-        console.log('HTTP', req.method, req.url)
+        console.log('HTTP', req.method, req.url, req.header)
         next()
       },
       Ecstatic(path.join(__dirname, 'static')),
