@@ -1,5 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (process){
 'use strict'
 //var Client = require('muxhttp/client')
 var pull = require('pull-stream')
@@ -147,13 +146,16 @@ mode(function (m) {
 })
 
 require('./reconnect')(function (cb) {
-  if (process.env.NODE_ENV == 'production') {
-    var ws = WS.connect('ws://124.150.139.107/')
-  } 
-  else {
-    var ws = WS.connect('ws://localhost:8000/')
-  }
 
+// if (document.location.hostname == "localhost"){
+//    var ws = WS.connect('ws://localhost:8000/')
+//  } 
+//  else {
+//    var ws = WS.connect('ws://124.150.139.107/')
+//  }
+//
+
+  var ws = WS.connect('/')
 
 
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
@@ -202,8 +204,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-}).call(this,require('_process'))
-},{"./manifest.json":2,"./reconnect":106,"./views/admin":107,"./views/edit-grad":108,"./views/grad":109,"./views/list-grad":110,"_process":64,"deep-merge":9,"hyperscript":14,"muxrpc":23,"observable":60,"pull-serializer":75,"pull-stream":83,"pull-ws-server":89}],2:[function(require,module,exports){
+},{"./manifest.json":2,"./reconnect":107,"./views/admin":108,"./views/edit-grad":109,"./views/grad":110,"./views/list-grad":111,"deep-merge":9,"hyperscript":14,"muxrpc":23,"observable":60,"pull-serializer":75,"pull-stream":83,"pull-ws-server":89}],2:[function(require,module,exports){
 module.exports={
   "get": "async",
   "put": "async",
@@ -7411,7 +7412,7 @@ BufferList.prototype.destroy = function destroy () {
 module.exports = BufferList
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":6,"readable-stream/duplex":71,"util":103}],71:[function(require,module,exports){
+},{"buffer":6,"readable-stream/duplex":71,"util":104}],71:[function(require,module,exports){
 module.exports = require("./lib/_stream_duplex.js")
 
 },{"./lib/_stream_duplex.js":72}],72:[function(require,module,exports){
@@ -8373,7 +8374,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"isarray":19,"process-nextick-args":63,"string_decoder/":98,"util":4}],74:[function(require,module,exports){
+},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"isarray":19,"process-nextick-args":63,"string_decoder/":99,"util":4}],74:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -8892,7 +8893,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"process-nextick-args":63,"util-deprecate":101}],75:[function(require,module,exports){
+},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"process-nextick-args":63,"util-deprecate":102}],75:[function(require,module,exports){
 var pull = require('pull-stream')
 var splitter = require('pull-split')
 
@@ -10389,8 +10390,7 @@ module.exports = function (writer, ender) {
 'use strict';
 var ws = require('pull-ws')
 var WebSocket = require('ws')
-var url = require('url')
-
+var wsurl = require('./ws-url')
 
 function isFunction (f) {
   return 'function' === typeof f
@@ -10414,20 +10414,11 @@ exports.connect = function (addr, opts) {
       }
     }
   }
-  var u = (
-    'string' === typeof addr
-  ? addr
-  : url.format({
-      protocol: 'ws', slashes: true,
-      hostname: addr.host || addr.hostname,
-      port: addr.port,
-      pathname: addr.pathname
-    })
-  )
 
-  var socket = new WebSocket(u)
+  var url = wsurl(addr, window.location)
+  var socket = new WebSocket(url)
   stream = ws(socket)
-  stream.remoteAddress = u
+  stream.remoteAddress = url
 
   if (opts && typeof opts.onOpen == 'function') {
     socket.addEventListener('open', opts.onOpen)
@@ -10446,7 +10437,88 @@ exports.connect = function (addr, opts) {
 }
 
 
-},{"pull-ws":90,"url":99,"ws":105}],90:[function(require,module,exports){
+
+
+},{"./ws-url":90,"pull-ws":91,"ws":106}],90:[function(require,module,exports){
+
+//normalize a ws url.
+var URL = require('url')
+module.exports = function (url, location) {
+
+  /*
+
+  https://nodejs.org/dist/latest-v6.x/docs/api/url.html#url_url_parse_urlstr_parsequerystring_slashesdenotehost
+
+  I didn't know this, but url.parse takes a 3rd
+  argument which interprets "//foo.com" as the hostname,
+  but without the protocol. by default, // is interpreted
+  as the path.
+
+  that lets us do what the wsurl module does.
+  https://www.npmjs.com/package/wsurl
+
+  but most of the time, I want to write js
+  that will work on localhost, and will work
+  on a server...
+
+  so I want to just do createWebSocket('/')
+  and get "ws://mydomain.com/"
+
+  */
+
+  var url = URL.parse(url, false, true)
+
+  var protocol_mapping = {'http': 'ws', https: 'wss'}
+
+  var proto
+  if(url.protocol) proto = url.protocol
+  else {
+    proto = location.protocol ? location.protocol.replace(/:$/,'') : 'http'
+    proto = ((protocol_mapping)[proto] || 'ws') + ':'
+  }
+  if(url.host) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      host: url.host,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+  else url.host = location.host
+
+  if(url.pathname) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      host: url.host,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+  else
+    url.pathname = location.pathname
+
+  //I don't think you
+  if(url.search) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      host: url.host,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+  else url.search = location.search
+
+  return url.format(url)
+
+}
+
+
+
+
+},{"url":100}],91:[function(require,module,exports){
 exports = module.exports = duplex;
 
 exports.source = require('./source');
@@ -10467,7 +10539,7 @@ function duplex (ws, opts) {
 };
 
 
-},{"./sink":92,"./source":93}],91:[function(require,module,exports){
+},{"./sink":93,"./source":94}],92:[function(require,module,exports){
 module.exports = function(socket, callback) {
   var remove = socket && (socket.removeEventListener || socket.removeListener);
 
@@ -10500,7 +10572,7 @@ module.exports = function(socket, callback) {
   socket.addEventListener('error', handleErr);
 };
 
-},{}],92:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 (function (process){
 var ready = require('./ready');
 
@@ -10557,7 +10629,7 @@ module.exports = function(socket, opts) {
 
 
 }).call(this,require('_process'))
-},{"./ready":91,"_process":64}],93:[function(require,module,exports){
+},{"./ready":92,"_process":64}],94:[function(require,module,exports){
 var ready = require('./ready');
 
 /**
@@ -10636,7 +10708,7 @@ module.exports = function(socket) {
 
 
 
-},{"./ready":91}],94:[function(require,module,exports){
+},{"./ready":92}],95:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -11173,7 +11245,7 @@ module.exports = function(socket) {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],95:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11259,7 +11331,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],96:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11346,13 +11418,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":95,"./encode":96}],98:[function(require,module,exports){
+},{"./decode":96,"./encode":97}],99:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11575,7 +11647,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":6}],99:[function(require,module,exports){
+},{"buffer":6}],100:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -12309,7 +12381,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":100,"punycode":94,"querystring":97}],100:[function(require,module,exports){
+},{"./util":101,"punycode":95,"querystring":98}],101:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -12327,7 +12399,7 @@ module.exports = {
   }
 };
 
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 (function (global){
 
 /**
@@ -12398,14 +12470,14 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -12995,7 +13067,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":102,"_process":64,"inherits":17}],104:[function(require,module,exports){
+},{"./support/isBuffer":103,"_process":64,"inherits":17}],105:[function(require,module,exports){
 
 /* jshint node: true */
 /* eslint max-len: 0 */
@@ -13017,7 +13089,7 @@ function isEmail(addr) {
 
 module.exports = isEmail;
 
-},{}],105:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -13062,7 +13134,7 @@ function ws(uri, protocols, opts) {
 
 if (WebSocket) ws.prototype = WebSocket.prototype;
 
-},{}],106:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 //simplest reconnector.
 //if a connection attempt ended in under 3
 //seconds, consider that an error, and double time until next retry.
@@ -13086,7 +13158,7 @@ module.exports = function reconnect(connect, onConnect) {
 
 
 
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 var h = require('hyperscript')
 var isEmail = require('validate-email')
 
@@ -13157,7 +13229,7 @@ module.exports = function admin (client) {
 
 
 
-},{"hyperscript":14,"validate-email":104}],108:[function(require,module,exports){
+},{"hyperscript":14,"validate-email":105}],109:[function(require,module,exports){
 //makes hyperscript work on the server.
 require('html-element')
 var h = require('hyperscript')
@@ -13225,7 +13297,7 @@ module.exports = function (object, cb) {
 }
 
 
-},{"../widgets/field":111,"../widgets/list":112,"../widgets/upload":113,"html-element":13,"hyperscript":14,"marked":21,"observable":60}],109:[function(require,module,exports){
+},{"../widgets/field":112,"../widgets/list":113,"../widgets/upload":114,"html-element":13,"hyperscript":14,"marked":21,"observable":60}],110:[function(require,module,exports){
 //makes hyperscript work on the server.
 require('html-element')
 var h = require('hyperscript')
@@ -13304,7 +13376,7 @@ module.exports = function (grad) {
 }
 
 
-},{"html-element":13,"hyperscript":14,"marked":21,"url":99}],110:[function(require,module,exports){
+},{"html-element":13,"hyperscript":14,"marked":21,"url":100}],111:[function(require,module,exports){
 //makes hyperscript work on the server.
 require('html-element')
 var h = require('hyperscript')
@@ -13339,7 +13411,7 @@ module.exports = function (grad) {
     )
   )
 }
-},{"html-element":13,"hyperscript":14,"marked":21}],111:[function(require,module,exports){
+},{"html-element":13,"hyperscript":14,"marked":21}],112:[function(require,module,exports){
 var o = require('observable')
 var h = require('hyperscript')
 
@@ -13366,7 +13438,7 @@ module.exports = function field (name, object, type) {
   }
 
 
-},{"hyperscript":14,"observable":60}],112:[function(require,module,exports){
+},{"hyperscript":14,"observable":60}],113:[function(require,module,exports){
 var h = require('hyperscript')
 
 //edit a short list of times.
@@ -13410,7 +13482,7 @@ module.exports = function (array, onChange) {
 }
 
 
-},{"hyperscript":14}],113:[function(require,module,exports){
+},{"hyperscript":14}],114:[function(require,module,exports){
 var h = require('hyperscript')
 
 module.exports = function (uploadUrl, onUpload) {
