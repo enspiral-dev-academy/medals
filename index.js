@@ -91,7 +91,7 @@ if(!module.parent) {
 
     var server = http.createServer(require('stack')(
       function (req, res, next) {
-        console.log('HTTP', req.method, req.url, req.header)
+        console.log('HTTP', req.method, req.url, req.headers)
         next()
       },
       Ecstatic(path.join(__dirname, 'static')),
@@ -132,7 +132,7 @@ if(!module.parent) {
     })
 
     WS.createServer({server: server}, function (ws) {
-      console.log('WS connection', ws)
+      console.log('WS connection', ws.headers)
       api.auth.check(ws.headers.cookie, function (err, resource) {
         console.log('connection granted to:', resource, 'via', ws.headers.cookie)
         ws.access = resource
