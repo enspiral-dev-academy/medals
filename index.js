@@ -90,7 +90,10 @@ if(!module.parent) {
     var api = exports(config)
 
     var server = http.createServer(require('stack')(
-
+      function (req, res, next) {
+        console.log('HTTP', req.method, req.url)
+        next()
+      },
       Ecstatic(path.join(__dirname, 'static')),
 
       Tiny.get(/^\/redeem\/([0-9a-f]+)/, function (req, res, next) {
@@ -129,6 +132,7 @@ if(!module.parent) {
     })
 
     WS.createServer({server: server}, function (ws) {
+      console.log('WS connection')
       api.auth.check(ws.headers.cookie, function (err, resource) {
         console.log('connection granted to:', resource, 'via', ws.headers.cookie)
         ws.access = resource
