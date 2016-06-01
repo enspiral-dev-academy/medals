@@ -132,7 +132,7 @@ if(!module.parent) {
     })
 
     WS.createServer({server: server}, function (ws) {
-      console.log('WS connection')
+      console.log('WS connection', ws)
       api.auth.check(ws.headers.cookie, function (err, resource) {
         console.log('connection granted to:', resource, 'via', ws.headers.cookie)
         ws.access = resource
