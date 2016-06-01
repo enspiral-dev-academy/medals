@@ -146,13 +146,15 @@ mode(function (m) {
 
 require('./reconnect')(function (cb) {
 
- if (document.location.hostname == "localhost"){
-    var ws = WS.connect('ws://localhost:8000/')
-  } 
-  else {
-    var ws = WS.connect('ws://124.150.139.107/')
-  }
+// if (document.location.hostname == "localhost"){
+//    var ws = WS.connect('ws://localhost:8000/')
+//  } 
+//  else {
+//    var ws = WS.connect('ws://124.150.139.107/')
+//  }
+//
 
+  var ws = WS.connect('/')
 
 
   client = window.CLIENT = MuxRpc(require('./manifest.json'), null, JSONDL)()
