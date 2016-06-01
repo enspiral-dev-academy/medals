@@ -91,7 +91,7 @@ if(!module.parent) {
 
     var server = http.createServer(require('stack')(
       function (req, res, next) {
-        console.log('HTTP', req.method, req.url, req.headers)
+        console.log('HTTP', req.method, req.url)
         next()
       },
       Ecstatic(path.join(__dirname, 'static')),
@@ -114,12 +114,6 @@ if(!module.parent) {
         })
       },
 
-//      function (req, res, next) {
-//        if(req.method !== 'GET') return next()
-//        if(req.url == '/') fs.createReadStream(index).pipe(res)
-//        else next()
-//      },
-//
       //return list of the current access rights. (for debugging)
       Tiny.get(/^\/whoami/, function (req, res, next) {
         res.end(JSON.stringify(req.access)+'\n')
@@ -132,9 +126,7 @@ if(!module.parent) {
     })
 
     WS.createServer({server: server}, function (ws) {
-      console.log('WS connection', ws.headers)
       api.auth.check(ws.headers.cookie, function (err, resource) {
-        console.log('connection granted to:', resource, 'via', ws.headers.cookie)
         ws.access = resource
         var rpc = MuxRpc(exports.manifest, exports.manifest, JSONDL)
           (api,
@@ -161,5 +153,8 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
+
+
+
 
 
