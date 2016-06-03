@@ -29,6 +29,7 @@ module.exports = function (blobs, url) {
 
       blobs.has(hash, function (err, has) {
         if(err) return next(err)
+        if(!has) next(new Error('no blob:'+hash))
 
         res.writeHead(200)
         pull(
