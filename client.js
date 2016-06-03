@@ -104,6 +104,12 @@ function canAccess(obv, set, value) {
   })
 }
 
+function hasTicketStub(obv, set, value) {
+  return o.transform(obv, function (val){
+    return val ? value : null
+  })
+}
+
 function list () {
   return h('ol',
     Object.keys(keys).map(function (key) {
@@ -181,7 +187,7 @@ document.body.appendChild(
           function () { mode ('list') })
       ),
       h('nav',
-        editLink(),
+        hasTicketStub(resource, [current], editLink()),
         canAccess(resource, ['admin'],
           link( h('img', {src:'/assets/admin-logo.png', alt:'admin portal'}), function () { mode ('admin') })
         )
