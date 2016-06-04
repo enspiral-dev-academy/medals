@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-},{"./manifest.json":2,"./reconnect":107,"./views/admin":108,"./views/edit-grad":109,"./views/grad":110,"./views/list-grad":111,"deep-merge":9,"hyperscript":14,"muxrpc":23,"observable":60,"pull-serializer":75,"pull-stream":83,"pull-ws-server":89}],2:[function(require,module,exports){
+},{"./manifest.json":2,"./reconnect":108,"./views/admin":109,"./views/edit-grad":110,"./views/grad":111,"./views/list-grad":112,"deep-merge":9,"hyperscript":14,"muxrpc":23,"observable":60,"pull-serializer":75,"pull-stream":83,"pull-ws-server":89}],2:[function(require,module,exports){
 module.exports={
   "get": "async",
   "put": "async",
@@ -7412,7 +7412,7 @@ BufferList.prototype.destroy = function destroy () {
 module.exports = BufferList
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":6,"readable-stream/duplex":71,"util":104}],71:[function(require,module,exports){
+},{"buffer":6,"readable-stream/duplex":71,"util":105}],71:[function(require,module,exports){
 module.exports = require("./lib/_stream_duplex.js")
 
 },{"./lib/_stream_duplex.js":72}],72:[function(require,module,exports){
@@ -8374,7 +8374,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"isarray":19,"process-nextick-args":63,"string_decoder/":99,"util":4}],74:[function(require,module,exports){
+},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"isarray":19,"process-nextick-args":63,"string_decoder/":100,"util":4}],74:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -8893,7 +8893,7 @@ function CorkedRequest(state) {
   };
 }
 }).call(this,require('_process'))
-},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"process-nextick-args":63,"util-deprecate":102}],75:[function(require,module,exports){
+},{"./_stream_duplex":72,"_process":64,"buffer":6,"core-util-is":8,"events":11,"inherits":17,"process-nextick-args":63,"util-deprecate":103}],75:[function(require,module,exports){
 var pull = require('pull-stream')
 var splitter = require('pull-split')
 
@@ -10439,86 +10439,17 @@ exports.connect = function (addr, opts) {
 
 
 
-},{"./ws-url":90,"pull-ws":91,"ws":106}],90:[function(require,module,exports){
-
-//normalize a ws url.
-var URL = require('url')
+},{"./ws-url":90,"pull-ws":91,"ws":107}],90:[function(require,module,exports){
+var rurl = require('relative-url')
+var map = {http:'ws', https:'wss'}
+var def = 'ws'
 module.exports = function (url, location) {
-
-  /*
-
-  https://nodejs.org/dist/latest-v6.x/docs/api/url.html#url_url_parse_urlstr_parsequerystring_slashesdenotehost
-
-  I didn't know this, but url.parse takes a 3rd
-  argument which interprets "//foo.com" as the hostname,
-  but without the protocol. by default, // is interpreted
-  as the path.
-
-  that lets us do what the wsurl module does.
-  https://www.npmjs.com/package/wsurl
-
-  but most of the time, I want to write js
-  that will work on localhost, and will work
-  on a server...
-
-  so I want to just do createWebSocket('/')
-  and get "ws://mydomain.com/"
-
-  */
-
-  var url = URL.parse(url, false, true)
-
-  var protocol_mapping = {'http': 'ws', https: 'wss'}
-
-  var proto
-  if(url.protocol) proto = url.protocol
-  else {
-    proto = location.protocol ? location.protocol.replace(/:$/,'') : 'http'
-    proto = ((protocol_mapping)[proto] || 'ws') + ':'
-  }
-  if(url.host) {
-    return URL.format({
-      protocol: proto,
-      slashes: true,
-      host: url.host,
-      pathname: url.pathname,
-      search: url.search
-    })
-  }
-  else url.host = location.host
-
-  if(url.pathname) {
-    return URL.format({
-      protocol: proto,
-      slashes: true,
-      host: url.host,
-      pathname: url.pathname,
-      search: url.search
-    })
-  }
-  else
-    url.pathname = location.pathname
-
-  //I don't think you
-  if(url.search) {
-    return URL.format({
-      protocol: proto,
-      slashes: true,
-      host: url.host,
-      pathname: url.pathname,
-      search: url.search
-    })
-  }
-  else url.search = location.search
-
-  return url.format(url)
-
+  return rurl(url, location, map, def)
 }
 
 
 
-
-},{"url":100}],91:[function(require,module,exports){
+},{"relative-url":99}],91:[function(require,module,exports){
 exports = module.exports = duplex;
 
 exports.source = require('./source');
@@ -11425,6 +11356,105 @@ exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
 },{"./decode":96,"./encode":97}],99:[function(require,module,exports){
+
+//normalize a ws url.
+var URL = require('url')
+module.exports = function (url, location, protocolMap, defaultProtocol) {
+  protocolMap = protocolMap ||{}
+  /*
+
+  https://nodejs.org/dist/latest-v6.x/docs/api/url.html#url_url_parse_urlstr_parsequerystring_slashesdenotehost
+
+  I didn't know this, but url.parse takes a 3rd
+  argument which interprets "//foo.com" as the hostname,
+  but without the protocol. by default, // is interpreted
+  as the path.
+
+  that lets us do what the wsurl module does.
+  https://www.npmjs.com/package/wsurl
+
+  but most of the time, I want to write js
+  that will work on localhost, and will work
+  on a server...
+
+  so I want to just do createWebSocket('/')
+  and get "ws://mydomain.com/"
+
+  */
+
+  var url = URL.parse(url, false, true)
+
+  var protocol_mapping = {'http': 'ws', https: 'wss'}
+
+  var proto
+  if(url.protocol) proto = url.protocol
+  else {
+    proto = location.protocol ? location.protocol.replace(/:$/,'') : 'http'
+    proto = ((protocolMap)[proto] || defaultProtocol || proto) + ':'
+  }
+
+  //handle quirk in url package
+  if(url.host && url.host[0] === ':')
+    url.host = null
+
+  console.log(url)
+
+  //useful for websockets
+  if(url.hostname) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      hostname: url.hostname,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+  else url.host = location.host
+
+  //included for completeness. would you want to do this?
+  if(url.port) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      host: location.hostname + ':' + url.port,
+      port: url.port,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+
+  //definately useful for websockets
+  if(url.pathname) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      host: url.host,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+  else
+    url.pathname = location.pathname
+
+  //included for completeness. would you want to do this?
+  if(url.search) {
+    return URL.format({
+      protocol: proto,
+      slashes: true,
+      host: url.host,
+      pathname: url.pathname,
+      search: url.search
+    })
+  }
+  else url.search = location.search
+
+  return url.format(url)
+}
+
+
+
+
+},{"url":101}],100:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11647,7 +11677,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":6}],100:[function(require,module,exports){
+},{"buffer":6}],101:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -12381,7 +12411,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":101,"punycode":95,"querystring":98}],101:[function(require,module,exports){
+},{"./util":102,"punycode":95,"querystring":98}],102:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -12399,7 +12429,7 @@ module.exports = {
   }
 };
 
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 (function (global){
 
 /**
@@ -12470,14 +12500,14 @@ function config (name) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],104:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -13067,7 +13097,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":103,"_process":64,"inherits":17}],105:[function(require,module,exports){
+},{"./support/isBuffer":104,"_process":64,"inherits":17}],106:[function(require,module,exports){
 
 /* jshint node: true */
 /* eslint max-len: 0 */
@@ -13089,7 +13119,7 @@ function isEmail(addr) {
 
 module.exports = isEmail;
 
-},{}],106:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -13134,7 +13164,7 @@ function ws(uri, protocols, opts) {
 
 if (WebSocket) ws.prototype = WebSocket.prototype;
 
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 //simplest reconnector.
 //if a connection attempt ended in under 3
 //seconds, consider that an error, and double time until next retry.
@@ -13158,7 +13188,7 @@ module.exports = function reconnect(connect, onConnect) {
 
 
 
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 var h = require('hyperscript')
 var isEmail = require('validate-email')
 
@@ -13229,7 +13259,7 @@ module.exports = function admin (client) {
 
 
 
-},{"hyperscript":14,"validate-email":105}],109:[function(require,module,exports){
+},{"hyperscript":14,"validate-email":106}],110:[function(require,module,exports){
 //makes hyperscript work on the server.
 require('html-element')
 var h = require('hyperscript')
@@ -13268,6 +13298,7 @@ module.exports = function (object, cb) {
       Upload('/blobs/add', function (err, hash, name) {
         console.log('upload', hash, name)
         object.image = img.src = '/blobs/get/'+hash+'?filename='+name
+        console.log("UPDATED", object)
       })
     ),
 
@@ -13297,7 +13328,7 @@ module.exports = function (object, cb) {
 }
 
 
-},{"../widgets/field":112,"../widgets/list":113,"../widgets/upload":114,"html-element":13,"hyperscript":14,"marked":21,"observable":60}],110:[function(require,module,exports){
+},{"../widgets/field":113,"../widgets/list":114,"../widgets/upload":115,"html-element":13,"hyperscript":14,"marked":21,"observable":60}],111:[function(require,module,exports){
 //makes hyperscript work on the server.
 require('html-element')
 var h = require('hyperscript')
@@ -13376,7 +13407,7 @@ module.exports = function (grad) {
 }
 
 
-},{"html-element":13,"hyperscript":14,"marked":21,"url":100}],111:[function(require,module,exports){
+},{"html-element":13,"hyperscript":14,"marked":21,"url":101}],112:[function(require,module,exports){
 //makes hyperscript work on the server.
 require('html-element')
 var h = require('hyperscript')
@@ -13411,7 +13442,7 @@ module.exports = function (grad) {
     )
   )
 }
-},{"html-element":13,"hyperscript":14,"marked":21}],112:[function(require,module,exports){
+},{"html-element":13,"hyperscript":14,"marked":21}],113:[function(require,module,exports){
 var o = require('observable')
 var h = require('hyperscript')
 
@@ -13438,7 +13469,7 @@ module.exports = function field (name, object, type) {
   }
 
 
-},{"hyperscript":14,"observable":60}],113:[function(require,module,exports){
+},{"hyperscript":14,"observable":60}],114:[function(require,module,exports){
 var h = require('hyperscript')
 
 //edit a short list of times.
@@ -13482,7 +13513,7 @@ module.exports = function (array, onChange) {
 }
 
 
-},{"hyperscript":14}],114:[function(require,module,exports){
+},{"hyperscript":14}],115:[function(require,module,exports){
 var h = require('hyperscript')
 
 module.exports = function (uploadUrl, onUpload) {
@@ -13494,6 +13525,7 @@ module.exports = function (uploadUrl, onUpload) {
       var filename = ev.target.files[0].name
       var xhr = XHR = new XMLHttpRequest()
       xhr.addEventListener('load', function (ev) {
+        console.log(EV = ev)
         onUpload(null, xhr.responseText, filename)
       })
       xhr.addEventListener('error', function (ev) {

@@ -9,6 +9,7 @@ module.exports = function (uploadUrl, onUpload) {
       var filename = ev.target.files[0].name
       var xhr = XHR = new XMLHttpRequest()
       xhr.addEventListener('load', function (ev) {
+        console.log(EV = ev)
         onUpload(null, xhr.responseText, filename)
       })
       xhr.addEventListener('error', function (ev) {

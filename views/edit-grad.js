@@ -36,6 +36,7 @@ module.exports = function (object, cb) {
       Upload('/blobs/add', function (err, hash, name) {
         console.log('upload', hash, name)
         object.image = img.src = '/blobs/get/'+hash+'?filename='+name
+        console.log("UPDATED", object)
       })
     ),
 
