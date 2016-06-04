@@ -14,7 +14,7 @@ We used dokku to host this. Points of note are:
 ### max file size of nginx
 Out of the box dokku sets up [nginx to allow for only small files](https://github.com/dokku/dokku/issues/802) - not big pdf cv's that students upload. As such you need to configure nginx for larger file uploads. To config it see [this thread on stack overflow](https://stackoverflow.com/questions/25529866/how-do-i-set-nginx-configuration-settings-on-a-per-app-basis-in-dokku) specifically the last comment pointing [here](https://github.com/investtools/dokku-client-max-body-size/blob/master/nginx-pre-reload). Its also worth checking out the docs for how to [do this manually](http://dokku.viewdocs.io/dokku/nginx/#customizing-via-configuration-files-included-by-the-default-tem)
 
-### save the leveldb outside the container
+### save the leveldb db outside the container
 Set the storage folder to be outside of the container otherwise you will lose the leveldb database that is stored in it when you push new code up. dokku destroys and rebuilds the container :) see the [dokku docs for how](http://dokku.viewdocs.io/dokku/dokku-storage/#dokku-core-storage-plugin)
 
 # running
