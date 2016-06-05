@@ -28,7 +28,7 @@
     "pull-json-doubleline": "^1.1.0",
     "pull-level": "^1.4.1",
     "pull-serializer": "^0.3.2",
-    "pull-ws-server": "^1.9.1",
+    "pull-ws-server": "^1.9.2",
     "rc": "^1.1.6",
     "reconnect-core": "^1.2.0",
     "stack": "^0.1.0",
@@ -45,7 +45,7 @@
   "scripts": {
     "test": "set -e; for t in test/*.js; do node $t; done",
     "build": "browserify client.js > ./static/index.js",
-    "dstart": "node index.js",
+    "dstart": "while true; do node index.js; done",
     "auth": "node index.js auth.create admin",
     "start": " npm run build && npm run auth && node index.js"
   },

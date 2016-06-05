@@ -13304,6 +13304,7 @@ module.exports = function (object, cb) {
       Upload('/blobs/add', function (err, hash, name) {
         console.log('upload', hash, name)
         object.image = img.src = '/blobs/get/'+hash+'?filename='+name
+        console.log("UPDATED", object)
       })
     ),
 
@@ -13530,6 +13531,7 @@ module.exports = function (uploadUrl, onUpload) {
       var filename = ev.target.files[0].name
       var xhr = XHR = new XMLHttpRequest()
       xhr.addEventListener('load', function (ev) {
+        console.log(EV = ev)
         onUpload(null, xhr.responseText, filename)
       })
       xhr.addEventListener('error', function (ev) {

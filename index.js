@@ -94,8 +94,6 @@ if(!module.parent) {
         console.log('HTTP', req.method, req.url)
         next()
       },
-      Ecstatic(path.join(__dirname, 'static')),
-
       Tiny.get(/^\/redeem\/([0-9a-f]+)/, function (req, res, next) {
         api.auth.redeem(req.params[0], function (err, cookie) {
           if(err) return next(err)
@@ -119,7 +117,8 @@ if(!module.parent) {
         res.end(JSON.stringify(req.access)+'\n')
       }),
 
-      BlobsHttp(api.blobs, '/blobs')
+      BlobsHttp(api.blobs, '/blobs'),
+      Ecstatic(path.join(__dirname, 'static'))
     ))
     .listen(process.env.PORT || config.port, function () {
       console.log('listening on:', server.address())
@@ -153,6 +152,7 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
+
 
 
 
