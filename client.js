@@ -23,7 +23,10 @@ var resource = o()
 // --- client side dataset ---
 // TODO: move into module ...
 
-var merge = require('deep-merge')
+//set up deep-merge properly!
+var merge = require('deep-merge')(function (a, b, k) {
+  return b != null ? b : a
+})
 //client side data.
 
 var all = [], keys = {}
@@ -32,8 +35,9 @@ function add (data) {
     keys[data.key] = data
     all.push(data)
   }
-  else
+  else {
     keys[data.key].value = merge(keys[data.key].value, data.value)
+  }
 }
 
 var backgrounds = [
@@ -203,6 +207,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   //bug! make it so that a click on the bg will go back to main view
   document.querySelector('.page--wrapper').addEventListener('click', mode('list'), false)
 })
+
+
+
 
 
 
