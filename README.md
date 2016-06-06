@@ -17,6 +17,12 @@ Out of the box dokku sets up [nginx to allow for only small files](https://githu
 ### save the leveldb db outside the container
 Set the storage folder to be outside of the container otherwise you will lose the leveldb database that is stored in it when you push new code up. dokku destroys and rebuilds the container :) see the [dokku docs for how](http://dokku.viewdocs.io/dokku/dokku-storage/#dokku-core-storage-plugin)
 
+use this command to mount the into the correct folder in the container:
+
+```bash
+dokku storage:mount app-name /var/lib/dokku/data/storage:/app/storage
+```
+
 # running
 
 ```bash
