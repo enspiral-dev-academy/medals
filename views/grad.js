@@ -69,7 +69,7 @@ module.exports = function (grad) {
             )
           })
         ),
-        h('div.cv', grad.cv ? h('a', {href: grad.cv}, 'Download CV') : 'cv is missing')
+        h('div.cv', grad.cv ? h('a', {href: grad.cv, target:"_blank"}, 'Download CV') : 'cv is missing')
       )
     )
   )
