@@ -1,1 +1,1 @@
-client_max_body_size 10m;
+client_max_body_size 20m;
