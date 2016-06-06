@@ -48,7 +48,6 @@ exports = module.exports = function (config) {
       db.get(key.key || key, cb)
     },
     read: function (opts) {
-      console.log(this)
       return pl.read(db)
     },
     blobs: blobs,
@@ -152,6 +151,7 @@ if(!module.parent) {
     require('muxrpcli')
       (process.argv.slice(2), exports.manifest, exports(config))
 }
+
 
 
 
