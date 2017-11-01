@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "standard"
+  ],
+  "plugins": [
+    "node",
+    "promise",
+    "react",
+    "standard"
+  ]
+}
