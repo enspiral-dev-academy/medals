@@ -2,8 +2,9 @@ logs
 *.log
 *sqlite
 npm-debug.log*
-coverage
+coverage/
 node_modules
+bundle*
 .npm
 .node_repl_history
 .DS_Store
