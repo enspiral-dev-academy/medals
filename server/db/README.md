@@ -1,4 +1,4 @@
-# tasting.social data access layer
+# data access layer
 
 ## Notes
 
