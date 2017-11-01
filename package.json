@@ -1,54 +1,21 @@
 {
-  "name": "eda-grads",
-  "description": "",
+  "name": "grads",
+  "description": "a profile explorer of software developers",
   "version": "0.0.0",
-  "homepage": "https://github.com/dominictarr/eda-grads",
+  "homepage": "https://github.com/enspiral-dev-academy/grads",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dominictarr/eda-grads.git"
+    "url": "git://github.com/enspiral-dev-academy/grads.git"
   },
-  "dependencies": {
-    "browserify": "^13.0.0",
-    "cookie": "^0.2.3",
-    "deep-merge": "^1.0.0",
-    "ecstatic": "^1.4.0",
-    "html-element": "^1.5.0",
-    "hyperscript": "^1.4.7",
-    "indexhtmlify": "^1.2.1",
-    "is-email": "^0.1.1",
-    "json-buffer": "^2.0.11",
-    "level-party": "^3.0.4",
-    "level-sublevel": "^6.5.4",
-    "marked": "^0.3.5",
-    "mkdirp": "^0.5.1",
-    "multiblob": "^1.8.2",
-    "muxrpc": "^6.2.2",
-    "muxrpcli": "^1.0.5",
-    "observable": "^2.1.4",
-    "pull-json-doubleline": "^1.1.0",
-    "pull-level": "^1.4.1",
-    "pull-serializer": "^0.3.2",
-    "pull-ws-server": "^1.9.2",
-    "rc": "^1.1.6",
-    "reconnect-core": "^1.2.0",
-    "stack": "^0.1.0",
-    "stream-to-pull-stream": "^1.6.6",
-    "ticket-auth": "0.0.1",
-    "tiny-route": "~2.1.2",
-    "validate-email": "^1.0.0"
-  },
-  "engines": {
-    "node": "^4.0.0",
-    "npm": "^3.0.0"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "set -e; for t in test/*.js; do node $t; done",
-    "build": "browserify client.js > ./static/index.js",
-    "dstart": "while true; do node index.js; done",
-    "auth": "node index.js auth.create admin",
-    "start": " npm run build && npm run auth && node index.js"
+    "build": "",
+    "start": "",
+    "test": ""
   },
-  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
-  "license": "MIT"
+  "author": "EDA",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
 }
