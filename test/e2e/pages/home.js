@@ -2,5 +2,5 @@
 
 module.exports = {
   header: '.header',
-  splash: '.home .splash'
+  splash: '.home'
 }
