@@ -1,3 +1,7 @@
+import 'bulma'
+// https://dev.to/letsbsocial1/requestanimationframe--polyfill-in-react-16-2ce
+import 'core-js/es6/map'
+import 'core-js/es6/set'
 import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'

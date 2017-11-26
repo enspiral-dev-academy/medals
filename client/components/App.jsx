@@ -13,7 +13,7 @@ import ErrorMessage from './ErrorMessage'
 const App = () => {
   return (
     <Router>
-      <div>
+      <div className='app'>
         <Route path='/' component={Header} />
         <Route path='/' component={ErrorMessage} />
         <Route exact path='/' component={Home} />

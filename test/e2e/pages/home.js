@@ -1,6 +1,7 @@
 'use strict'
 
 module.exports = {
+  splash: '.home',
   header: '.header',
-  splash: '.home'
+  hamburger: '.navbar-burger'
 }

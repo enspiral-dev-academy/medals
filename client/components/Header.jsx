@@ -10,7 +10,11 @@ import BusyIndicator from './BusyIndicator'
 class Header extends React.Component {
   constructor (props) {
     super(props)
+    this.state = {
+      burgerIsActive: false
+    }
     this.handleLogOff = this.handleLogOff.bind(this)
+    this.toggleBurgerActive = this.toggleBurgerActive.bind(this)
   }
 
   componentDidMount () {
@@ -21,29 +25,46 @@ class Header extends React.Component {
     }
   }
 
+  toggleBurgerActive () {
+    this.setState({burgerIsActive: !this.state.burgerIsActive})
+  }
+
   render () {
-    const {signedIn, atHome, atProfile} = this.props
+    const {burgerIsActive} = this.state
+    const {signedIn, atHome, atProfile, atRegister, atSignIn} = this.props
     return (
-      <div className='header'>
-        <BusyIndicator />
-        <ul>
-          <li className={`menu-item ${atHome && 'menu-selected'}`}>
-            <Link to='/' className='home menu-link'>Home</Link>
-          </li>
-          {!signedIn && <li className='menu-item'>
-            <Link to='/register' className='register menu-link'>Register</Link>
-          </li>}
-          {!signedIn && <li className='menu-item'>
-            <Link to='/signin' className='signin menu-link'>Sign in</Link>
-          </li>}
-          {signedIn && <li className={`menu-item ${atProfile && 'menu-selected'}`}>
-            <Link to='/profile' className='profile menu-link'>Profile</Link>
-          </li>}
-          {signedIn && <li className='menu-item'>
-            <a href='#' className='logoff menu-link' onClick={this.handleLogOff}>Log off</a>
-          </li>}
-        </ul>
-      </div>
+      <nav className='navbar header is-fixed-top' role='navigation' aria-label='main navigation'>
+        <div className='navbar-brand'>
+          <Link className='navbar-item' to='/'>
+            <img src='/img/medals-named-logo.png'
+              alt="Medals: Enspiral Dev Academy's Learning Management System"
+              height='28' />
+          </Link>
+          <BusyIndicator />
+          <button className={`button navbar-burger ${burgerIsActive && 'is-active'}`} onClick={this.toggleBurgerActive}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        <div className={`navbar-menu ${burgerIsActive && 'is-active'}`}>
+          <div className='navbar-start'>
+            <Link to='/'
+              className={`home navbar-item ${atHome && 'is-active'}`}>Home</Link>
+          </div>
+          <div className='navbar-end'>
+            {!signedIn && <Link to='/register'
+              className={`register navbar-item ${atRegister && 'is-active'}`}>Register</Link>}
+            {!signedIn && <Link to='/signin'
+              className={`signin navbar-item ${atSignIn && 'is-active'}`}>Sign in</Link>}
+            {signedIn && <Link to='/profile'
+              className={`profile navbar-item ${atProfile && 'is-active'}`}>Profile</Link>}
+            {signedIn && <a href='#'
+              className={`logoff navbar-item ${atProfile && 'is-active'}`}
+              onClick={this.handleLogOff}>Log off</a>}
+          </div>
+        </div>
+      </nav>
     )
   }
 
@@ -63,13 +84,17 @@ Header.propTypes = {
   signedIn: PropTypes.bool,
   userDetails: PropTypes.object,
   atHome: PropTypes.bool,
-  atProfile: PropTypes.bool
+  atProfile: PropTypes.bool,
+  atRegister: PropTypes.bool,
+  atSignIn: PropTypes.bool
 }
 
 function mapStateToProps ({userDetails}, ownProps) {
   const path = ownProps.history.location.pathname
   return {
     atHome: path === '/',
+    atRegister: path === '/register',
+    atSignIn: path === '/signin',
     atProfile: path.includes('profile'),
     signedIn: isAuthenticated(),
     userDetails

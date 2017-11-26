@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 import {register} from '../actions/auth'
@@ -27,33 +28,54 @@ class Register extends React.Component {
     const {username, password, confirm, showMatch, match} = this.state
     return (
       <div className='register'>
-        <div className='page-content-wrapper'>
+        <section className='section'>
           <div className='content'>
-            <form className='pure-form pure-form-stacked'>
-              <fieldset>
-                <legend>Register</legend>
+            <h1>Registration</h1>
+          </div>
 
-                <label htmlFor='username'>Username</label>
-                <input id='username' name='username' placeholder='username'
-                  onChange={this.handleChange} value={username} />
+          <form>
+            <div className='field'>
+              <label htmlFor='username' className='label'>Username</label>
+              <div className='control has-icons-left'>
+                <input id='username' className='input' name='username'
+                  placeholder='username' onChange={this.handleChange} value={username} />
+                <span className='icon is-small is-left'>
+                  <i className='fa fa-user' />
+                </span>
+              </div>
+            </div>
 
-                <label htmlFor='password'>Password</label>
-                <input id='password' name='password'
+            <div className='field'>
+              <label htmlFor='password' className='label'>Password</label>
+              <div className='control has-icons-left'>
+                <input id='password' className='input' name='password'
                   type='password' placeholder='password'
                   onChange={this.handleChange} value={password} />
+                <span className='icon is-small is-left'>
+                  <i className='fa fa-key' />
+                </span>
+              </div>
+            </div>
 
-                <label htmlFor='confirm'>Confirm password</label>
-                <input id='confirm' name='confirm'
+            <div className='field'>
+              <label htmlFor='confirm' className='label'>Confirm password</label>
+              <div className='control has-icons-left'>
+                <input id='confirm' className='input' name='confirm'
                   type='password' placeholder='confirm password'
                   onChange={this.handleChange} value={confirm} />
-
+                <span className='icon is-small is-left'>
+                  <i className='fa fa-key' />
+                </span>
                 {showMatch && !match && <span style={this.styles.match}>*</span>}
-                <button className='pure-button pure-button-primary'
-                  onClick={this.handleSubmit}>Register</button>
-              </fieldset>
-            </form>
-          </div>
-        </div>
+              </div>
+            </div>
+
+            <div className='field'>
+              <button className='button is-primary'
+                onClick={this.handleSubmit}>Register</button>
+            </div>
+          </form>
+        </section>
       </div>
     )
   }
@@ -76,6 +98,10 @@ class Register extends React.Component {
     register(username, password, confirm)
     e.preventDefault()
   }
+}
+
+Register.propTypes = {
+  register: PropTypes.func
 }
 
 function mapDispatchToProps (dispatch) {

@@ -7,16 +7,20 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
-      {
-        loader: 'babel-loader',
-        test: /\.jsx?$/,
-        exclude: /node_modules/
-      }, {
-        loader: ['style-loader', 'raw-loader'],
-        test: /\.css$/
-      }
-    ]
+    rules: [{
+      test: /\.css$|\.scss$|\.sass$/,
+      use: [
+        {loader: 'style-loader'},
+        {loader: 'css-loader'},
+        {loader: 'sass-loader'}
+      ]
+    }, {
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      use: [
+        {loader: 'babel-loader'}
+      ]
+    }]
   },
   resolve: {
     extensions: ['.js', '.jsx']

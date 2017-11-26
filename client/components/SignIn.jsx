@@ -20,27 +20,40 @@ class SignIn extends React.Component {
     const {username, password} = this.state
     return (
       <div className='sign-in'>
-        <div className='page-content-wrapper'>
+        <section className='section'>
           <div className='content'>
-            <form className='pure-form pure-form-stacked'>
-              <fieldset>
-                <legend>Sign in</legend>
-
-                <label htmlFor='username'>Username</label>
+            <h1>Sign in</h1>
+          </div>
+          <form>
+            <div className='field'>
+              <label htmlFor='username' className='label'>Username</label>
+              <div className='control has-icons-left'>
                 <input id='username' name='username' placeholder='username'
-                  onChange={this.handleChange} value={username} />
+                  className='input' onChange={this.handleChange} value={username} />
+                <span className='icon is-small is-left'>
+                  <i className='fa fa-user' />
+                </span>
+              </div>
+            </div>
 
-                <label htmlFor='password'>Password</label>
-                <input id='password' name='password'
+            <div className='field'>
+              <label htmlFor='password' className='label'>Password</label>
+              <div className='control has-icons-left'>
+                <input id='password' name='password' className='input'
                   type='password' placeholder='password'
                   onChange={this.handleChange} value={password} />
+                <span className='icon is-small is-left'>
+                  <i className='fa fa-key' />
+                </span>
+              </div>
+            </div>
 
-                <button name='sign-in-button' className='pure-button pure-button-primary'
-                  onClick={this.handleSubmit}>Sign in</button>
-              </fieldset>
-            </form>
-          </div>
-        </div>
+            <div className='field'>
+              <button name='sign-in-button' className='button is-primary'
+                onClick={this.handleSubmit}>Sign in</button>
+            </div>
+          </form>
+        </section>
       </div>
     )
   }
