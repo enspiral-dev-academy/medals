@@ -33,9 +33,9 @@
      inkscape:window-height="1041"
      id="namedview4525"
      showgrid="false"
-     inkscape:zoom="0.37968747"
-     inkscape:cx="345.00974"
-     inkscape:cy="523.237"
+     inkscape:zoom="1.0739183"
+     inkscape:cx="467.26958"
+     inkscape:cy="532.96253"
      inkscape:window-x="0"
      inkscape:window-y="18"
      inkscape:window-maximized="0"
@@ -45,7 +45,9 @@
      inkscape:label="ink_ext_XXXXXX"
      transform="matrix(1.3333333,0,0,-1.3333333,0,1066.6667)"><g
        id="g6789"
-       transform="matrix(3.6095517,0,0,3.6095517,-1043.7665,-1127.4491)"><path
+       transform="matrix(0.67129311,0,0,0.67129311,-25.144991,154.7023)"
+       inkscape:export-xdpi="16.669872"
+       inkscape:export-ydpi="16.669872"><path
          d="m 443.914,485.407 h -87.828 v 28.391 h 87.828 v -28.391"
          style="fill:#005eb3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.1"
          id="path4657"
@@ -72,4 +74,18 @@
          d="m 436.93739,399.81704 c 3.82534,-20.97464 -10.06249,-41.0612 -31.03599,-44.88653 -19.79898,-3.6103 -38.797,9.51785 -42.41089,29.3199 -3.41704,18.71917 8.99128,36.65916 27.71199,40.08339 17.70497,3.22815 34.65705,-8.50161 37.88174,-26.17762 l 7.85315,1.66086"
          style="fill:#f2ba49;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12815201"
          id="path6153"
-         inkscape:connector-curvature="0" /></g></g></svg>
+         inkscape:connector-curvature="0" /></g><text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:126.66086578px;line-height:1.25;font-family:Mitr;-inkscape-font-specification:Mitr;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.3193841"
+       x="316.86661"
+       y="-395.45395"
+       id="text6812"
+       transform="scale(1,-1)"
+       inkscape:export-xdpi="16.669872"
+       inkscape:export-ydpi="16.669872"><tspan
+         sodipodi:role="line"
+         id="tspan6810"
+         x="316.86661"
+         y="-395.45395"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Mitr;-inkscape-font-specification:Mitr;stroke-width:1.3193841">Medals</tspan></text>
+</g></svg>
