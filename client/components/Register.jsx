@@ -1,119 +1,68 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
 
-import {register} from '../actions/auth'
-import {showError, clearError} from '../actions/error'
+import StaffRegistration from './registration/Staff'
+import StudentsRegistration from './registration/Students'
+import EmployersRegistration from './registration/Employers'
+
+const STAFF = 'STAFF'
+const STUDENTS = 'STUDENTS'
+const EMPLOYERS = 'EMPLOYERS'
 
 class Register extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: '',
-      password: '',
-      confirm: '',
-      match: false,
-      showMatch: false
+      activeTab: STUDENTS
     }
-    this.styles = {
-      match: {
-        color: 'red'
-      }
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.getTabSelector = this.getTabSelector.bind(this)
+  }
+
+  getTabSelector (tab) {
+    return () => this.setState({activeTab: tab})
   }
 
   render () {
-    const {username, password, confirm, showMatch, match} = this.state
+    const staffTab = this.state.activeTab === STAFF ? 'is-active' : ''
+    const studentsTab = this.state.activeTab === STUDENTS ? 'is-active' : ''
+    const employersTab = this.state.activeTab === EMPLOYERS ? 'is-active' : ''
     return (
       <div className='register'>
         <section className='section'>
           <div className='content'>
             <h1>Registration</h1>
           </div>
-
-          <form>
-            <div className='field'>
-              <label htmlFor='username' className='label'>Username</label>
-              <div className='control has-icons-left'>
-                <input id='username' className='input' name='username'
-                  placeholder='username' onChange={this.handleChange} value={username} />
-                <span className='icon is-small is-left'>
-                  <i className='fa fa-user' />
-                </span>
-              </div>
-            </div>
-
-            <div className='field'>
-              <label htmlFor='password' className='label'>Password</label>
-              <div className='control has-icons-left'>
-                <input id='password' className='input' name='password'
-                  type='password' placeholder='password'
-                  onChange={this.handleChange} value={password} />
-                <span className='icon is-small is-left'>
-                  <i className='fa fa-key' />
-                </span>
-              </div>
-            </div>
-
-            <div className='field'>
-              <label htmlFor='confirm' className='label'>Confirm password</label>
-              <div className='control has-icons-left'>
-                <input id='confirm' className='input' name='confirm'
-                  type='password' placeholder='confirm password'
-                  onChange={this.handleChange} value={confirm} />
-                <span className='icon is-small is-left'>
-                  <i className='fa fa-key' />
-                </span>
-                {showMatch && !match && <span style={this.styles.match}>*</span>}
-              </div>
-            </div>
-
-            <div className='field'>
-              <button className='button is-primary'
-                onClick={this.handleSubmit}>Register</button>
-            </div>
-          </form>
+          <p className='content'>
+            <span className='bold'>IMPORTANT:</span> All registrations must be approved by an admin. If you do not receive a welcome email within 24 hours, please contact us at <a href="mailto:medals@devacademy.co.nz">medals@devacademy.co.nz</a>.
+          </p>
+          <div className="tabs is-fullwidth is-boxed is-large">
+            <ul>
+              <li className={studentsTab} onClick={this.getTabSelector(STUDENTS)}>
+                <a>
+                  <span className="icon"><i className="fa fa-graduation-cap"></i></span>
+                  <span>Students</span>
+                </a>
+              </li>
+              <li className={staffTab} onClick={this.getTabSelector(STAFF)}>
+                <a>
+                  <span className="icon"><i className="fa fa-user"></i></span>
+                  <span>EDA Staff</span>
+                </a>
+              </li>
+              <li className={employersTab} onClick={this.getTabSelector(EMPLOYERS)}>
+                <a>
+                  <span className="icon"><i className="fa fa-building"></i></span>
+                  <span>Employers</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          {studentsTab && <StudentsRegistration />}
+          {staffTab && <StaffRegistration />}
+          {employersTab && <EmployersRegistration />}
         </section>
       </div>
     )
   }
-
-  handleChange (e) {
-    const {name, value} = e.target
-    let match = this.state.match
-    match = name === 'password' ? value === this.state.confirm : match
-    match = name === 'confirm' ? value === this.state.password : match
-    this.setState({
-      [name]: value,
-      showMatch: this.state.showMatch || name === 'confirm',
-      match: match
-    })
-  }
-
-  handleSubmit (e) {
-    const {register} = this.props
-    const {username, password, confirm} = this.state
-    register(username, password, confirm)
-    e.preventDefault()
-  }
 }
 
-Register.propTypes = {
-  register: PropTypes.func
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    register: (username, password, confirm) => {
-      if (password === confirm) {
-        dispatch(clearError())
-        return dispatch(register({username, password}))
-      }
-      dispatch(showError('Password and confirmation don\'t match'))
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Register)
+export default Register
