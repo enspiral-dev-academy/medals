@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const {
   userExists,
@@ -6,8 +7,13 @@ const {
   createUser} = require('../db/users')
 const token = require('../auth/token')
 const hash = require('../auth/hash')
+const github = require('./github')
 
 const router = express.Router()
+
+router.use('/github', github)
+
+router.use(bodyParser.json())
 
 router.post('/register', register, token.issue)
 router.post('/signin', signIn, token.issue)

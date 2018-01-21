@@ -6,10 +6,11 @@ module.exports = {
   userExists,
   getUserById,
   getUserByName,
-  updateUser
+  updateUser,
+  findOrCreateGitHubUser
 }
 
-function createUser (username, password, conn) {
+function createUser (username, password, conn, ghid = null) {
   const db = conn || connection
   return userExists(username, db)
     .then(exists => {
@@ -18,9 +19,19 @@ function createUser (username, password, conn) {
       }
     })
     .then(() => {
-      const passwordHash = hash.generate(password)
+      // At this time, only students will be GitHub users.
+      // When the user is a student, password will be null and ghid will have a
+      // value. When the user is staff or an employer, password will have a
+      // value, and ghid will be undefined.
+      // TODO: extract this logic into a function so the behaviour is more explicit.
+      const passwordHash = hash.generate(password || ghid)
       return db('users')
-        .insert({username, hash: passwordHash})
+        .insert({username, hash: passwordHash, ghid})
+        .then(ids => {
+          return db('users')
+            .where('id', ids[0] || 0)
+            .first()
+        })
     })
 }
 
@@ -66,4 +77,22 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
         .update({username, hash: newPasswordHash})
         .where('id', user.id)
     })
+}
+
+function findOrCreateGitHubUser (gitHubProfile, cb, conn) {
+  const db = conn || connection
+  return db('users')
+    .select('id', 'username')
+    .where('ghid', gitHubProfile.id)
+    .first()
+    .then(user => {
+      console.log('github user:', user)
+      if (user) {
+        cb(null, user)
+      } else {
+        createUser(gitHubProfile.username, null, conn, gitHubProfile.id)
+          .then(user => cb(null, user))
+      }
+    })
+    .catch(err => cb(err))
 }

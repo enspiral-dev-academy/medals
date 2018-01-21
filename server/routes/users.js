@@ -1,9 +1,12 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const db = require('../db/users')
 const token = require('../auth/token')
 
 const router = express.Router()
+
+router.use(bodyParser.json())
 
 module.exports = router
 
