@@ -86,7 +86,6 @@ function findOrCreateGitHubUser (gitHubProfile, cb, conn) {
     .where('ghid', gitHubProfile.id)
     .first()
     .then(user => {
-      console.log('github user:', user)
       if (user) {
         cb(null, user)
       } else {

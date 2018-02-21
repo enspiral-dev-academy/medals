@@ -1,16 +1,24 @@
 {
   "env": {
+    "browser": true,
     "node": true,
     "jest": true
   },
   "extends": [
+    "eslint:recommended",
     "plugin:react/recommended",
     "standard"
   ],
   "plugins": [
-    "node",
-    "promise",
-    "react",
-    "standard"
-  ]
+    "standard",
+    "promise"
+  ],
+  "rules": {
+    "eol-last": ["error", "always"],
+    "no-multiple-empty-lines": [
+        "error", { "max": 1, "maxEOF": 0, "maxBOF": 0 }
+    ],
+    "object-curly-spacing": ["error", "never"],
+    "react/prop-types": "off"
+  }
 }

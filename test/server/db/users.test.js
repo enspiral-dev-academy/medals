@@ -15,7 +15,6 @@ test('getUserById returns a user given their id', () => {
     .then(user => {
       expect(user.username).toBe('jules')
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('getUserById returns undefined for a nonexistent user id', () => {
@@ -23,7 +22,6 @@ test('getUserById returns undefined for a nonexistent user id', () => {
     .then(user => {
       expect(user).toBeFalsy()
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('getUserByName returns a user given their username', () => {
@@ -31,7 +29,6 @@ test('getUserByName returns a user given their username', () => {
     .then(user => {
       expect(user.id).toBe(1)
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('getUserByName returns undefined for a nonexistent username', () => {
@@ -39,7 +36,6 @@ test('getUserByName returns undefined for a nonexistent username', () => {
     .then(user => {
       expect(user).toBeFalsy()
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('userExists returns true for an existing username', () => {
@@ -47,7 +43,6 @@ test('userExists returns true for an existing username', () => {
     .then(exists => {
       expect(exists).toBeTruthy()
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('userExists returns false for a nonexistent username', () => {
@@ -55,21 +50,15 @@ test('userExists returns false for a nonexistent username', () => {
     .then(exists => {
       expect(exists).toBeFalsy()
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('createUser creates a new user', () => {
   const username = 'iamnew'
-  const validateNewUser = newIds => {
-    const id = newIds[0]
-    return db.getUserById(id, testDb)
-      .then(user => {
-        expect(user.username).toBe(username)
-      })
+  const validateNewUser = newUser => {
+    expect(newUser.username).toBe(username)
   }
-  return db.createUser(username, '', testDb)
+  return db.createUser(username, 'andnottoosecure', testDb)
     .then(validateNewUser)
-    .catch(err => expect(err).toBeNull())
 })
 
 test('createUser fails if username already exists', () => {
