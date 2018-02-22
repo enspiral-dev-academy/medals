@@ -1,45 +1,27 @@
 import React from 'react'
-import request from 'superagent'
-import {Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {fetchList} from '../../actions/assessments'
 
 class Assessments extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      topics: []
     }
-    this.getList = this.getList.bind(this)
-    this.displayList = this.displayList.bind(this)
   }
 
   componentDidMount () {
-    this.getList(this.displayList)
-  }
-
-  getList (callback) {
-    request
-      .get('http://localhost:3000/api/v1/topic')
-      .end((err, res) => {
-        callback(err, res.body)
-      })
-  }
-
-  displayList (err, data) {
-    if (err) {
-      // eslint-disable-next-line no-console
-      console.error(err)
-    }
-
-    this.setState({
-      topics: data.topics
-    })
+    this.props.dispatch(fetchList())
   }
 
   render () {
+    if (!this.props.assessmentTopics) {
+      return null
+    }
     return (
       <div className='Assessments'>
         <ul>
-          {this.state.topics.map((topic, id) => {
+          {this.props.assessmentTopics.map((topic, id) => {
             return (
               <Link key={id} to={`/assessments/${topic}`}><li>{topic}</li></Link>
             )
@@ -50,4 +32,10 @@ class Assessments extends React.Component {
   }
 }
 
-export default Assessments
+const mapStateToProps = (state) => {
+  return {
+    assessmentTopics: state.assessmentTopics
+  }
+}
+
+export default connect(mapStateToProps)(Assessments)
