@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Route, withRouter} from 'react-router-dom'
 
 import '../styling/main.css'
 
@@ -10,9 +10,25 @@ import Register from './Register'
 import Profile from './Profile'
 import ErrorMessage from './ErrorMessage'
 
-const App = () => {
-  return (
-    <Router>
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.setToken = this.setToken.bind(this)
+  }
+  componentDidMount () {
+    this.setToken()
+  }
+
+  setToken () {
+    const queryString = this.props.location.search
+    const token = new URLSearchParams(queryString).get('token')
+    if (token) {
+      localStorage.setItem('token', token)
+    }
+  }
+
+  render () {
+    return (
       <div className='app'>
         <Route path='/' component={Header} />
         <Route path='/' component={ErrorMessage} />
@@ -21,8 +37,8 @@ const App = () => {
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
       </div>
-    </Router>
-  )
+    )
+  }
 }
 
-export default App
+export default withRouter(App)
