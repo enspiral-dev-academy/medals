@@ -1,5 +1,5 @@
 import React from 'react'
-import {requestGradProfile} from '../actions/gradProfileEdit'
+import {requestGradProfile} from '../actions/gradProfile'
 import {connect} from 'react-redux'
 
 class GradProfileEdit extends React.Component {

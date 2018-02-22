@@ -1,7 +1,7 @@
 import {
   RECEIVE_GRAD_PROFILE,
   REQUEST_GRAD_PROFILE
-} from '../actions/gradProfileEdit'
+} from '../actions/gradProfile'
 
 const initialState = {
   userId: 10,
