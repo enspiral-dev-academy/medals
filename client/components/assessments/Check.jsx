@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Check = () => {
+const Check = ({feedback}) => {
   return (
-    <div></div>
+    <div>
+      <h3>{feedback.check}</h3>
+      <p>{feedback.reason}</p>
+    </div>
   )
 }
 

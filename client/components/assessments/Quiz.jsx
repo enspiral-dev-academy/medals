@@ -14,7 +14,8 @@ class Quiz extends React.Component {
       question: sampleQues,
       answer: '',
       key: '',
-      reason: ''
+      reason: '',
+      check: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -30,9 +31,13 @@ class Quiz extends React.Component {
   }
 
   handleSubmit () {
-    if (this.state.key === 1) {
+    if (Number(this.state.key) === 1) {
       this.setState({
         check: 'Correct!'
+      })
+    } else {
+      this.setState({
+        check: 'Not Quite'
       })
     }
   }
