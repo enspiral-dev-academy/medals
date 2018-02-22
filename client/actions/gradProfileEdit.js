@@ -1,25 +1,27 @@
 import request from '../lib/api'
 import {showError} from './error'
+
 // import {clearError} from './error'
 export const REQUEST_GRAD_PROFILE = 'REQUEST_GRAD_PROFILE'
 export const RECEIVE_GRAD_PROFILE = 'RECEIVE_GRAD_PROFILE'
 
-const requestGradProfile = () => {
+const requestGradProfile = (userId) => {
   return {
-    type: REQUEST_GRAD_PROFILE
+    type: REQUEST_GRAD_PROFILE,
+    id: userId
   }
 }
 
-const receiveGradProfile = () => {
+const receiveGradProfile = (userData) => {
   return {
     type: RECEIVE_GRAD_PROFILE,
-    info: {}
+    userData: userData
   }
 }
 
 export function getGradProfile (userId) {
   return (dispatch) => {
-    dispatch(requestGradProfile())
+    dispatch(requestGradProfile(userId))
     request('get', `/users/${userId}`)
       .then(res => {
         dispatch(receiveGradProfile(res.body))
