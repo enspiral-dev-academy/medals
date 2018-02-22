@@ -9,6 +9,8 @@ import SignIn from './SignIn'
 import Register from './Register'
 import Profile from './Profile'
 import ErrorMessage from './ErrorMessage'
+import GradProfile from './GradProfile'
+import GradProfileEdit from './GradProfileEdit'
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
         <Route path='/register' component={Register} />
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
+        <Route path='/grad-profile' component={GradProfile} />
+        <Route path='/grad-profile/edit' component={GradProfileEdit} />
       </div>
     </Router>
   )
