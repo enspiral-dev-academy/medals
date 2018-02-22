@@ -5,6 +5,7 @@ const Check = ({feedback}) => {
     <div>
       <h3>{feedback.check}</h3>
       <p>{feedback.reason}</p>
+      <button type='button'>Next Question</button>
     </div>
   )
 }

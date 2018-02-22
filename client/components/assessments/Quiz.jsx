@@ -60,8 +60,7 @@ class Quiz extends React.Component {
           })}
         </form>
         {this.state.check && <Check feedback={this.state} />}
-        <button type='button' onClick={this.handleSubmit}>Submit Answer</button>&nbsp;
-        <button type='button'>Next Question</button>
+        <button type='button' onClick={this.handleSubmit}>Submit Answer</button>
       </div>
     )
   }
