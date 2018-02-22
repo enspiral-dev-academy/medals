@@ -26,9 +26,9 @@ passport.use(new GitHubStrategy(
     callbackURL: 'http://127.0.0.1:3000/api/v1/auth/github/callback'
   },
   (accessToken, refreshToken, gitHubProfile, cb) => {
-    console.log('accessToken:', accessToken)
-    console.log('refreshToken:', refreshToken)
-    console.log('gitHubProfile:', gitHubProfile)
+    // console.log('accessToken:', accessToken)
+    // console.log('refreshToken:', refreshToken)
+    // console.log('gitHubProfile:', gitHubProfile)
     findOrCreateGitHubUser(gitHubProfile, cb)
   }
 ))
