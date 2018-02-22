@@ -19,24 +19,24 @@ function getSprints () {
   return devDb('sprints')
 }
 
-function getAssignmentsBySprintId (sprintId) {
+function getAssignmentsBySprintId (sprintId, conn) {
   return devDb('sprints')
     .join('assignments', 'sprints.id', 'assignments.sprint_id')
     .where('sprints.id', sprintId) // where id matches - only return matching sprint
     .select('sprints.id', 'assignments.title')
 }
 
-function getTasksByAssignmentId (assignmentId) {
+function getTasksByAssignmentId (assignmentId, conn) {
   return devDb('assignments')
     .join('tasks', 'assignments.id', 'tasks.assignment_id')
     .where('assignments.id', assignmentId)
     .select('assignments.id', 'tasks.description')
 }
 
-function getAssignedTasks (userId) {
+function getAssignedTasks (userId, taskId, conn) {
   return devDb('tasks')
-    .join('assigned_tasks', 'users.id', 'assigned_tasks.user_id')
-    .join('assigned_tasks', 'tasks.id', 'assigned_tasks.task_id')
-    .where('assigned_tasks.user_id', userId)
-    .select('tasks.id', 'users.id', 'assigned_tasks.is_complete', 'assigned_tasks.evidence')
+    .join('assignedTasks', 'tasks.id', 'assignedTasks.task_id')
+    .join('users', 'users.id', 'assignedTasks.user_id')
+    .where('assignedTasks.user_id', userId).andWhere('assignedTasks.task_id', taskId)
+    .select()
 }
