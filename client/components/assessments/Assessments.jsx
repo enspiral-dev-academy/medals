@@ -1,5 +1,6 @@
 import React from 'react'
 import request from 'superagent'
+import {Route, Link} from 'react-router-dom'
 
 class Assessments extends React.Component {
   constructor (props) {
@@ -40,12 +41,10 @@ class Assessments extends React.Component {
         <ul>
           {this.state.topics.map((topic, id) => {
             return (
-              <li key={id}>{topic}</li>
+              <Link key={id} to={`/assessments/${topic}`}><li>{topic}</li></Link>
             )
           })}
         </ul>
-        <p>test</p>
-        <p>testb</p>
       </div>
     )
   }
