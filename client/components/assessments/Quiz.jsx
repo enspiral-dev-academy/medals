@@ -2,6 +2,8 @@ import React from 'react'
 
 import Answers from './Answers'
 
+import sampleData from './questions.json'
+
 // mock data
 const answers = [{
   id: 1,
@@ -9,10 +11,15 @@ const answers = [{
   text: 'answer text'}
 ]
 
+const sampleQues = sampleData.questions
+// console.log(sampleQues)
+
 class Quiz extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      question: sampleQues
+    }
   }
   render () {
     return (
