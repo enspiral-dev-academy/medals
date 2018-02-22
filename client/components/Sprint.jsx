@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-// import request from 'superagent'
+import request from 'superagent'
 
 class Sprint extends React.Component {
   constructor (props) {
@@ -11,27 +11,28 @@ class Sprint extends React.Component {
     this.getAssignments = this.getAssignments.bind(this)
   }
 
+  // componentDidMount () {
+  //   this.getAssignments()
+  // }
+
   getAssignments () {
-    // const number = this.props.params.number
-    // request.get('/api/v1/assignments/' + number)
-    //   .then()
-    this.setState({
-      assignments: [
-        {id: 1, title: 'kimmis cookies'},
-        {id: 2, title: 'steves snacks'},
-        {id: 3, title: 'stinas smokes'},
-        {id: 4, title: 'julias jokes'}
-      ]
-    })
+    const number = this.props.match.params.number
+    request.get('/api/v1/sprints/' + number)
+      .then(res => {
+        this.setState({
+          assignments: res.body.assignments
+        })
+      }
+      )
   }
 
   render () {
     return (
       <div>
-        <button type='button' onClick={this.getAssignments}>Issue Assignments</button>
+        <button type='button' onClick={this.getAssignments}>Issue Sprint</button>
         <ul>
           {this.state.assignments.map((assignment, key) => {
-            return <li key={key}><Link to={`${this.props.match.url}/assignment/${assignment.id}`}>{assignment.title}</Link></li>
+            return <li key={key}><Link to={`${this.props.match.url}/assignment/${assignment.id}`}>{assignment.name}</Link></li>
           })}
         </ul>
       </div>
