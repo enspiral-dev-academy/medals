@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Assessment = () => {
+const Assessments = () => {
   return (
-      <div className='Assessment'>
+      <div className='Assessments'>
       
       </div>
   )
 }
 
-export default Assessment
+export default Assessments
