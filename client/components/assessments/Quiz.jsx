@@ -1,12 +1,9 @@
 import React from 'react'
 
-import Answers from './Answers'
-
 import sampleData from './questions.json'
 
 // mock data
 const sampleQues = sampleData.questions
-
 
 class Quiz extends React.Component {
   constructor (props) {
@@ -14,6 +11,10 @@ class Quiz extends React.Component {
     this.state = {
       question: sampleQues
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleSubmit () {
+
   }
   render () {
     return (
@@ -24,13 +25,12 @@ class Quiz extends React.Component {
           {this.state.question[0].choices.map((answer, idx) => {
             return (
               <div key={idx}>
-                <Answers answer={answer} />
-                {/* <input type='radio' value={answer.key} /> */}
-
+                <input type='radio' name='answer' value={answer.key} />
+                <label>&nbsp;{answer.ans}</label>
               </div>)
           })}
         </form>
-        <button type='button'>Submit Answer</button>&nbsp;
+        <button type='button' onClick={this.handleSubmit}>Submit Answer</button>&nbsp;
         <button type='button'>Next Question</button>
       </div>
     )
