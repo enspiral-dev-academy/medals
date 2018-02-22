@@ -26,7 +26,6 @@ function issue (req, res) {
 function issueFromGitHub (req, res, next) {
   passport.authenticate('github', (err, user, info) => {
     if (err) {
-      console.log('Error:', err)
       return res.status(500).json({
         message: 'Authentication failed due to a server error',
         info: err.message
