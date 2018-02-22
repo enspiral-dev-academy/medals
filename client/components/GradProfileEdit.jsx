@@ -1,7 +1,6 @@
 import React from 'react'
 
 class GradProfileEdit extends React.Component {
-
   render () {
     return (
       <div className='home section'>
@@ -11,7 +10,6 @@ class GradProfileEdit extends React.Component {
       </div>
     )
   }
-  
 }
 
 export default GradProfileEdit

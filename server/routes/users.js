@@ -33,3 +33,7 @@ router.put('/:id', token.decode, (req, res) => {
       res.status(500).send(err.message)
     })
 })
+
+router.post('/editedProfile', token.decode, (req, res) => {
+  db.updateGradProfile({})
+})
