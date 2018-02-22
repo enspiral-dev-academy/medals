@@ -35,5 +35,7 @@ router.put('/:id', token.decode, (req, res) => {
 })
 
 router.post('/editedProfile', token.decode, (req, res) => {
+  // Once db is created may need to use grad-profiles.js
+  console.log(req)
   db.updateGradProfile({})
 })
