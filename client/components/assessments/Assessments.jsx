@@ -46,7 +46,6 @@ class Assessments extends React.Component {
         </ul>
         <p>test</p>
         <p>testb</p>
-        
       </div>
     )
   }
