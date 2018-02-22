@@ -5,10 +5,10 @@ import {showError} from './error'
 export const REQUEST_GRAD_PROFILE = 'REQUEST_GRAD_PROFILE'
 export const RECEIVE_GRAD_PROFILE = 'RECEIVE_GRAD_PROFILE'
 
-const requestGradProfile = (userId) => {
+export const requestGradProfile = (userId) => {
   return {
     type: REQUEST_GRAD_PROFILE,
-    id: userId
+    userId: userId
   }
 }
 
