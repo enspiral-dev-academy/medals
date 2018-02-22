@@ -1,5 +1,14 @@
 import React from 'react'
 
+import Answers from './Answers'
+
+// mock data
+const answers = [{
+  id: 1,
+  key: 0,
+  text: 'answer text'}
+]
+
 class Quiz extends React.Component {
   constructor (props) {
     super(props)
@@ -8,7 +17,16 @@ class Quiz extends React.Component {
   render () {
     return (
       <div className='Quiz'>
-        <h2>Question # or text</h2>
+        {/* will be from props */}
+        <h2>Question</h2>
+        <ul>
+          {answers.map(answer => {
+            return (
+              <div key={answer.id}>
+                <Answers answer={answer} />
+              </div>)
+          })}
+        </ul>
       </div>
     )
   }
