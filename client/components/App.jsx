@@ -10,8 +10,8 @@ import Register from './Register'
 import Profile from './Profile'
 import ErrorMessage from './ErrorMessage'
 import Assessments from './assessments/Assessments'
+import AssessmentHome from './assessments/AssessmentHome'
 import Quiz from './assessments/Quiz'
-
 
 const App = () => {
   return (
@@ -23,8 +23,10 @@ const App = () => {
         <Route path='/register' component={Register} />
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
-        <Route path='/assessments' component={Assessments} />
-        <Route path='/assessments/:id/:question' component={Quiz} />
+        <Route exact path='/assessments' component={Assessments} />
+        <Route exact path='/assessments/:topic' component={AssessmentHome} />
+        <Route exact path='/assessments/:id/:question' component={Quiz} />
+
       </div>
     </Router>
   )
