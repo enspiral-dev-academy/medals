@@ -1,9 +1,5 @@
 'use strict'
 
-module.exports = {
-  
-}
-
 /* global actor */
 
 let I
@@ -20,4 +16,5 @@ module.exports = {
     I.amOnPage('/home')
     I.click('Log off')
   }
+
 }
