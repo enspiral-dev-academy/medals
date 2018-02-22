@@ -23,7 +23,7 @@ passport.use(new GitHubStrategy(
   {
     clientID: process.env.GITHUB_AUTH_ID,
     clientSecret: process.env.GITHUB_AUTH_SECRET,
-    callbackURL: 'http://127.0.0.1:3000/api/v1/auth/github/callback'
+    callbackURL: 'http://127.0.0.1:3000/auth/github/callback'
   },
   (accessToken, refreshToken, gitHubProfile, cb) => {
     findOrCreateGitHubUser(gitHubProfile, cb)

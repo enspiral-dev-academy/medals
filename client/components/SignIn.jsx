@@ -23,7 +23,7 @@ class SignIn extends React.Component {
         <section className='section'>
           <div className='content'>
             <h1>Student Sign-in</h1>
-            <button className='button is-primary'><a href='localhost:3000/auth/github'>Continue with GitHub</a></button>
+            <button className='button is-primary'><a href='http://localhost:3000/auth/github'>Continue with GitHub</a></button>
             <br/>
           </div>
 

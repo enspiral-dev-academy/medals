@@ -9,7 +9,7 @@ const Students = (props) => {
   return (
     <form>
       <div className='field'>
-        <button className='button is-primary'><a href='localhost:3000/auth/github'>Continue with GitHub</a></button>
+        <button className='button is-primary'><a href='http://localhost:3000/auth/github'>Continue with GitHub</a></button>
       </div>
     </form>
   )
