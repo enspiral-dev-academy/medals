@@ -7,7 +7,8 @@ module.exports = {
   getUserById,
   getUserByName,
   updateUser,
-  findOrCreateGitHubUser
+  findOrCreateGitHubUser,
+  updateGradProfile
 }
 
 function createUser (username, password, conn, ghid = null) {
