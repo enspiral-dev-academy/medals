@@ -15,7 +15,8 @@ class Quiz extends React.Component {
       answer: '',
       key: '',
       reason: '',
-      check: ''
+      check: '',
+      disabled: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -33,28 +34,31 @@ class Quiz extends React.Component {
   handleSubmit () {
     if (Number(this.state.key) === 1) {
       this.setState({
-        check: 'Correct!'
+        check: 'Correct!',
+        disabled: 'disabled'
       })
     } else {
       this.setState({
-        check: 'Not Quite'
+        check: 'Not Quite',
+        disabled: 'disabled'
       })
     }
   }
   render () {
     return (
       <div className='Quiz'>
-        {/* will be from props */}
         <h2>{this.state.question[0].question}</h2>
         <form>
+   
           {this.state.question[0].choices.map((answer, idx) => {
             return (
               <div key={idx}>
-                <input type='radio' name='answer'
+                <input readOnly type='radio' name='answer'
                   value={answer.key} data-ans={answer.ans}
                   data-fbk={answer.fbk}
                   onChange={this.handleChange}
-                  checked={this.state.answer === answer.ans} />
+                  checked={this.state.answer === answer.ans}
+                  disabled={(this.state.disabled) ? 'disabled' : ''} />
                 <label>&nbsp;{answer.ans}</label>
               </div>)
           })}
