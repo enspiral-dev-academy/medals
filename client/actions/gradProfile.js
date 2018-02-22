@@ -1,18 +1,18 @@
 import request from '../lib/api'
 import {showError} from './error'
 // import {clearError} from './error'
-export const REQUEST_SAVE_GRAD_PROFILE = 'REQUEST_SAVE_GRAD_PROFILE'
-export const RECEIVE_SAVE_GRAD_PROFILE = 'RECEIVE_SAVE_GRAD_PROFILE'
+export const REQUEST_GRAD_PROFILE = 'REQUEST_GRAD_PROFILE'
+export const RECEIVE_GRAD_PROFILE = 'RECEIVE_GRAD_PROFILE'
 
 const requestGradProfile = () => {
   return {
-    type: REQUEST_SAVE_GRAD_PROFILE
+    type: REQUEST_GRAD_PROFILE
   }
 }
 
 const receiveGradProfile = () => {
   return {
-    type: RECEIVE_SAVE_GRAD_PROFILE,
+    type: RECEIVE_GRAD_PROFILE,
     info: {}
   }
 }
