@@ -1,11 +1,14 @@
 import React from 'react'
+
+import {getGradProfile} from '../actions/gradProfileEdit'
+import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 class GradProfileEdit extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
+      userId: 10,
       aboutMe: '',
       location: '',
       githubLink: '',
@@ -14,6 +17,14 @@ class GradProfileEdit extends React.Component {
       interests: ''
     }
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  componenetDidMount () {
+    this.getGradsDetails()
+  }
+
+  getGradsDetails () {
+    this.props.dispatch(getGradProfile(this.state.userId))
   }
 
   handleChange (evt) {
@@ -76,4 +87,10 @@ class GradProfileEdit extends React.Component {
   }
 }
 
-export default GradProfileEdit
+const mapStateToProps = (state) => {
+  return {
+    userData: state
+  }
+}
+
+export default connect(mapStateToProps)(GradProfileEdit)

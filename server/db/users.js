@@ -80,28 +80,17 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
     })
 }
 
-function updateGradProfile (id, updatedUser, conn) {
+function updateGradProfile (updatedUser, conn) {
   const db = conn || connection
-  return getUserByName(updatedUser.username, db)
-    // Username checker
-    // .then(user => {
-    //   if (!user || !hash.verify(user.hash,)) {
-    //     return Promise.reject(new Error('Username password match not found'))
-    //   }
-    //   return Promise.resolve(user)
-    // })
-    .then(user => {
-      if (id !== user.id) Promise.reject(new Error('Username and ID mismatch'))
-      return db('users')
-        .update({aboutMe: updatedUser.aboutMe,
-          location: updatedUser.location,
-          isAvailable: updatedUser.isAvailable,
-          portfolio: updatedUser.portfolio,
-          previousExperiences: updatedUser.previousExperiences,
-          interests: updatedUser.interests,
-          links: updatedUser.links
-        })
-        .where('id', user.id)
+  return db('grad_profiles')
+    .where('id', updatedUser.id)
+    .update({
+      aboutMe: updatedUser.aboutMe,
+      location: updatedUser.location,
+      github: updatedUser.github,
+      portfolio: updatedUser.portfolio,
+      previousExperience: updatedUser.previousExperience,
+      interests: updatedUser.interests
     })
 }
 
