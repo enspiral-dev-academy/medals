@@ -5,14 +5,8 @@ import Answers from './Answers'
 import sampleData from './questions.json'
 
 // mock data
-const answers = [{
-  id: 1,
-  key: 0,
-  text: 'answer text'}
-]
-
 const sampleQues = sampleData.questions
-// console.log(sampleQues)
+
 
 class Quiz extends React.Component {
   constructor (props) {
@@ -25,15 +19,19 @@ class Quiz extends React.Component {
     return (
       <div className='Quiz'>
         {/* will be from props */}
-        <h2>Question</h2>
-        <ul>
-          {answers.map(answer => {
+        <h2>{this.state.question[0].question}</h2>
+        <form>
+          {this.state.question[0].choices.map((answer, idx) => {
             return (
-              <div key={answer.id}>
+              <div key={idx}>
                 <Answers answer={answer} />
+                {/* <input type='radio' value={answer.key} /> */}
+
               </div>)
           })}
-        </ul>
+        </form>
+        <button type='button'>Submit Answer</button>&nbsp;
+        <button type='button'>Next Question</button>
       </div>
     )
   }
