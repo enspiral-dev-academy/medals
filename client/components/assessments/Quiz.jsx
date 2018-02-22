@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Check from './Check'
+
 import sampleData from './questions.json'
 
 // mock data
@@ -11,21 +13,28 @@ class Quiz extends React.Component {
     this.state = {
       question: sampleQues,
       answer: '',
-      key: ''
+      key: '',
+      reason: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
   handleChange (evt) {
     const selectedAnswer = evt.target.getAttribute('data-ans')
+    const reasoning = evt.target.getAttribute('data-fbk')
     this.setState({
       answer: selectedAnswer,
-      key: evt.target.value
+      key: evt.target.value,
+      reason: reasoning
     })
   }
 
   handleSubmit () {
-
+    if (this.state.key === 1) {
+      this.setState({
+        check: 'Correct!'
+      })
+    }
   }
   render () {
     return (
@@ -38,12 +47,14 @@ class Quiz extends React.Component {
               <div key={idx}>
                 <input type='radio' name='answer'
                   value={answer.key} data-ans={answer.ans}
+                  data-fbk={answer.fbk}
                   onChange={this.handleChange}
                   checked={this.state.answer === answer.ans} />
                 <label>&nbsp;{answer.ans}</label>
               </div>)
           })}
         </form>
+        {this.state.check && <Check feedback={this.state} />}
         <button type='button' onClick={this.handleSubmit}>Submit Answer</button>&nbsp;
         <button type='button'>Next Question</button>
       </div>
