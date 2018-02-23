@@ -41,7 +41,7 @@ export function getGradProfile (userId) {
 }
 
 export function submitEditGradProfile (updatedUser) {
-  console.log('Hello', updatedUser)
+  // console.log('Hello', updatedUser)
   return (dispatch) => {
     dispatch(editGradProfile(updatedUser))
     request('post', '/users/editedProfile', updatedUser)
