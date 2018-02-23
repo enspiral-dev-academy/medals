@@ -27,7 +27,7 @@ test('getSprint gets sprint number', () => {
 test('getAssignmentsBySprintId returns correct assignment', () => {
   return db.getAssignmentsBySprintId(1, testDb)
     .then(assignment => {
-      expect(assignment[0].title).toBe('Assignment 1')
+      expect(assignment[0].title).toBe('How to waffle')
     })
 })
 
