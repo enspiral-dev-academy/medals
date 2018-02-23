@@ -36,7 +36,8 @@ router.put('/:id', token.decode, (req, res) => {
 
 router.post('/editedProfile', token.decode, (req, res) => {
   // Once db is created may need to use grad-profiles.js
-  db.updateGradProfile({id: 1, aboutMe: 'about', location: 'NZ', github: 'github.com', portfolio: 'github and shit', previousExperience: 'worked', interests: 'interests'})
+  console.log(req.body, "this is working")
+  db.updateGradProfile(req.body)
     .catch(() => {
       res.status(400).send({
         errorType: 'DATABASE_ERROR'
