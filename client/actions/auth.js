@@ -5,6 +5,8 @@ import {saveAuthToken, logOff as logOffUser} from '../lib/auth'
 export const LOG_OFF = 'LOG_OFF'
 export const REQUEST_SIGNIN = 'REQUEST_SIGNIN'
 export const RECEIVE_SIGNIN = 'RECEIVE_SIGNIN'
+export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS'
+export const REQUEST_ALL_USERS = 'REQUEST_ALL_USERS'
 export const REQUEST_USER_DETAILS = 'REQUEST_USER_DETAILS'
 export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const REQUEST_UPDATE_PROFILE = 'REQUEST_UPDATE_PROFILE'
@@ -55,6 +57,18 @@ const receiveUserDetails = (userDetails) => {
   return {
     type: RECEIVE_USER_DETAILS,
     userDetails
+  }
+}
+
+const receiveAllUsers = (allUsers) => {
+  return {
+    type: RECEIVE_ALL_USERS,
+    allUsers
+  }
+}
+const requestAllUsers = () => {
+  return {
+    type: REQUEST_ALL_USERS
   }
 }
 
@@ -119,6 +133,20 @@ export function getUserDetails (userId) {
     request('get', `/users/${userId}`)
       .then(res => {
         dispatch(receiveUserDetails(res.body))
+        dispatch(clearError())
+      })
+      .catch(() => {
+        dispatch(showError('An unexpected error has occurred.'))
+      })
+  }
+}
+
+export function getAllUsers () {
+  return (dispatch) => {
+    dispatch(requestAllUsers())
+    request('get', `/users`)
+      .then(res => {
+        dispatch(receiveAllUsers(res.body))
         dispatch(clearError())
       })
       .catch(() => {

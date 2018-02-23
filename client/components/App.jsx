@@ -6,8 +6,9 @@ import '../styling/main.css'
 import Home from './Home'
 import Header from './Header'
 import SignIn from './SignIn'
-import Register from './Register'
 import Profile from './Profile'
+import Register from './Register'
+import WaitList from './WaitList'
 import ErrorMessage from './ErrorMessage'
 
 class App extends React.Component {
@@ -36,6 +37,7 @@ class App extends React.Component {
         <Route path='/register' component={Register} />
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
+        <Route path='/waitlist' component={WaitList}/>
       </div>
     )
   }
