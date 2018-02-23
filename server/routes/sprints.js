@@ -12,6 +12,13 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/assignments/:id', (req, res) => {
+  db.getTasksByAssignmentId(req.params.id)
+    .then(tasks => {
+      res.json(tasks)
+    })
+})
+
 router.get('/:number', (req, res) => {
   db.getAssignmentsBySprintId(req.params.number)
     .then(assignments => {
