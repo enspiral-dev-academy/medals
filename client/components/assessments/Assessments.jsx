@@ -1,17 +1,24 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {fetchList} from '../../actions/assessments'
+import {fetchList, sendTopic} from '../../actions/assessments'
 
 class Assessments extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
     }
+    this.updateTopic = this.updateTopic.bind(this)
   }
 
   componentDidMount () {
     this.props.dispatch(fetchList())
+  }
+
+  updateTopic (e) {
+    const selectedTopic = e.target.getAttribute('data-val')
+    console.log(selectedTopic)
+    this.props.dispatch(sendTopic(selectedTopic))
   }
 
   render () {
@@ -23,7 +30,7 @@ class Assessments extends React.Component {
         <ul>
           {this.props.assessmentTopics.map((topic, id) => {
             return (
-              <Link key={id} to={`/assessments/${topic}`}><li>{topic}</li></Link>
+              <Link key={id} to={`/assessments/${topic}`} onClick={this.updateTopic}><li data-val={topic}>{topic}</li></Link>
             )
           })}
         </ul>

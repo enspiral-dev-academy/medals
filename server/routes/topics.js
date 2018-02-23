@@ -27,4 +27,18 @@ const getList = () => {
   return knex('quiz_tags').select('tag')
 }
 
+router.get('/:id', (req, res) => {
+  getQuestions()
+    .then(function (ids) {
+      res.send({ids})
+    })
+  // do we need a catch?
+})
+
+const getQuestions = () => {
+  return knex('quiz_tags')
+    .join('quiz_questions_tags', 'quiz_questions_tags.id', 'quiz_tags.id')
+    .select('quiz_tags.id')
+}
+
 module.exports = router

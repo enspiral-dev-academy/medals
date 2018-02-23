@@ -29,3 +29,42 @@ export function fetchList () {
       })
   }
 }
+
+export const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
+
+export function getQuestions () {
+  return (dispatch) => {
+    request
+      .get('http://localhost:3000/api/v1/topic/questions')
+      .end((err, res) => {
+        if (err) {
+          // eslint-disable-next-line no-console
+          console.error(err)
+        }
+        const list = res.body.ids
+        const send = []
+        for (let i = 0; i < list.length; i++) {
+          send.push(list[i].id)
+        }
+        dispatch(questions(send))
+      })
+  }
+}
+
+export const questions = (list) => {
+  return {
+    type: FETCH_QUESTIONS,
+    questions: list
+
+  }
+}
+
+export const UPDATE_TOPIC = 'UPDATE_TOPIC'
+
+export const sendTopic = (topic) => {
+  return {
+    type: UPDATE_TOPIC,
+    questionTopic: topic
+
+  }
+}
