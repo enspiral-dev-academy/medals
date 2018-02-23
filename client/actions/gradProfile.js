@@ -8,14 +8,14 @@ export const EDIT_GRAD_PROFILE = 'EDIT_GRAD_PROFILE'
 export const requestGradProfile = (userId) => {
   return {
     type: REQUEST_GRAD_PROFILE,
-    userId: userId
+    loading: true
   }
 }
 
 const receiveGradProfile = (userData) => {
   return {
     type: RECEIVE_GRAD_PROFILE,
-    userData: userData
+    userData
   }
 }
 
@@ -28,8 +28,8 @@ const editGradProfile = (currentUser) => {
 
 export function getGradProfile (userId) {
   return (dispatch) => {
-    dispatch(requestGradProfile(userId))
-    request('get', `/users/${userId}`)
+    dispatch(requestGradProfile())
+    request('get', `/users/grad/${userId}`)
       .then(res => {
         dispatch(receiveGradProfile(res.body))
         // dispatch(clearError())
