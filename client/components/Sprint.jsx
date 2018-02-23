@@ -20,7 +20,7 @@ class Sprint extends React.Component {
     request.get('/api/v1/sprints/' + number)
       .then(res => {
         this.setState({
-          assignments: res.body.assignments
+          assignments: res.body
         })
       }
       )
@@ -32,7 +32,7 @@ class Sprint extends React.Component {
         <button type='button' onClick={this.getAssignments}>Issue Sprint</button>
         <ul>
           {this.state.assignments.map((assignment, key) => {
-            return <li key={key}><Link to={`${this.props.match.url}/assignment/${assignment.id}`}>{assignment.name}</Link></li>
+            return <li key={key}><Link to={`${this.props.match.url}/assignment/${assignment.id}`}>{assignment.title}</Link></li>
           })}
         </ul>
       </div>

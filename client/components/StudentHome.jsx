@@ -22,7 +22,7 @@ class StudentHome extends React.Component {
     request.get('/api/v1/sprints/')
       .then(res => {
         this.setState({
-          sprints: res.body.sprints
+          sprints: res.body
         })
       })
   }
@@ -36,7 +36,7 @@ class StudentHome extends React.Component {
             {this.state.sprints.map((sprint, key) => {
               return (
                 <li key={key}>
-                  <Link to={`/sprint/${sprint.number}`}>Sprint {sprint.number}</Link>
+                  <Link to={`/sprint/${sprint.id}`}>Sprint {sprint.number}</Link>
                 </li>
               )
             })}
