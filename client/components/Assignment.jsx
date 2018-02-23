@@ -1,5 +1,5 @@
 import React from 'react'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import request from 'superagent'
 
 class Assignment extends React.Component {
@@ -36,11 +36,12 @@ class Assignment extends React.Component {
               <p>
                 <input type='checkbox' value={task.id} />
                 {task.description}</p>
-              <input type='text' /><br/>
-              <button type='button'>Save changes</button>
             </div>
           )
         })}
+        <input type='text' /><br/>
+        <button type='button'>Save changes</button>
+        <Link to='..'>Back to Sprint</Link>
       </div>
     )
   }
