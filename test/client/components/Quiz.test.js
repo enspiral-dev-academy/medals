@@ -1,8 +1,5 @@
 import React from 'react'
-import {mount, render} from 'enzyme'
-import {Provider} from 'react-redux'
-import configureStore from 'redux-mock-store'
-import {MemoryRouter as Router} from 'react-router'
+import {render} from 'enzyme'
 
 import Quiz from '../../../client/components/assessments/Quiz'
 
