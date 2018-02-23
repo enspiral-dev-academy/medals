@@ -20,7 +20,7 @@ const receiveSaveGradProfile = (userData) => {
 export function saveGradProfile (userData) {
   return (dispatch) => {
     dispatch(requestSaveGradProfile())
-    request('post', `/users/${}`, userData)
+    request('post', `/users/$`, userData)
       .then(res => {
         dispatch(receiveSaveGradProfile(res.body))
         // dispatch(clearError())
