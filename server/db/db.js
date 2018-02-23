@@ -17,6 +17,7 @@ function getUsers () {
 
 function getSprints () {
   return devDb('sprints')
+    .select()
 }
 
 function getAssignmentsBySprintId (sprintId, conn) {
