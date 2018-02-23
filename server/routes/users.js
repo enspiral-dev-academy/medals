@@ -21,6 +21,17 @@ router.get('/:id', token.decode, (req, res) => {
     })
 })
 
+// GET a grads profile from /users/:id
+router.get('/grad/:id', token.decode, (req, res) => {
+  db.getGradProfileById(Number(req.params.id))
+    .then(user => {
+      res.json(user)
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
+})
+
 // PUT /users/:id
 router.put('/:id', token.decode, (req, res) => {
   const id = Number(req.params.id)

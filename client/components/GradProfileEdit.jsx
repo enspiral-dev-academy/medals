@@ -1,7 +1,8 @@
 import React from 'react'
-import {requestGradProfile, submitEditGradProfile} from '../actions/gradProfile'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
+import {getGradProfile} from '../actions/gradProfile'
 
 class GradProfileEdit extends React.Component {
   constructor (props) {
@@ -25,7 +26,8 @@ class GradProfileEdit extends React.Component {
   }
 
   getGradsDetails () {
-    this.props.dispatch(requestGradProfile(this.state.userId))
+    // this.props.dispatch(requestGradProfile(this.state.userId))
+    this.props.dispatch(getGradProfile(this.state.userId))
   }
 
   handleChange (evt) {
@@ -44,6 +46,7 @@ class GradProfileEdit extends React.Component {
   }
 
   render () {
+    const {aboutMe, location, github, portfolio, previousExperience, interests} = this.props.userData
     return (
       <div>
         <form className='submit-form'>
@@ -51,37 +54,37 @@ class GradProfileEdit extends React.Component {
             About Me:
           </h3>
           <div>
-            <input name='aboutMe' onChange={this.handleChange} placeholder={this.props.userData.getUserReducer.aboutMe}/>
+            <input name='aboutMe' onChange={this.handleChange} placeholder={aboutMe}/>
           </div>
           <h3>
             Location:
           </h3>
           <div>
-            <input name='location' onChange={this.handleChange} placeholder={this.props.userData.getUserReducer.location}/>
+            <input name='location' onChange={this.handleChange} placeholder={location}/>
           </div>
           <h3>
             Github:
           </h3>
           <div>
-            <input name='githubLink' onChange={this.handleChange} placeholder={this.props.userData.getUserReducer.githubLink}/>
+            <input name='githubLink' onChange={this.handleChange} placeholder={github}/>
           </div>
           <h3>
             Portfolio:
           </h3>
           <div>
-            <input name='portfolio' onChange={this.handleChange} placeholder={this.props.userData.getUserReducer.portfolio}/>
+            <input name='portfolio' onChange={this.handleChange} placeholder={portfolio}/>
           </div>
           <h3>
             Previous Experience:
           </h3>
           <div>
-            <input name='previousExperience' onChange={this.handleChange} placeholder={this.props.userData.getUserReducer.previousExperience}/>
+            <input name='previousExperience' onChange={this.handleChange} placeholder={previousExperience}/>
           </div>
           <h3>
             Interests:
           </h3>
           <div>
-            <input name='interests' onChange={this.handleChange} placeholder={this.props.userData.getUserReducer.interests}/>
+            <input name='interests' onChange={this.handleChange} placeholder={interests}/>
           </div>
           <Link to='/grad-profile'><button onClick={() => this.addGradProfile()}>Save Changes
           </button></Link>
@@ -93,7 +96,7 @@ class GradProfileEdit extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userData: state
+    userData: state.getUserReducer
   }
 }
 
