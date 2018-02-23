@@ -1,9 +1,8 @@
 import request from '../lib/api'
-import {showError, clearError} from './error'
+import {showError} from './error'
 
 export const REQUEST_GRAD_PROFILE = 'REQUEST_GRAD_PROFILE'
 export const RECEIVE_GRAD_PROFILE = 'RECEIVE_GRAD_PROFILE'
-export const EDIT_GRAD_PROFILE = 'EDIT_GRAD_PROFILE'
 
 export const requestGradProfile = (userId) => {
   return {
@@ -19,13 +18,6 @@ const receiveGradProfile = (userData) => {
   }
 }
 
-const editGradProfile = (currentUser) => {
-  return {
-    type: EDIT_GRAD_PROFILE,
-    currentUser
-  }
-}
-
 export function getGradProfile (userId) {
   return (dispatch) => {
     dispatch(requestGradProfile())
@@ -36,22 +28,6 @@ export function getGradProfile (userId) {
       })
       .catch(() => {
         dispatch(showError('An unexpected error in getting user info'))
-      })
-  }
-}
-
-export function submitEditGradProfile (updatedUser) {
-  console.log('Hello', updatedUser)
-  return (dispatch) => {
-    dispatch(editGradProfile(updatedUser))
-    request('post', '/users/editedProfile', updatedUser)
-      .then(res => {
-        // Needs correction once getGradProfile is completed
-        // dispatch(getGradProfile(res.body.id))
-        dispatch(clearError())
-      })
-      .catch(() => {
-        dispatch(showError('An unexpected error has occured.'))
       })
   }
 }

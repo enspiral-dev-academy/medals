@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
+import {requestGradProfile} from '../actions/gradProfile'
+import {saveGradProfile} from '../actions/gradProfileSaveEdit'
 import {getGradProfile} from '../actions/gradProfile'
 
 class GradProfileEdit extends React.Component {
@@ -38,7 +40,7 @@ class GradProfileEdit extends React.Component {
 
   addGradProfile () {
     const currentUser = this.state
-    this.props.dispatch(submitEditGradProfile(currentUser))
+    this.props.dispatch(saveGradProfile(currentUser))
   }
 
   submitChangedData () {
