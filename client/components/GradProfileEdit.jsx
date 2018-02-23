@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {requestGradProfile} from '../actions/gradProfile'
 import {saveGradProfile} from '../actions/gradProfileSaveEdit'
 import {getGradProfile} from '../actions/gradProfile'
 
