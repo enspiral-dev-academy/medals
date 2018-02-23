@@ -11,6 +11,7 @@ import Profile from './Profile'
 import ErrorMessage from './ErrorMessage'
 import StudentHome from './StudentHome'
 import Sprint from './Sprint'
+import Assignment from './Assignment'
 
 const App = () => {
   return (
@@ -22,7 +23,8 @@ const App = () => {
         <Route path='/register' component={Register} />
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
-        <Route path='/sprint/:number' component={Sprint} />
+        <Route exact path='/sprint/:number' component={Sprint} />
+        <Route path='/sprint/:number/assignment/:id' component={Assignment} />
       </div>
     </Router>
   )
