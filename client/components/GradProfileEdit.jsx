@@ -1,7 +1,8 @@
 import React from 'react'
-import {getGradProfile} from '../actions/gradProfile'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
+import {getGradProfile} from '../actions/gradProfile'
 
 class GradProfileEdit extends React.Component {
   constructor (props) {
@@ -16,6 +17,7 @@ class GradProfileEdit extends React.Component {
       interests: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.addGradProfile = this.addGradProfile.bind(this)
     //  this.getGradsDetails = this.getGradsDetails.bind(this)
   }
 
@@ -34,10 +36,13 @@ class GradProfileEdit extends React.Component {
     })
   }
 
-  addGradProfile (profile) {
-    // request(api/)
-    // .post(this.state)
-    // })
+  addGradProfile () {
+    const currentUser = this.state
+    this.props.dispatch(submitEditGradProfile(currentUser))
+  }
+
+  submitChangedData () {
+    // call redux for currentUser
   }
 
   render () {
@@ -81,7 +86,7 @@ class GradProfileEdit extends React.Component {
           <div>
             <input name='interests' onChange={this.handleChange} placeholder={interests}/>
           </div>
-          <Link to='/grad-profile'><button onClick={() => this.props.addGradProfile(this.state)}>Save Changes
+          <Link to='/grad-profile'><button onClick={() => this.addGradProfile()}>Save Changes
           </button></Link>
         </form>
       </div>
