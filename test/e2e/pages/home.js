@@ -11,10 +11,8 @@ module.exports = {
   _init () {
     I = actor()
   },
-
-  signout () {
+  signsout () {
     I.amOnPage('/home')
     I.click('Log off')
   }
-
 }

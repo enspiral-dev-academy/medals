@@ -13,7 +13,7 @@ module.exports = function () {
     },
     signsout: function () {
       homePage._init()
-      homePage.signout()
+      homePage.signsout()
     }
   }, personifiedMethods))
 }
