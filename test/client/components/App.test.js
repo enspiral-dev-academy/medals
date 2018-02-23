@@ -5,5 +5,5 @@ import App from '../../../client/components/App'
 
 test('<App /> contains the router', () => {
   const wrapper = shallow(<App />)
-  expect(wrapper.text()).toBe('<BrowserRouter />')
+  expect(wrapper.text()).toBe('<Route />')
 })
