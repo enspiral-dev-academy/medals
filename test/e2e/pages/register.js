@@ -1,13 +1,13 @@
 'use strict'
 
-/* global actor */
+// /* global actor */
 
-let I
+// let I
 
 module.exports = {
-  _init () {
-    I = actor()
-  },
+  // _init () {
+  //   I = actor()
+  // },
   register (username, password) {
     // TODO: complete after researching redirect issue
     // I.amOnPage('/register')
