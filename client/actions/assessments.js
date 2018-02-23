@@ -58,3 +58,13 @@ export const questions = (list) => {
 
   }
 }
+
+export const UPDATE_TOPIC = 'UPDATE_TOPIC'
+
+export const sendTopic = (topic) => {
+  return {
+    type: UPDATE_TOPIC,
+    questionTopic: topic
+
+  }
+}

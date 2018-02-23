@@ -15,7 +15,7 @@ class AssessmentHome extends React.Component {
   render () {
     return (
       <div className='AssessmentHome'>
-        <Link to='/assessments/:id/:question'><button>Let's Quiz</button></Link>
+        <Link to={`/assessments/${this.props.questionTopic}/:question`}><button>Let's Quiz</button></Link>
       </div>
     )
   }
@@ -23,7 +23,8 @@ class AssessmentHome extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    assesmentQuestions: state.assesmentQuestions
+    assessmentQuestions: state.assessmentQuestions,
+    questionTopic: state.questionTopic
   }
 }
 
