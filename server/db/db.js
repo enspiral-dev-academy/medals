@@ -4,21 +4,27 @@ const config = require('./knexfile').development
 const devDb = knex(config)
 
 module.exports = {
-  getUser,
-  getSprint,
+  getSprints,
+  getUserById,
+  getSprintById,
   getAssignmentsBySprintId,
   getTasksByAssignmentId,
   getAssignedTasks
 }
 
-function getUser (userId, conn) {
+function getSprints () {
+  return devDb('sprints')
+    .select()
+}
+
+function getUserById (userId, conn) {
   return devDb('users')
     .where('users.id', userId)
     .select()
     .first()
 }
 
-function getSprint (sprintId, conn) {
+function getSprintById (sprintId, conn) {
   return devDb('sprints')
     .where('sprints.id', sprintId)
     .select()
