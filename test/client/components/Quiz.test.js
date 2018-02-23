@@ -16,6 +16,5 @@ test('<Quiz /> shows 4 answers', () => {
 test.skip('<Quiz /> shows <Check /> on submit', () => {
   const wrapper = shallow(<Quiz />)
   wrapper.find('button').simulate('click')
-  console.log(wrapper.state)
   expect(wrapper.state.check).toBeTruthy()
 })
