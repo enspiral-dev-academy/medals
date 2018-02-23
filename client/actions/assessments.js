@@ -20,7 +20,12 @@ export function fetchList () {
           // eslint-disable-next-line no-console
           console.error(err)
         }
-        dispatch(getTopics(res.body.topics))
+        const list = res.body.topics
+        const send = []
+        for (let i = 0; i < list.length; i++) {
+          send.push(list[i].tag)
+        }
+        dispatch(getTopics(send))
       })
   }
 }
