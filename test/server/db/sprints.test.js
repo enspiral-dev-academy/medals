@@ -11,14 +11,14 @@ beforeEach(() => {
 afterEach(() => env.cleanup(testDb))
 
 test('getUser gets users id', () => {
-  return db.getUser(2, testDb)
+  return db.getUserById(2, testDb)
     .then(user => {
       expect(user.id).toBe(2)
     })
 })
 
 test('getSprint gets sprint number', () => {
-  return db.getSprint(1, testDb)
+  return db.getSprintById(1, testDb)
     .then(sprint => {
       expect(sprint.number).toBe(0)
     })
