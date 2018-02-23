@@ -81,13 +81,14 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
 }
 
 function updateGradProfile (updatedUser, conn) {
+  console.log(updatedUser)
   const db = conn || connection
   return db('grad_profiles')
-    .where('id', updatedUser.id)
+    .where('id', updatedUser.userId)
     .update({
       aboutMe: updatedUser.aboutMe,
       location: updatedUser.location,
-      github: updatedUser.github,
+      github: updatedUser.githubLink,
       portfolio: updatedUser.portfolio,
       previousExperience: updatedUser.previousExperience,
       interests: updatedUser.interests
