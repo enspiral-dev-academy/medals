@@ -20,10 +20,9 @@ const receiveSaveGradProfile = (userData) => {
 export function saveGradProfile (userData) {
   return (dispatch) => {
     dispatch(requestSaveGradProfile())
-    request('post', `/users/$`, userData)
+    request('post', '/users/editedProfile', userData)
       .then(res => {
         dispatch(receiveSaveGradProfile(res.body))
-        // dispatch(clearError())
       })
       .catch(() => {
         dispatch(showError('An unexpected error in getting user info'))
