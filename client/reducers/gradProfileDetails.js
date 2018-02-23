@@ -25,6 +25,9 @@ const getUserReducer = (state = initialState, action) => {
       return {
         ...state
       }
+
+    case 'EDIT_GRAD_PROFILE' :
+      return {currentUser: action.currentUser}
     default :
       return state
   }
