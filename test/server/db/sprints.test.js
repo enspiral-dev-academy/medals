@@ -27,14 +27,14 @@ test('getSprint gets sprint number', () => {
 test('getAssignmentsBySprintId returns correct assignment', () => {
   return db.getAssignmentsBySprintId(1, testDb)
     .then(assignment => {
-      expect(assignment[0].title).toBe('kimmis cookies')
+      expect(assignment[0].title).toBe('Assignment 1')
     })
 })
 
 test('getTasksByAssignmentId returns correct task', () => {
   return db.getTasksByAssignmentId(3, testDb)
     .then(task => {
-      expect(task[0].description).toBe('smiles')
+      expect(task[0].description).toBe('Start Toggle')
     })
 })
 
