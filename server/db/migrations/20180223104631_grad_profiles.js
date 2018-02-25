@@ -3,7 +3,7 @@ exports.up = (knex, Promise) => {
     table.increments('id')
     table.string('aboutMe')
     table.string('location')
-    table.string('github')
+    table.string('githubLink')
     table.string('portfolio')
     table.string('previousExperience')
     table.string('interests')

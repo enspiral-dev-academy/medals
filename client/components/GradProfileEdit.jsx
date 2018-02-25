@@ -26,6 +26,10 @@ class GradProfileEdit extends React.Component {
     this.getGradsDetails()
   }
 
+  componentWillReceiveProps (props) {
+    this.setState(props.userData)
+  }
+
   getGradsDetails () {
     this.props.dispatch(getGradProfile(this.state.userId))
   }
@@ -39,10 +43,6 @@ class GradProfileEdit extends React.Component {
   addGradProfile () {
     const currentUser = this.state
     this.props.dispatch(saveGradProfile(currentUser))
-  }
-
-  submitChangedData () {
-    // call redux for currentUser
   }
 
   render () {
