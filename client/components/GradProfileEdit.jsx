@@ -54,7 +54,7 @@ class GradProfileEdit extends React.Component {
             About Me:
           </h3>
           <div>
-            <input name='aboutMe' onChange={this.handleChange} placeholder={aboutMe}/>
+            <textarea name='aboutMe' onChange={this.handleChange} placeholder={aboutMe}/>
           </div>
           <h3>
             Location:
@@ -78,13 +78,13 @@ class GradProfileEdit extends React.Component {
             Previous Experience:
           </h3>
           <div>
-            <input name='previousExperience' onChange={this.handleChange} placeholder={previousExperience}/>
+            <textarea name='previousExperience' onChange={this.handleChange} placeholder={previousExperience}/>
           </div>
           <h3>
             Interests:
           </h3>
           <div>
-            <input name='interests' onChange={this.handleChange} placeholder={interests}/>
+            <textarea name='interests' onChange={this.handleChange} placeholder={interests}/>
           </div>
           <Link to='/grad-profile'><button onClick={() => this.addGradProfile()}>Save Changes
           </button></Link>

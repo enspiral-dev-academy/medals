@@ -51,7 +51,7 @@ class GradProfile extends React.Component {
             Github Link:
             </div>
             <div className='github-link-content'>
-              <p>{githubLink}</p>
+              <a href={`${githubLink}`}>{githubLink}</a>
             </div>
           </div>
           <div className='portfolio'>

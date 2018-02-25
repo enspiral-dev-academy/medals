@@ -23,8 +23,8 @@ const App = () => {
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
         <Route path='/grad-profile/edit' component={Header} />
-        <Route path='/grad-profile' component={GradProfile} />
-        <Route path='/grad-profile/edit' component={GradProfileEdit} />
+        <Route exact path='/grad-profile' component={GradProfile} />
+        <Route exact path='/grad-profile/edit' component={GradProfileEdit} />
       </div>
     </Router>
   )
