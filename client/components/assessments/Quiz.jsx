@@ -12,6 +12,7 @@ class Quiz extends React.Component {
     super(props)
     this.state = {
       question: sampleQues,
+      questionIndx: 0,
       answer: '',
       key: '',
       reason: '',
@@ -44,13 +45,19 @@ class Quiz extends React.Component {
       })
     }
   }
+  // displayNext () {
+  //   this.setState({
+
+  //   })
+  // }
+
   render () {
     return (
       <div className='Quiz'>
-        <h2>{this.state.question[0].question}</h2>
+        <h2>{this.state.question[this.state.questionIndx].question}</h2>
         <form>
    
-          {this.state.question[0].choices.map((answer, idx) => {
+          {this.state.question[this.state.questionIndx].choices.map((answer, idx) => {
             return (
               <div key={idx}>
                 <input readOnly type='radio' name='answer'
