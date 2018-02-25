@@ -3,6 +3,7 @@ import {showError} from './error'
 
 export const REQUEST_GRAD_PROFILE = 'REQUEST_GRAD_PROFILE'
 export const RECEIVE_GRAD_PROFILE = 'RECEIVE_GRAD_PROFILE'
+export const EDIT_GRAD_PROFILE = 'EDIT_GRAD_PROFILE'
 
 export const requestGradProfile = (userId) => {
   return {
