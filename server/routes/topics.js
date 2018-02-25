@@ -28,17 +28,19 @@ const getList = () => {
 }
 
 router.get('/:id', (req, res) => {
-  getQuestions()
-    .then(function (ids) {
-      res.send({ids})
+  const tag = 'JavaScript'
+  getQuestions(tag)
+    .then(function (questions) {
+      res.send({questions})
     })
   // do we need a catch?
 })
 
-const getQuestions = () => {
-  return knex('quiz_tags')
-    .join('quiz_questions_tags', 'quiz_questions_tags.id', 'quiz_tags.id')
-    .select('quiz_tags.id')
+const getQuestions = (tag) => {
+  return knex('quiz_questions')
+    .join('quiz_questions_tags', 'quiz_questions_tags.question_id', '=', 'quiz_questions.id')
+    .join('quiz_tags', 'quiz_questions_tags.tag_id', '=', 'quiz_tags.id')
+    .where('quiz_tags.tag', tag)
 }
 
 module.exports = router
