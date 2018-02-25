@@ -8,7 +8,7 @@ const initialState = {
   userId: 1,
   aboutMe: 'I am an about section',
   location: 'I am a location',
-  github: 'I am a github link',
+  githubLink: 'I am a github link',
   portfolio: 'I am a portfolio',
   previousExperience: 'I am a previousExperience',
   interests: 'I am a intrest'
