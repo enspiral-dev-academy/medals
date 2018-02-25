@@ -1,6 +1,6 @@
 import {GET_TOPICS} from '../actions/assessments'
 
-const assessmentTopics = (state = ['test'], action) => {
+const assessmentTopics = (state = [''], action) => {
   switch (action.type) {
     case GET_TOPICS:
       return action.topics
