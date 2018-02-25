@@ -47,7 +47,9 @@ class Quiz extends React.Component {
     }
   }
   displayNext () {
-  // console.log('next Click')
+    this.setState({
+      questionIndx: this.state.questionIndx + 1
+    })
   }
 
   render () {
@@ -55,7 +57,7 @@ class Quiz extends React.Component {
       <div className='Quiz'>
         <h2>{this.state.question[this.state.questionIndx].question}</h2>
         <form>
-   
+
           {this.state.question[this.state.questionIndx].choices.map((answer, idx) => {
             return (
               <div key={idx}>
