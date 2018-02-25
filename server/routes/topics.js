@@ -27,13 +27,12 @@ const getList = () => {
   return knex('quiz_tags').select('tag')
 }
 
-router.get('/:id', (req, res) => {
-  const tag = 'JavaScript'
-  getQuestions(tag)
+router.get('/:topic', (req, res) => {
+  const questionTopic = req.params.topic
+  getQuestions(questionTopic)
     .then(function (questions) {
       res.send({questions})
     })
-  // do we need a catch?
 })
 
 const getQuestions = (tag) => {

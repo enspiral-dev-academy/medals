@@ -12,6 +12,7 @@ class Quiz extends React.Component {
     super(props)
     this.state = {
       question: sampleQues,
+      questionIndx: 0,
       answer: '',
       key: '',
       reason: '',
@@ -20,6 +21,7 @@ class Quiz extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.displayNext = this.displayNext.bind(this)
   }
   handleChange (evt) {
     const selectedAnswer = evt.target.getAttribute('data-ans')
@@ -44,13 +46,19 @@ class Quiz extends React.Component {
       })
     }
   }
+  displayNext () {
+    this.setState({
+      questionIndx: this.state.questionIndx + 1
+    })
+  }
+
   render () {
     return (
       <div className='Quiz'>
-        <h2>{this.state.question[0].question}</h2>
+        <h2>{this.state.question[this.state.questionIndx].question}</h2>
         <form>
-   
-          {this.state.question[0].choices.map((answer, idx) => {
+
+          {this.state.question[this.state.questionIndx].choices.map((answer, idx) => {
             return (
               <div key={idx}>
                 <input readOnly type='radio' name='answer'
@@ -63,7 +71,7 @@ class Quiz extends React.Component {
               </div>)
           })}
         </form>
-        {this.state.check && <Check feedback={this.state} />}
+        {this.state.check && <Check feedback={this.state} displayNext={this.displayNext} />}
         <button type='button' onClick={this.handleSubmit}>Submit Answer</button>
       </div>
     )

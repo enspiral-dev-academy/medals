@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Check = ({feedback}) => {
+const Check = (props) => {
   return (
     <div>
-      <h3>{feedback.check}</h3>
-      <p>{feedback.reason}</p>
-      <button type='button'>Next Question</button>
+      <h3>{props.feedback.check}</h3>
+      <p>{props.feedback.reason}</p>
+      <button onClick={props.displayNext} type='button'>Next Question</button>
     </div>
   )
 }

@@ -17,7 +17,6 @@ class Assessments extends React.Component {
 
   updateTopic (e) {
     const selectedTopic = e.target.getAttribute('data-val')
-    console.log(selectedTopic)
     this.props.dispatch(sendTopic(selectedTopic))
   }
 
