@@ -12,10 +12,6 @@ import WaitList from './WaitList'
 import ErrorMessage from './ErrorMessage'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.setToken = this.setToken.bind(this)
-  }
   componentDidMount () {
     this.setToken()
   }
@@ -32,12 +28,12 @@ class App extends React.Component {
     return (
       <div className='app'>
         <Route path='/' component={Header} />
-        <Route path='/' component={ErrorMessage} />
         <Route exact path='/' component={Home} />
-        <Route path='/register' component={Register} />
         <Route path='/signin' component={SignIn} />
+        <Route path='/' component={ErrorMessage} />
         <Route path='/profile' component={Profile} />
         <Route path='/waitlist' component={WaitList}/>
+        <Route path='/register' component={Register} />
       </div>
     )
   }

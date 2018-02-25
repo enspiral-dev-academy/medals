@@ -1,19 +1,15 @@
-import {
-  RECEIVE_ALL_USERS,
-  LOG_OFF,
-  REQUEST_ALL_USERS
-} from '../actions/auth'
+import {RECEIVE_ALL_USERS, LOG_OFF, REQUEST_ALL_USERS} from '../actions/auth'
 
-const allUsers = (state = null, action) => {
+const allUsers = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_ALL_USERS:
       return action.allUsers
 
     case REQUEST_ALL_USERS:
-      return null
+      return []
 
     case LOG_OFF:
-      return null
+      return []
 
     default:
       return state

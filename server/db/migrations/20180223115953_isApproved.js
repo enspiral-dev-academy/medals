@@ -1,11 +1,11 @@
 exports.up = (knex, Promise) => {
   return knex.schema.table('users', (table) => {
-    table.boolean('isApproved')
+    table.boolean('is_approved')
   })
 }
 
 exports.down = (knex, Promise) => {
   return knex.schema.table('users', (table) => {
-    table.dropColumn('isApproved')
+    table.dropColumn('is_approved')
   })
 }

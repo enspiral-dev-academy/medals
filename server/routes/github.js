@@ -4,8 +4,8 @@ const cookieParser = require('cookie-parser')()
 const expressSession = require('express-session')
 const GitHubStrategy = require('passport-github').Strategy
 
-const {findOrCreateGitHubUser} = require('../db/users')
 const token = require('../auth/token')
+const {findOrCreateGitHubUser} = require('../db/users')
 
 const session = expressSession({
   secret: process.env.SESSION_SECRET,
