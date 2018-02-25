@@ -1,7 +1,7 @@
 exports.seed = (knex, Promise) => {
   return knex('assignments').insert([
     {id: 1, title: 'Assignment 1', sprint_id: 1},
-    {id: 2, title: 'Assignment 2: Minesweeper', sprint_id: 1},
+    {id: 2, title: 'Assignment 2', sprint_id: 1},
     {id: 3, title: 'Assignment 3', sprint_id: 1},
     {id: 4, title: 'Assignment 4', sprint_id: 1},
     {id: 5, title: 'Assignment 5', sprint_id: 1},
