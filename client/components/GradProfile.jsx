@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
+import EditableComponent from './EditableComponent'
 import {getGradProfile} from '../actions/gradProfile'
 // import GradProfileEdit from './GradProfileEdit'
 
@@ -31,13 +32,18 @@ class GradProfile extends React.Component {
           Edit Profile
           </button></Link>
           <div className='about-me'>
+
+{/*         Current Work */}
             <div className='about-me-title'>
-            About Me:
+            About Me:  
             </div>
+            <EditableComponent content={aboutMe} />
             <div className='about-me-content'>
               <p>{aboutMe}</p>
             </div>
           </div>
+
+          {/* Current Work ^ ^ ^ */}
           <div className='location'>
             <div className='location-title'>
             Location:
