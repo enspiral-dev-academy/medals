@@ -32,10 +32,10 @@ export function fetchList () {
 
 export const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
 
-export function getQuestions () {
+export function getQuestions (questionTopic) {
   return (dispatch) => {
     request
-      .get('http://localhost:3000/api/v1/topic/questions')
+      .get(`http://localhost:3000/api/v1/topic/${questionTopic}`)
       .end((err, res) => {
         if (err) {
           // eslint-disable-next-line no-console

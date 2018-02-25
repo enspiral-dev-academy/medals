@@ -27,7 +27,9 @@ const getList = () => {
   return knex('quiz_tags').select('tag')
 }
 
-router.get('/:id', (req, res) => {
+router.get('/:topic', (req, res) => {
+  // const questionTopic = req.params.topic
+  // console.log(questionTopic)
   getQuestions()
     .then(function (ids) {
       res.send({ids})
