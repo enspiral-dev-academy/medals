@@ -21,6 +21,7 @@ class Quiz extends React.Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.displayNext = this.displayNext.bind(this)
   }
   handleChange (evt) {
     const selectedAnswer = evt.target.getAttribute('data-ans')
@@ -45,11 +46,9 @@ class Quiz extends React.Component {
       })
     }
   }
-  // displayNext () {
-  //   this.setState({
-
-  //   })
-  // }
+  displayNext () {
+  // console.log('next Click')
+  }
 
   render () {
     return (
@@ -70,7 +69,7 @@ class Quiz extends React.Component {
               </div>)
           })}
         </form>
-        {this.state.check && <Check feedback={this.state} />}
+        {this.state.check && <Check feedback={this.state} displayNext={this.displayNext} />}
         <button type='button' onClick={this.handleSubmit}>Submit Answer</button>
       </div>
     )
