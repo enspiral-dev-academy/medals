@@ -9,8 +9,10 @@ class Profile extends React.Component {
     super(props)
     this.state = {
       username: props.username,
+      firstName: '',
+      preferredName: '',
+      surname: '',
       email: '',
-      cohort: '',
       profilePic: '',
       bio: '',
       currentPassword: '',
@@ -29,7 +31,7 @@ class Profile extends React.Component {
   }
 
   render () {
-    const {username, email, cohort, profilePic, bio, currentPassword, newPassword, confirm, showMatch, match} = this.state
+    const {username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm, showMatch, match} = this.state
     return (
       <div className='profile'>
         <div className='page-content-wrapper'>
@@ -45,14 +47,24 @@ class Profile extends React.Component {
                   onChange={this.handleChange} value={username} />
                 <br/>
 
+                <label htmlFor='firstName'>First Name: </label>
+                <input id='firstName' name='firstName' placeholder='firstName'
+                  onChange={this.handleChange} value={firstName} />
+                <br/>
+
+                <label htmlFor='preferredName'>Preferred Name: </label>
+                <input id='preferredName' name='preferredName' placeholder='preferredName'
+                  onChange={this.handleChange} value={preferredName} />
+                <br/>
+
+                <label htmlFor='surname'>Surname: </label>
+                <input id='surname' name='surname' placeholder='surname'
+                  onChange={this.handleChange} value={surname} />
+                <br/>
+
                 <label htmlFor='email'>Email: </label>
                 <input id='email' name='email' placeholder='email'
                   onChange={this.handleChange} value={email} />
-                <br/>
-
-                <label htmlFor='cohort'>Cohort: </label>
-                <input id='cohort' name='cohort' placeholder='cohort'
-                  onChange={this.handleChange} value={cohort} />
                 <br/>
 
                 <label htmlFor='profilePic'>Upload Profile Picture: </label>
@@ -61,7 +73,7 @@ class Profile extends React.Component {
                 <br/>
 
                 <label htmlFor='bio'>Bio: </label>
-                <input id='bio' name='bio' placeholder='bio'
+                <textarea id='bio' name='bio' placeholder='your bio here'
                   onChange={this.handleChange} value={bio} />
                 <br/>
 
@@ -109,8 +121,8 @@ class Profile extends React.Component {
 
   handleSubmit (e) {
     const {id, updateProfile} = this.props
-    const {username, email, cohort, profilePic, bio, currentPassword, newPassword, confirm} = this.state
-    updateProfile(id, username, email, cohort, profilePic, bio, currentPassword, newPassword, confirm)
+    const {username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm} = this.state
+    updateProfile(id, username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm)
     e.preventDefault()
     this.setState({
       currentPassword: '',
@@ -126,10 +138,10 @@ function mapStateToProps ({userDetails}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    updateProfile: (id, username, email, cohort, profilePic, bio, currentPassword, newPassword, confirm) => {
+    updateProfile: (id, username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm) => {
       if (newPassword === confirm) {
         dispatch(clearError())
-        return dispatch(updateProfile({id, username, email, cohort, profilePic, bio, currentPassword, newPassword}))
+        return dispatch(updateProfile({id, username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword}))
       }
       dispatch(showError('New password and confirmation don\'t match'))
     }
