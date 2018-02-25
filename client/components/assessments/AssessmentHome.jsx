@@ -9,7 +9,7 @@ class AssessmentHome extends React.Component {
     this.state = {}
   }
   componentDidMount () {
-    this.props.dispatch(getQuestions())
+    this.props.dispatch(getQuestions(this.props.questionTopic))
   }
 
   render () {
