@@ -27,7 +27,6 @@ class GradProfileEdit extends React.Component {
   }
 
   getGradsDetails () {
-    // this.props.dispatch(requestGradProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
   }
 
@@ -47,7 +46,7 @@ class GradProfileEdit extends React.Component {
   }
 
   render () {
-    const {aboutMe, location, github, portfolio, previousExperience, interests} = this.props.userData
+    const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
     return (
       <div>
         <form className='submit-form'>
@@ -67,7 +66,7 @@ class GradProfileEdit extends React.Component {
             Github:
           </h3>
           <div>
-            <input name='githubLink' onChange={this.handleChange} placeholder={github}/>
+            <input name='githubLink' onChange={this.handleChange} placeholder={githubLink}/>
           </div>
           <h3>
             Portfolio:
