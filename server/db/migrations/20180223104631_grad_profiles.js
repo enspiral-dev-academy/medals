@@ -1,6 +1,6 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('grad_profiles', table => {
-    table.increments('id')
+    table.increments('id').primary()
     table.string('aboutMe')
     table.string('location')
     table.string('github')
