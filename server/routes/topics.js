@@ -28,8 +28,8 @@ const getList = () => {
 }
 
 router.get('/:topic', (req, res) => {
-  const questionTopic = req.params.topic
-  console.log(questionTopic)
+  // const questionTopic = req.params.topic
+  // console.log(questionTopic)
   getQuestions()
     .then(function (ids) {
       res.send({ids})
