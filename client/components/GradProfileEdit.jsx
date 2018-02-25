@@ -31,7 +31,6 @@ class GradProfileEdit extends React.Component {
   }
 
   getGradsDetails () {
-    // this.props.dispatch(requestGradProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
   }
 

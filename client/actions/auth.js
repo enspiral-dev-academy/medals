@@ -100,7 +100,6 @@ export function signIn (user, confirmSuccess) {
         dispatch(receiveSignIn(res.body))
         dispatch(getUserDetails(token.id))
         dispatch(clearError())
-        request('post', '/users/editedProfile', {name: 'Test Ethan'})
         confirmSuccess()
       })
       .catch(err => {
