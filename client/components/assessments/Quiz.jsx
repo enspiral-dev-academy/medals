@@ -50,6 +50,9 @@ class Quiz extends React.Component {
     this.setState({
       questionIndx: this.state.questionIndx + 1
     })
+    if (sampleQues.length < this.state.questionIndx - 1) {
+      this.props.history.push('/complete')
+    }
   }
 
   render () {
