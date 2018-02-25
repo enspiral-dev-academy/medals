@@ -15,7 +15,7 @@ class AssessmentHome extends React.Component {
   render () {
     return (
       <div className='AssessmentHome'>
-        <Link to={`/assessments/${this.props.questionTopic}/:question`}><button>Let's Quiz</button></Link>
+        <Link to={`/assessments/${this.props.questionTopic}/question`}><button>Let's Quiz</button></Link>
       </div>
     )
   }
