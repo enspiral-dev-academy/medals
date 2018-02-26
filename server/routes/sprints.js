@@ -6,7 +6,19 @@ const db = require('../db/self-assignments')
 router.get('/', (req, res) => {
   db.getSprints()
     .then(sprints => {
-      res.json(sprints)
+      sprints.forEach(sprint => {
+        sprint.assignments = []
+      })
+      db.getAssignments()
+        .then(assignments => {
+          assignments.map(assignment => {
+            let sprint = sprints.find(sprint => {
+              return sprint.id === assignment.sprint_id
+            })
+            sprint.assignments.push(assignment)
+          })
+          res.json(sprints)
+        })
     })
     .catch(() => {
       res.status(400).send({

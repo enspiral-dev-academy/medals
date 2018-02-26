@@ -2,6 +2,7 @@ const connection = require('./connection')
 
 module.exports = {
   getSprints,
+  getAssignments,
   getUserById,
   getSprintById,
   getAssignmentsBySprintId,
@@ -14,6 +15,12 @@ module.exports = {
 function getSprints (conn) {
   const db = conn || connection
   return db('sprints')
+    .select()
+}
+
+function getAssignments (conn) {
+  const db = conn || connection
+  return db('assignments')
     .select()
 }
 

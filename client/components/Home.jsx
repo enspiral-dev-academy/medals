@@ -26,6 +26,8 @@ class Home extends React.Component {
               return (
                 <li key={key}>
                   <Link to={`/sprints/${sprint.id}`}>Sprint {sprint.number}</Link>
+                  <br />
+                  <button id={sprint.id} type='button'>Issue Sprint</button>
                 </li>
               )
             })}
