@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {getQuestions} from '../../actions/assessments'
 import {connect} from 'react-redux'
 
