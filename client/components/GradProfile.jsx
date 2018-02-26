@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import EditableComponent from './EditableComponent'
+
+import {saveGradProfile} from '../actions/gradProfileSaveEdit'
 import {getGradProfile} from '../actions/gradProfile'
 // import GradProfileEdit from './GradProfileEdit'
 
@@ -12,14 +14,33 @@ class GradProfile extends React.Component {
     this.state = {
       userId: 1
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.addGradProfile = this.addGradProfile.bind(this)
   }
+
   componentDidMount () {
     this.getGradsDetails()
+  }
+
+  componentWillReceiveProps (props) {
+    this.setState(props.userData)
   }
 
   getGradsDetails () {
     // this.props.dispatch(requestGradProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
+  }
+
+  handleChange (evt, type) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
+  addGradProfile () {
+    const currentUser = this.state
+    this.props.dispatch(saveGradProfile(currentUser))
+    window.location.reload()
   }
 
   render () {
@@ -33,23 +54,23 @@ class GradProfile extends React.Component {
           </button></Link>
           <div className='about-me'>
 
-{/*         Current Work */}
+            {/* Current Work v v v */}
             <div className='about-me-title'>
-            About Me:  
+            About Me:
             </div>
-            <EditableComponent content={aboutMe} />
             <div className='about-me-content'>
-              <p>{aboutMe}</p>
+              <EditableComponent content={aboutMe} type='aboutMe' handleChange={this.handleChange} addGradProfile={this.addGradProfile}/>
             </div>
           </div>
 
           {/* Current Work ^ ^ ^ */}
+
           <div className='location'>
             <div className='location-title'>
             Location:
             </div>
             <div className='location-content'>
-              <p>{location}</p>
+              <EditableComponent content={location} type='location' handleChange={this.handleChange} addGradProfile={this.addGradProfile}/>
             </div>
           </div>
           <div className='github-link'>
