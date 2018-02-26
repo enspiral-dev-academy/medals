@@ -5,14 +5,14 @@ export const REQUEST_GRAD_PROFILE = 'REQUEST_GRAD_PROFILE'
 export const RECEIVE_GRAD_PROFILE = 'RECEIVE_GRAD_PROFILE'
 export const EDIT_GRAD_PROFILE = 'EDIT_GRAD_PROFILE'
 
-export const requestGradProfile = (userId) => {
+export const requestGradProfile = () => {
   return {
     type: REQUEST_GRAD_PROFILE,
     loading: true
   }
 }
 
-const receiveGradProfile = (userData) => {
+export const receiveGradProfile = (userData) => {
   return {
     type: RECEIVE_GRAD_PROFILE,
     userData
