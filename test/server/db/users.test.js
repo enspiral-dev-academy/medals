@@ -68,3 +68,8 @@ test('createUser fails if username already exists', () => {
   return createNewUser()
     .then(() => expect(createNewUser()).rejects.toBeDefined())
 })
+
+test('getAllUsers returns all users', () => {
+  return db.getAllUsers(testDb)
+    .then(allUsers => expect(allUsers.length).toBe(5))
+})

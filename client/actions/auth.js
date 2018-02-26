@@ -62,13 +62,13 @@ const receiveUserDetails = (userDetails) => {
   }
 }
 
-const receiveAllUsers = (allUsers) => {
+export const receiveAllUsers = (allUsers) => {
   return {
     type: RECEIVE_ALL_USERS,
     allUsers
   }
 }
-const requestAllUsers = () => {
+export const requestAllUsers = () => {
   return {
     type: REQUEST_ALL_USERS
   }
