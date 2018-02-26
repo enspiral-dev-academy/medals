@@ -38,22 +38,9 @@ function issueFromGitHub (req, res, next) {
         info: info.message
       })
     }
-
-    res.json({
-      message: 'Authentication successful.',
-      token: createToken(user, process.env.JWT_SECRET)
-    })
+    const token = createToken(user, process.env.JWT_SECRET)
+    res.redirect(`http://localhost:3000/?token=${token}`)
   })(req, res, next)
-  // const code = req.query.code
-  // console.log('code:', code) // TODO: remove this
-  // db.findOrCreateGitHubUser({code: req.query.code})
-  //   .then(user => {
-  //     const token = createToken(user, process.env.JWT_SECRET)
-  //     res.json({
-  //       message: 'Authentication successful.',
-  //       token
-  //     })
-  //   })
 }
 
 function decode (req, res, next) {

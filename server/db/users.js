@@ -4,6 +4,7 @@ const hash = require('../auth/hash')
 module.exports = {
   createUser,
   userExists,
+  getAllUsers,
   getUserById,
   getUserByName,
   updateUser,
@@ -35,6 +36,12 @@ function createUser (username, password, conn, ghid = null) {
             .first()
         })
     })
+}
+
+function getAllUsers (conn) {
+  const db = conn || connection
+  return db('users')
+    .select()
 }
 
 function userExists (username, conn) {
