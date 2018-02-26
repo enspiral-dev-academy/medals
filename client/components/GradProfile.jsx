@@ -55,7 +55,7 @@ class GradProfile extends React.Component {
             Github Link:
             </div>
             <div className='github-link-content'>
-              <a href={`${githubLink}`}>
+              <a href={`${githubLink}`} target='_blank'>
                 <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"/>
               </a>
             </div>
