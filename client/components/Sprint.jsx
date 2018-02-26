@@ -11,10 +11,6 @@ class Sprint extends React.Component {
     this.getAssignments = this.getAssignments.bind(this)
   }
 
-  // componentDidMount () {
-  //   this.getAssignments()
-  // }
-
   getAssignments () {
     const number = this.props.match.params.number
     request.get('/api/v1/sprints/' + number)
@@ -22,8 +18,7 @@ class Sprint extends React.Component {
         this.setState({
           assignments: res.body
         })
-      }
-      )
+      })
   }
 
   render () {
@@ -32,7 +27,10 @@ class Sprint extends React.Component {
         <button type='button' onClick={this.getAssignments}>Issue Sprint</button>
         <ul>
           {this.state.assignments.map((assignment, key) => {
-            return <li key={key}><Link to={`${this.props.match.url}/assignment/${assignment.id}`}>{assignment.title}</Link></li>
+            return <li key={key}>
+              <Link
+                to={`${this.props.match.url}/assignments/${assignment.id}`}>{assignment.title}
+              </Link></li>
           })}
         </ul>
       </div>
