@@ -13,6 +13,7 @@ class GradProfileEdit extends React.Component {
       aboutMe: '',
       location: '',
       githubLink: '',
+      linkedinLink: '',
       portfolio: '',
       previousExperience: '',
       interests: ''
@@ -46,7 +47,7 @@ class GradProfileEdit extends React.Component {
   }
 
   render () {
-    const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
+    const {aboutMe, location, githubLink, linkedinLink, portfolio, previousExperience, interests} = this.props.userData
     return (
       <div>
         <form className='submit-form'>
@@ -63,10 +64,13 @@ class GradProfileEdit extends React.Component {
             <input name='location' onChange={this.handleChange} placeholder={location}/>
           </div>
           <h3>
-            Github:
+            Links:
           </h3>
           <div>
             <input name='githubLink' onChange={this.handleChange} placeholder={githubLink}/>
+          </div>
+          <div>
+            <input name='linkedinLink' onChange={this.handleChange} placeholder={linkedinLink}/>
           </div>
           <h3>
             Portfolio:

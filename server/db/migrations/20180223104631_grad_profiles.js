@@ -4,6 +4,7 @@ exports.up = (knex, Promise) => {
     table.string('aboutMe')
     table.string('location')
     table.string('githubLink')
+    table.string('linkedinLink')
     table.string('portfolio')
     table.string('previousExperience')
     table.string('interests')
