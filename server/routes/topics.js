@@ -1,19 +1,11 @@
-// import {getTopics} from '../../client/actions/assessments'
-
 const express = require('express')
 const bodyParser = require('body-parser')
 
-// const topics = require('../../client/components/assessments/topics.json') // will be a db eventually
 const router = express.Router()
 const development = require('../db/knexfile').development
 const knex = require('knex')(development)
 
 router.use(bodyParser.json())
-
-// router.get('/', (req, res) => {
-//   res.json(topics)
-//   // do we need a catch?
-// })
 
 router.get('/', (req, res) => {
   getList()
@@ -29,11 +21,8 @@ const getList = () => {
 
 router.get('/:topic', (req, res) => {
   const questionTopic = req.params.topic
-  let quests = {}
-  // let responses = {}
   getQuestions(questionTopic)
     .then((questions) => {
-      quests = questions
       res.send(questions)
     })
 })
