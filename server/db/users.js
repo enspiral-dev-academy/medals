@@ -57,10 +57,13 @@ function getUserById (id, conn) {
 
 function getGradProfileById (id, conn) {
   const db = conn || connection
-  return db('grad_profiles')
-    .select()
-    .where('id', id)
-    .first()
+  return db('profile_tags')
+    .join('grad_profiles_tags', 'profile_tags.id', '=', 'grad_profiles_tags.tag_id')
+    .select('id', id)
+    .then(db('grad_profiles')
+      .join('grad_profiles_tags', 'grad_profiles.id', '=', 'grad_profiles_tags.grad_profiles_id')
+      .select()
+    )
 }
 
 function getUserByName (username, conn) {
@@ -97,7 +100,7 @@ function updateGradProfile (updatedUser, conn) {
     .update({
       aboutMe: updatedUser.aboutMe,
       location: updatedUser.location,
-      githubLink: updatedUser.githubLink,
+      github: updatedUser.githubLink,
       portfolio: updatedUser.portfolio,
       previousExperience: updatedUser.previousExperience,
       interests: updatedUser.interests
