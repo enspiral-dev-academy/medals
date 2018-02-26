@@ -1,5 +1,6 @@
 import request from '../lib/api'
 import {showError} from './error'
+
 export const GENERATE_SPRINT = 'GENERATE_SPRINT'
 
 export const generateSprint = (sprints) => {
