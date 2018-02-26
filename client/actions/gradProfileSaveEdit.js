@@ -10,10 +10,10 @@ export const requestSaveGradProfile = () => {
   }
 }
 
-const receiveSaveGradProfile = (userData) => {
+export const receiveSaveGradProfile = (userData) => {
   return {
     type: RECEIVE_SAVE_GRAD_PROFILE,
-    userData: userData
+    userData
   }
 }
 
