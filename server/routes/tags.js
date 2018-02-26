@@ -13,7 +13,9 @@ router.get('/', (req, res) => {
     .then(function (tags) {
       res.send({tags})
     })
-  // do we need a catch?
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
 })
 
 const getList = () => {
@@ -25,16 +27,11 @@ router.get('/:tags', (req, res) => {
   getQuestions(questionTag)
     .then((questions) => {
       res.send(questions)
-    }
-    )
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
 })
-// router.get('/:tag', (req, res) => {
-//   const questionTag = req.params.tag
-//   getQuestions(questionTag)
-//     .then(function (questions) {
-//       res.send({questions})
-//     })
-// })
 
 const getQuestions = (tag) => {
   return knex('eval_questions')
