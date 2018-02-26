@@ -11,7 +11,6 @@ router.use(bodyParser.json())
 router.get('/', (req, res) => {
   getList()
     .then(function (tags) {
-      console.log(tags)
       res.send({tags})
     })
   // do we need a catch?
