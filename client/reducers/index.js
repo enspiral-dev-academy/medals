@@ -1,17 +1,23 @@
 import {combineReducers} from 'redux'
 
-import evalTags from './eval-tags'
-import errorMessage from './error-message'
-import userDetails from './user-details'
 import busy from './busy'
+import sprints from './sprints'
+import allUsers from './all-users'
+import evalTags from './eval-tags'
+import userDetails from './user-details'
+import errorMessage from './error-message'
 import evalQuestions from './eval-questions'
 import questionTag from './eval-update-tags'
+import getUserReducer from './gradProfileDetails'
 
 export default combineReducers({
-  errorMessage,
-  userDetails,
   busy,
+  sprints,
+  allUsers,
   evalTags,
+  userDetails,
+  questionTag,
+  errorMessage,
   evalQuestions,
-  questionTag
+  getUserReducer
 })
