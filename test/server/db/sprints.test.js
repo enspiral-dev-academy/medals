@@ -51,3 +51,15 @@ test('getCommentsByAssignedTaskID returns the comment for an assigned task', () 
       expect(comment[0].comment).toBe('comment1')
     })
 })
+
+test('test inerting comment into table', () => {
+  const comment = {
+    userId: 1,
+    content: 'hello lunnar',
+    assignedTaskId: 2
+  }
+  return db.createComment(comment, testDb)
+    .then(num => {
+      expect(num[0]).toBe(5)
+    })
+})

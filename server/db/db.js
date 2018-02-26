@@ -10,7 +10,8 @@ module.exports = {
   getAssignmentsBySprintId,
   getTasksByAssignmentId,
   getAssignedTasks,
-  getCommentsByAssignedTaskID
+  getCommentsByAssignedTaskID,
+  createComment
 }
 
 function getSprints () {
@@ -59,4 +60,13 @@ function getCommentsByAssignedTaskID (assignedTaskId, conn) {
     .join('assignedTasks', 'comments.assigned_task_id', 'assignedTasks.id')
     .where('comments.assigned_task_id', assignedTaskId)
     .select('comments.comment')
+}
+
+function createComment (comment, conn) {
+  return devDb('comments')
+    .insert({
+      user_id: comment.userId,
+      comment: comment.content,
+      assigned_task_id: comment.assignedTaskId
+    })
 }
