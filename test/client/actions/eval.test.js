@@ -1,4 +1,4 @@
-import {GET_TAGS, getTags} from '../../../client/actions/eval'
+import {GET_TAGS, getTags, FETCH_QUESTIONS, questions} from '../../../client/actions/eval'
 
 test('getTags, returns tag list', () => {
   const list = ['tag1', 'tag2']
@@ -7,4 +7,13 @@ test('getTags, returns tag list', () => {
     tags: list
   }
   expect(getTags(list)).toEqual(expected)
+})
+
+test('questions, returns question list', () => {
+  const list = ['question1', 'question2']
+  const expected = {
+    type: FETCH_QUESTIONS,
+    questions: list
+  }
+  expect(questions(list)).toEqual(expected)
 })
