@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
 
-import evalLink from './eval/evalLink'
+import evalLink from './eval/EvalLink'
 
 const Home = () => {
   return (
