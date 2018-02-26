@@ -31,6 +31,13 @@ export function fetchList () {
   }
 }
 
+export const questions = (list) => {
+  return {
+    type: FETCH_QUESTIONS,
+    questions: list
+  }
+}
+
 export function getQuestions (questionTag) {
   return (dispatch) => {
     request
@@ -41,13 +48,6 @@ export function getQuestions (questionTag) {
         }
         dispatch(questions(res.body))
       })
-  }
-}
-
-export const questions = (list) => {
-  return {
-    type: FETCH_QUESTIONS,
-    questions: list
   }
 }
 
