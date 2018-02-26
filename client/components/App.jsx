@@ -7,8 +7,8 @@ import Home from './Home'
 import Header from './Header'
 import SignIn from './SignIn'
 import Profile from './Profile'
-import Register from './Register'
 import WaitList from './WaitList'
+import Register from './Register'
 import ErrorMessage from './ErrorMessage'
 
 class App extends React.Component {

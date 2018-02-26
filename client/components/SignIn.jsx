@@ -5,6 +5,11 @@ import {signIn} from '../actions/auth'
 import {clearError} from '../actions/error'
 import {withRouter} from 'react-router-dom'
 
+// TODO: Figure out how to use .env on the client side
+const baseUrl = process.env.NODE_ENV === 'production'
+  ? 'https://medals.devacademy.co.nz'
+  : 'http://localhost:3000'
+
 class SignIn extends React.Component {
   constructor (props) {
     super(props)
@@ -23,7 +28,9 @@ class SignIn extends React.Component {
         <section className='section'>
           <div className='content'>
             <h1>Student Sign-in</h1>
-            <button className='button is-primary'><a href='http://localhost:3000/auth/github'>Continue with GitHub</a></button>
+            <button className='button is-primary'>
+              <a href={`${baseUrl}/auth/github`}>Continue with GitHub</a>
+            </button>
             <br/>
           </div>
 
