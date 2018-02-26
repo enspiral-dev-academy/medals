@@ -10,7 +10,7 @@ const initialState = {
   githubLink: 'I am a github link',
   portfolio: 'I am a portfolio',
   previousExperience: 'I am a previousExperience',
-  interests: 'I am a intrest'
+  interests: 'I am an interest'
 }
 
 const getUserReducer = (state = initialState, action) => {
