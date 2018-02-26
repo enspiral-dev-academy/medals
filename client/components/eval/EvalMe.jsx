@@ -3,16 +3,10 @@ import {connect} from 'react-redux'
 
 import Check from './Check'
 
-import sampleData from './questions.json'
-
-// mock data
-// const sampleQues = sampleData.questions
-
 class EvalMe extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      // question: sampleQues,
       questionIndx: 0,
       answer: '',
       key: '',
