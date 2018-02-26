@@ -1,4 +1,4 @@
-import {GENERATE_SPRINT} from '../actions/assignments'
+import {GENERATE_SPRINT} from '../actions/sprints'
 
 const generateSprint = (state = [], action) => {
   switch (action.type) {
