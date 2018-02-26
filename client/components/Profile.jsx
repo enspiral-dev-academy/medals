@@ -31,70 +31,61 @@ class Profile extends React.Component {
   }
 
   render () {
-    const {username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm, showMatch, match} = this.state
+    const {
+      username, firstName, preferredName, surname, email, profilePic,
+      bio, currentPassword, newPassword, confirm, showMatch, match
+    } = this.state
     return (
       <div className='profile'>
         <div className='page-content-wrapper'>
           <div className='content'>
             <form className='pure-form pure-form-stacked'>
               <fieldset>
-                <legend>Profile</legend>
-
-                {/* <img src={profilePic} alt={name}> </img> */}
+                <legend>User Profile</legend>
 
                 <label htmlFor='username'>Username: </label>
                 <input id='username' name='username' placeholder='username'
                   onChange={this.handleChange} value={username} />
-                <br/>
 
                 <label htmlFor='firstName'>First Name: </label>
                 <input id='firstName' name='firstName' placeholder='firstName'
                   onChange={this.handleChange} value={firstName} />
-                <br/>
 
                 <label htmlFor='preferredName'>Preferred Name: </label>
                 <input id='preferredName' name='preferredName' placeholder='preferredName'
                   onChange={this.handleChange} value={preferredName} />
-                <br/>
 
                 <label htmlFor='surname'>Surname: </label>
                 <input id='surname' name='surname' placeholder='surname'
                   onChange={this.handleChange} value={surname} />
-                <br/>
 
                 <label htmlFor='email'>Email: </label>
                 <input id='email' name='email' placeholder='email'
                   onChange={this.handleChange} value={email} />
-                <br/>
 
                 <label htmlFor='profilePic'>Upload Profile Picture: </label>
                 <input id='profilePic' name='profilePic' placeholder='profile pic url here'
                   onChange={this.handleChange} value={profilePic} />
-                <br/>
 
                 <label htmlFor='bio'>Bio: </label>
                 <textarea id='bio' name='bio' placeholder='your bio here'
                   onChange={this.handleChange} value={bio} />
-                <br/>
 
                 {/* new page/container that toggles to open if you want to change password after here? */}
                 <label htmlFor='currentPassword'>Current password: </label>
                 <input id='currentPassword' name='currentPassword'
                   type='password' placeholder='current password'
                   onChange={this.handleChange} value={currentPassword} />
-                <br/>
 
                 <label htmlFor='newPassword'>New password: </label>
                 <input id='newPassword' name='newPassword'
                   type='password' placeholder='newPassword'
                   onChange={this.handleChange} value={newPassword} />
-                <br/>
 
                 <label htmlFor='confirm'>Confirm new password: </label>
                 <input id='confirm' name='confirm'
                   type='password' placeholder='confirm password'
                   onChange={this.handleChange} value={confirm} />
-                <br/>
 
                 {showMatch && !match && <span style={this.styles.match}>*</span>}
                 <button className='pure-button pure-button-primary'
@@ -121,8 +112,7 @@ class Profile extends React.Component {
 
   handleSubmit (e) {
     const {id, updateProfile} = this.props
-    const {username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm} = this.state
-    updateProfile(id, username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm)
+    updateProfile(id, this.state)
     e.preventDefault()
     this.setState({
       currentPassword: '',
@@ -138,10 +128,10 @@ function mapStateToProps ({userDetails}) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    updateProfile: (id, username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword, confirm) => {
-      if (newPassword === confirm) {
+    updateProfile: (id, profile) => {
+      if (profile.newPassword === profile.confirm) {
         dispatch(clearError())
-        return dispatch(updateProfile({id, username, firstName, preferredName, surname, email, profilePic, bio, currentPassword, newPassword}))
+        return dispatch(updateProfile({id, ...profile}))
       }
       dispatch(showError('New password and confirmation don\'t match'))
     }
