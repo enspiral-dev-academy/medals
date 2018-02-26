@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Route, Link} from 'react-router-dom'
 
+import evalLink from './eval/EvalLink'
 import {getSprint} from '../actions/sprints'
 
 class Home extends React.Component {
@@ -29,6 +30,9 @@ class Home extends React.Component {
               )
             })}
           </ul>
+          
+          <h2>eval(me)</h2>
+          <Route path='/' component={evalLink} />
           
           <h2>My Grad Profile</h2>
           <Link to='/grad-profile'><button>Grad Profile</button></Link>
