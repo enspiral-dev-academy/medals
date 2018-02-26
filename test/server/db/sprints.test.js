@@ -1,5 +1,5 @@
 const env = require('./test-environment')
-const db = require('../../../server/db/db')
+const db = require('../../../server/db/self-assignments')
 
 let testDb = null
 
@@ -42,5 +42,24 @@ test('getAssignedTasks returns a boolean for complete', () => {
   return db.getAssignedTasks(1, 1, testDb)
     .then(assignedtask => {
       expect(assignedtask[0].user_id).toBe(1)
+    })
+})
+
+test('getCommentsByAssignedTaskID returns the comment for an assigned task', () => {
+  return db.getCommentsByAssignedTaskID(2, testDb)
+    .then(comment => {
+      expect(comment[0].comment).toBe('comment1')
+    })
+})
+
+test('test inerting comment into table', () => {
+  const comment = {
+    userId: 1,
+    content: 'hello lunnar',
+    assignedTaskId: 2
+  }
+  return db.createComment(comment, testDb)
+    .then(num => {
+      expect(typeof num[0]).toBe('number')
     })
 })

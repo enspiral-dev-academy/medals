@@ -6,7 +6,9 @@ module.exports = {
   getSprintById,
   getAssignmentsBySprintId,
   getTasksByAssignmentId,
-  getAssignedTasks
+  getAssignedTasks,
+  getCommentsByAssignedTaskID,
+  createComment
 }
 
 function getSprints (conn) {
@@ -55,4 +57,22 @@ function getAssignedTasks (userId, taskId, conn) {
     .where('assignedTasks.user_id', userId)
     .andWhere('assignedTasks.task_id', taskId)
     .select()
+}
+
+function getCommentsByAssignedTaskID (assignedTaskId, conn) {
+  const db = conn || connection
+  return db('comments')
+    .join('assignedTasks', 'comments.assigned_task_id', 'assignedTasks.id')
+    .where('comments.assigned_task_id', assignedTaskId)
+    .select('comments.comment')
+}
+
+function createComment (comment, conn) {
+  const db = conn || connection
+  return db('comments')
+    .insert({
+      user_id: comment.userId,
+      comment: comment.content,
+      assigned_task_id: comment.assignedTaskId
+    })
 }
