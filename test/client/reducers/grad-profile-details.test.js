@@ -7,7 +7,7 @@ test('getUserReducer initial state of undefined', () => {
     aboutMe: 'I am an about section',
     location: 'I am a location',
     githubLink: 'I am a github link',
-    linkedinlink: 'I am a linkedin link',
+    linkedinLink: 'I am a linkedin link',
     portfolio: 'I am a portfolio',
     previousExperience: 'I am a previousExperience',
     interests: 'I am an interest'
@@ -24,7 +24,7 @@ test('RECEIVE_GRAD_PROFILE receives profile', () => {
     aboutMe: 'I am an about section',
     location: 'I am a location',
     githubLink: 'I am a github link',
-    linkedinLink: 'Iam a linkedin link',
+    linkedinLink: 'I am a linkedin link',
     portfolio: 'I am a portfolio',
     previousExperience: 'I am a previousExperience',
     interests: 'I am an interest'
