@@ -21,6 +21,10 @@ class GradProfile extends React.Component {
     this.props.dispatch(getGradProfile(this.state.userId))
   }
 
+  onClick () {
+
+  }
+
   render () {
     const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
     return (
@@ -51,7 +55,9 @@ class GradProfile extends React.Component {
             Github Link:
             </div>
             <div className='github-link-content'>
-              <a href={`${githubLink}`}>{githubLink}</a>
+              <a href={`${githubLink}`}>
+                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"/>
+              </a>
             </div>
           </div>
           <div className='portfolio'>

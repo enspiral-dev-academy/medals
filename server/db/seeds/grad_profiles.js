@@ -4,7 +4,7 @@ exports.seed = (knex, Promise) => {
     .then(function () {
       // Inserts seed entries
       return knex('grad_profiles').insert([
-        {id: 1, aboutMe: 'Im a fun loving girl.', location: 'Auckland', githubLink: 'https://github.com/ElyseWyatt', portfolio: 'https://twitter.com/?lang=en', previousExperience: 'Skydiving instructor, burlesque dancer, part-time cat show judge, mechanic', interests: 'Astrophysics'}
+        {id: 1, aboutMe: 'Tell us about yourself!', location: 'e.g. Auckland, New Zealand', githubLink: 'https://github.com/[Your-Link-Here]', portfolio: 'A link to your previous work.', previousExperience: 'Studied anywhere else? Had a previous career?', interests: 'What do you like doing outside of coding?'}
       ])
     })
 }
