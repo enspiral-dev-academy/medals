@@ -44,3 +44,10 @@ test('getAssignedTasks returns a boolean for complete', () => {
       expect(assignedtask[0].user_id).toBe(1)
     })
 })
+
+test('getCommentsByAssignedTaskID returns the comment for an assigned task', () => {
+  return db.getCommentsByAssignedTaskID(2, testDb)
+    .then(comment => {
+      expect(comment[0].comment).toBe('comment1')
+    })
+})
