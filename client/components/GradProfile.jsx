@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import {getGradProfile} from '../actions/gradProfile'
-// import GradProfileEdit from './GradProfileEdit'
 
 class GradProfile extends React.Component {
   constructor (props) {
@@ -17,7 +16,6 @@ class GradProfile extends React.Component {
   }
 
   getGradsDetails () {
-    // this.props.dispatch(requestGradProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
   }
 
@@ -26,7 +24,7 @@ class GradProfile extends React.Component {
   }
 
   render () {
-    const {aboutMe, location, githubLink, linkedinLink, portfolio, previousExperience, interests} = this.props.userData
+    const {aboutMe, location, githubLink, linkedinLink, portfolioLinkOne, portfolioLinkTwo, portfolioLinkThree, previousExperience, interests} = this.props.userData
     return (
       <div className='grad-profile'>
         <div className='container'>
@@ -70,7 +68,13 @@ class GradProfile extends React.Component {
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <p>{portfolio}</p>
+              <p>{portfolioLinkOne}</p>
+            </div>
+            <div className='portfolio-content'>
+              <p>{portfolioLinkTwo}</p>
+            </div>
+            <div className='portfolio-content'>
+              <p>{portfolioLinkThree}</p>
             </div>
           </div>
           <div className='previous-experience'>
