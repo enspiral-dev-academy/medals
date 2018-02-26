@@ -25,9 +25,9 @@ const App = () => {
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
         <Route exact path='/assessments' component={Assessments} />
-        <Route exact path='/assessments/:topic' component={AssessmentHome} />
-        <Route exact path='/assessments/:id/question' component={Quiz} />
-        <Route exact path='/assessments/:id/complete' component={CompletedEval} />
+        <Route exact path='/assessments/:tags' component={AssessmentHome} />
+        <Route exact path='/assessments/:tags/question' component={Quiz} />
+        <Route exact path='/assessments/:tags/complete' component={CompletedEval} />
       </div>
     </Router>
   )
