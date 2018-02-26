@@ -10,7 +10,6 @@ export const getTags = (list) => {
   return {
     type: GET_TAGS,
     tags: list
-
   }
 }
 

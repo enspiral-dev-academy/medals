@@ -5,11 +5,9 @@ import Eval from './Eval'
 
 const EvalLink = () => {
   return (
-
     <div className='eval-link'>
       <Link to='/eval' component={Eval}>EvalSelf</Link>
     </div>
-
   )
 }
 

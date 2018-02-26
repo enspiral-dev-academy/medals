@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Check from './Check'
 
 import sampleData from './questions.json'
@@ -54,7 +53,6 @@ class EvalMe extends React.Component {
       questionIndx: this.state.questionIndx + 1,
       check: '',
       disabled: ''
-
     })
   }
 
