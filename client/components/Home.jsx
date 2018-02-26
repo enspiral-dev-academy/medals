@@ -17,6 +17,8 @@ class Home extends React.Component {
     return (
       <div className='home section'>
         <div className='container'>
+          <h1>Home</h1>
+          
           <h2>Phase 0</h2>
           <ul>
             {this.props.sprints.map((sprint, key) => {
@@ -27,6 +29,9 @@ class Home extends React.Component {
               )
             })}
           </ul>
+          
+          <h2>My Grad Profile</h2>
+          <Link to='/grad-profile'><button>Grad Profile</button></Link>
         </div>
       </div>
     )

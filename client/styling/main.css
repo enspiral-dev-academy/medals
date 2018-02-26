@@ -1,3 +1,7 @@
 .bold {
   font-weight: bold;
 }
+
+fieldset {
+  border: 0 none;
+}

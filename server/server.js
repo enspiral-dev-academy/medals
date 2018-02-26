@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 
+const github = require('./routes/github')
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/users')
 const sprintRoutes = require('./routes/sprints')
@@ -8,6 +9,7 @@ const sprintRoutes = require('./routes/sprints')
 const server = express()
 server.use(express.static(path.join(__dirname, 'public')))
 
+server.use('/auth/github', github)
 server.use('/api/v1/auth', authRoutes)
 server.use('/api/v1/users', userRoutes)
 server.use('/api/v1/sprints', sprintRoutes)

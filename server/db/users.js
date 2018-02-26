@@ -4,10 +4,13 @@ const hash = require('../auth/hash')
 module.exports = {
   createUser,
   userExists,
+  getAllUsers,
   getUserById,
   getUserByName,
   updateUser,
-  findOrCreateGitHubUser
+  findOrCreateGitHubUser,
+  updateGradProfile,
+  getGradProfileById
 }
 
 function createUser (username, password, conn, ghid = null) {
@@ -35,6 +38,12 @@ function createUser (username, password, conn, ghid = null) {
     })
 }
 
+function getAllUsers (conn) {
+  const db = conn || connection
+  return db('users')
+    .select()
+}
+
 function userExists (username, conn) {
   const db = conn || connection
   return db('users')
@@ -49,6 +58,14 @@ function getUserById (id, conn) {
   const db = conn || connection
   return db('users')
     .select('id', 'username')
+    .where('id', id)
+    .first()
+}
+
+function getGradProfileById (id, conn) {
+  const db = conn || connection
+  return db('grad_profiles')
+    .select()
     .where('id', id)
     .first()
 }
@@ -76,6 +93,21 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
       return db('users')
         .update({username, hash: newPasswordHash})
         .where('id', user.id)
+    })
+}
+
+function updateGradProfile (updatedUser, conn) {
+  // console.log(updatedUser)
+  const db = conn || connection
+  return db('grad_profiles')
+    .where('id', updatedUser.userId)
+    .update({
+      aboutMe: updatedUser.aboutMe,
+      location: updatedUser.location,
+      githubLink: updatedUser.githubLink,
+      portfolio: updatedUser.portfolio,
+      previousExperience: updatedUser.previousExperience,
+      interests: updatedUser.interests
     })
 }
 
