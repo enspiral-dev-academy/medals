@@ -30,7 +30,8 @@ class Eval extends React.Component {
           {this.props.evalTags.map((tag, id) => {
             return (
               <Link key={id} to={`/eval/${tag}`} onClick={this.updateTag}>
-                <li data-val={tag}>{tag}</li></Link>
+                <li data-val={tag}>{tag}</li>
+              </Link>
             )
           })}
         </ul>
