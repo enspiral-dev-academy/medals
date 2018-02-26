@@ -3,7 +3,7 @@ import evalTags from '../../../client/reducers/eval-tags'
 
 const state = ''
 
-test('state holds list of tags', () => {
+test('evalTags reducer updates state with tags', () => {
   const action = {
     type: GET_TAGS,
     tags: ['tag1', 'tag2']}
