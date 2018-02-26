@@ -13,7 +13,8 @@ class EvalMe extends React.Component {
       reason: '',
       check: '',
       disabled: '',
-      enableButton: 'disabled'
+      enableButton: 'disabled',
+      currentQuestion: 1
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -49,10 +50,12 @@ class EvalMe extends React.Component {
     if (this.props.evalQuestions.length === this.state.questionIndx + 1) {
       this.props.history.push('complete')
     }
+    const number = this.state.currentQuestion + 1
     this.setState({
       questionIndx: this.state.questionIndx + 1,
       check: '',
-      disabled: ''
+      disabled: '',
+      currentQuestion: number
     })
   }
 
@@ -77,6 +80,9 @@ class EvalMe extends React.Component {
         </form>
         {this.state.check && <Check feedback={this.state} displayNext={this.displayNext} />}
         <button type='button' disabled={this.state.enableButton} onClick={this.handleSubmit}>Submit Answer</button>
+        <div>
+          <p>{this.state.currentQuestion}/{this.props.evalQuestions.length}</p>
+        </div>
       </div>
     )
   }
