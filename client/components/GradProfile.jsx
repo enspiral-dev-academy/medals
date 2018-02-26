@@ -26,7 +26,7 @@ class GradProfile extends React.Component {
   }
 
   render () {
-    const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
+    const {aboutMe, location, githubLink, linkedinLink, portfolio, previousExperience, interests} = this.props.userData
     return (
       <div className='grad-profile'>
         <div className='container'>
@@ -50,13 +50,18 @@ class GradProfile extends React.Component {
               <p>{location}</p>
             </div>
           </div>
-          <div className='github-link'>
-            <div className='github-link-title'>
-            Github Link:
+          <div className='links'>
+            <div className='links-title'>
+            Links:
             </div>
             <div className='github-link-content'>
               <a href={`${githubLink}`} target='_blank'>
-                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"/>
+                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="35px" width="35px"/>
+              </a>
+            </div>
+            <div className='linkedin-link-content'>
+              <a href={`${linkedinLink}`} target='_blank'>
+                <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" height="35px" width="35px"/>
               </a>
             </div>
           </div>

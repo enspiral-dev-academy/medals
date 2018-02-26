@@ -105,6 +105,7 @@ function updateGradProfile (updatedUser, conn) {
       aboutMe: updatedUser.aboutMe,
       location: updatedUser.location,
       githubLink: updatedUser.githubLink,
+      linkedinLink: updateUser.linkedinLink,
       portfolio: updatedUser.portfolio,
       previousExperience: updatedUser.previousExperience,
       interests: updatedUser.interests
