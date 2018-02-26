@@ -15,7 +15,8 @@ class EvalMe extends React.Component {
       disabled: '',
       enableButton: 'disabled',
       currentQuestion: 1,
-      score: 0
+      score: 0,
+      buttonText: 'Next Question'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -56,7 +57,8 @@ class EvalMe extends React.Component {
       questionIndx: this.state.questionIndx + 1,
       check: '',
       disabled: '',
-      currentQuestion: this.state.currentQuestion + 1
+      currentQuestion: this.state.currentQuestion + 1,
+      buttonText: 'Complete Evaluation'
     })
   }
 
