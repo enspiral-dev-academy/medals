@@ -10,6 +10,21 @@ router.use(bodyParser.json())
 
 module.exports = router
 
+// GET /users
+router.get('/', token.decode, (req, res) => {
+  db.getAllUsers()
+    .then(allUsers => {
+      res.json(allUsers)
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
+})
+
+// router.put('/approvals', token.decode, (req, res) => {
+//   console.log(req.body)
+// })
+
 // GET /users/:id
 router.get('/:id', token.decode, (req, res) => {
   db.getUserById(Number(req.params.id))
