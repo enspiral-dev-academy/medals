@@ -68,13 +68,19 @@ class GradProfile extends React.Component {
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <p>{portfolioLinkOne}</p>
+              <a href={`${portfolioLinkOne}`} target='_blank'>
+                {portfolioLinkOne}
+              </a>
             </div>
             <div className='portfolio-content'>
-              <p>{portfolioLinkTwo}</p>
+              <a href={`${portfolioLinkTwo}`} target='_blank'>
+                {portfolioLinkTwo}
+              </a>
             </div>
             <div className='portfolio-content'>
-              <p>{portfolioLinkThree}</p>
+              <a href={`${portfolioLinkThree}`} target='_blank'>
+                {portfolioLinkThree}
+              </a>
             </div>
           </div>
           <div className='previous-experience'>
