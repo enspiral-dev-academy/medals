@@ -10,9 +10,35 @@ router.use(bodyParser.json())
 
 module.exports = router
 
+// GET /users
+router.get('/', token.decode, (req, res) => {
+  db.getAllUsers()
+    .then(allUsers => {
+      res.json(allUsers)
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
+})
+
+// router.put('/approvals', token.decode, (req, res) => {
+//   console.log(req.body)
+// })
+
 // GET /users/:id
 router.get('/:id', token.decode, (req, res) => {
   db.getUserById(Number(req.params.id))
+    .then(user => {
+      res.json(user)
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
+})
+
+// GET a grads profile from /users/:id
+router.get('/grad/:id', token.decode, (req, res) => {
+  db.getGradProfileById(Number(req.params.id))
     .then(user => {
       res.json(user)
     })
@@ -31,5 +57,19 @@ router.put('/:id', token.decode, (req, res) => {
     })
     .catch(err => {
       res.status(500).send(err.message)
+    })
+})
+
+router.post('/editedProfile', token.decode, (req, res) => {
+  // Once db is created may need to use grad-profiles.js
+  // console.log(req.body, "this is working")
+  db.updateGradProfile(req.body)
+    .then(() => {
+      res.status(202).end()
+    })
+    .catch(() => {
+      res.status(400).send({
+        errorType: 'DATABASE_ERROR'
+      })
     })
 })

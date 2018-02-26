@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const EvalLink = () => {
   return (
     <div className='eval-link'>
-      <Link to='/eval'>EvalSelf</Link>
+      <Link to='/eval'>Eval(me)</Link>
     </div>
   )
 }

@@ -7,11 +7,8 @@ const {
   createUser} = require('../db/users')
 const token = require('../auth/token')
 const hash = require('../auth/hash')
-const github = require('./github')
 
 const router = express.Router()
-
-router.use('/github', github)
 
 router.use(bodyParser.json())
 
