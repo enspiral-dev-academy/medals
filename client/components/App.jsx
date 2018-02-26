@@ -10,6 +10,8 @@ import Profile from './Profile'
 import WaitList from './WaitList'
 import Register from './Register'
 import ErrorMessage from './ErrorMessage'
+import GradProfile from './GradProfile'
+import GradProfileEdit from './GradProfileEdit'
 
 class App extends React.Component {
   componentDidMount () {
@@ -27,11 +29,13 @@ class App extends React.Component {
   render () {
     return (
       <div className='app'>
-        <Route path='/' component={Header} />
         <Route exact path='/' component={Home} />
-        <Route path='/signin' component={SignIn} />
+        <Route path='/' component={Header} />
         <Route path='/' component={ErrorMessage} />
+        <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
+        <Route exact path='/grad-profile' component={GradProfile} />
+        <Route path='/grad-profile/edit' component={GradProfileEdit} />
         <Route path='/waitlist' component={WaitList}/>
         <Route path='/register' component={Register} />
       </div>
