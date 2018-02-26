@@ -1,11 +1,47 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getAllUsers} from '../actions/auth'
+import {getAllUsers, updateUserApprovals} from '../actions/auth'
 
 class WaitList extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      users: []
+    }
+    this.flipCheckbox = this.flipCheckbox.bind(this)
+    // this.submitChanges = this.submitChanges.bind(this)
+  }
   componentDidMount () {
     this.props.dispatch(getAllUsers())
+      .then(() => {
+        this.setState({
+          users: this.props.allUsers.map(user => ({
+            id: user.id,
+            username: user.username,
+            isApproved: user.isApproved
+          }))
+        })
+      })
+  }
+
+  flipCheckbox (e) {
+    const newUsers = this.state.users.map(user => {
+      if (user.id === Number(e.target.id)) {
+        return {
+          ...user,
+          isApproved: e.target.checked
+        }
+      }
+      return user
+    })
+    this.setState({
+      users: newUsers
+    })
+  }
+
+  submitChanges () {
+    this.props.dispatch(updateUserApprovals(this.state))
   }
 
   render () {
@@ -29,7 +65,7 @@ class WaitList extends React.Component {
                   <td> {user.ghid} </td>
                   <td> {user.username} </td>
                   <td>
-                    <input type='checkbox' />
+                    <input type='checkbox' id={user.id} onClick = {this.flipCheckbox}/>
                   </td>
                 </tr>
               )
@@ -37,6 +73,7 @@ class WaitList extends React.Component {
             }
           </tbody>
         </table>
+        {/* <button type='submit' onClick={this.submitChanges}> Update Approvals </button> */}
       </div>
     )
   }
