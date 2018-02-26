@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 })
 
 const getList = () => {
-  return knex('quiz_tags').select('tag')
+  return knex('eval_tags').select('tag')
 }
 
 router.get('/:tags', (req, res) => {
@@ -38,9 +38,9 @@ router.get('/:tags', (req, res) => {
 // })
 
 const getQuestions = (tag) => {
-  return knex('quiz_questions')
-    .join('quiz_questions_tags', 'quiz_questions_tags.question_id', '=', 'quiz_questions.id')
-    .join('quiz_tags', 'quiz_questions_tags.tag_id', '=', 'quiz_tags.id')
-    .join('quiz_responses', 'quiz_questions.id', '=', 'quiz_responses.question_id')
-    .where('quiz_tags.tag', tag)
+  return knex('eval_questions')
+    .join('eval_questions_tags', 'eval_questions_tags.question_id', '=', 'eval_questions.id')
+    .join('eval_tags', 'eval_questions_tags.tag_id', '=', 'eval_tags.id')
+    .join('eval_responses', 'eval_questions.id', '=', 'eval_responses.question_id')
+    .where('eval_tags.tag', tag)
 }

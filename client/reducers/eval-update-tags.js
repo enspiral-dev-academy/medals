@@ -1,4 +1,4 @@
-import {UPDATE_TAGS} from '../actions/assessments'
+import {UPDATE_TAGS} from '../actions/eval'
 
 const updateTag = (state = ['test'], action) => {
   switch (action.type) {
