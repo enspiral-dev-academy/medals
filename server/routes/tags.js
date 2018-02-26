@@ -1,24 +1,16 @@
-// import {getTopics} from '../../client/actions/assessments'
-
 const express = require('express')
 const bodyParser = require('body-parser')
 
-// const topics = require('../../client/components/assessments/topics.json') // will be a db eventually
 const router = express.Router()
 const development = require('../db/knexfile').development
 const knex = require('knex')(development)
 
 router.use(bodyParser.json())
 
-// router.get('/', (req, res) => {
-//   res.json(topics)
-//   // do we need a catch?
-// })
-
 router.get('/', (req, res) => {
   getList()
-    .then(function (topics) {
-      res.send({topics})
+    .then(function (tags) {
+      res.send({tags})
     })
   // do we need a catch?
 })
@@ -27,16 +19,22 @@ const getList = () => {
   return knex('quiz_tags').select('tag')
 }
 
-router.get('/:topic', (req, res) => {
-  const questionTopic = req.params.topic
-  let quests = {}
-  // let responses = {}
-  getQuestions(questionTopic)
+router.get('/:tags', (req, res) => {
+  const questionTag = req.params.tag
+  getQuestions(questionTag)
     .then((questions) => {
-      quests = questions
       res.send(questions)
-    })
+    }
+    )
 })
+
+// router.get('/:tag', (req, res) => {
+//   const questionTag = req.params.tag
+//   getQuestions(questionTag)
+//     .then(function (questions) {
+//       res.send({questions})
+//     })
+// })
 
 const getQuestions = (tag) => {
   return knex('quiz_questions')
