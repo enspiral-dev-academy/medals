@@ -11,6 +11,7 @@ router.use(bodyParser.json())
 router.get('/', (req, res) => {
   getList()
     .then(function (tags) {
+      console.log(tags)
       res.send({tags})
     })
   // do we need a catch?
@@ -21,14 +22,13 @@ const getList = () => {
 }
 
 router.get('/:tags', (req, res) => {
-  const questionTag = req.params.tag
+  const questionTag = req.params.tags
   getQuestions(questionTag)
     .then((questions) => {
       res.send(questions)
     }
     )
 })
-
 // router.get('/:tag', (req, res) => {
 //   const questionTag = req.params.tag
 //   getQuestions(questionTag)

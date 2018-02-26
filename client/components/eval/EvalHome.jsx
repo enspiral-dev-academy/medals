@@ -20,7 +20,7 @@ class EvalHome extends React.Component {
 const mapStateToProps = (state) => {
   return {
     evalQuestions: state.evalQuestions,
-    questiontag: state.questionTag
+    questionTag: state.questionTag
   }
 }
 
