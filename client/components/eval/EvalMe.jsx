@@ -7,7 +7,7 @@ import sampleData from './questions.json'
 // mock data
 const sampleQues = sampleData.questions
 
-class Quiz extends React.Component {
+class EvalMe extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -60,7 +60,7 @@ class Quiz extends React.Component {
 
   render () {
     return (
-      <div className='Quiz'>
+      <div className='eval-me'>
         <h2>{this.state.question[this.state.questionIndx].question}</h2>
         <form>
 
@@ -84,4 +84,4 @@ class Quiz extends React.Component {
   }
 }
 
-export default Quiz
+export default EvalMe

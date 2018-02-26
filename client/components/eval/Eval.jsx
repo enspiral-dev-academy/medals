@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {fetchList, sendTag} from '../../actions/assessments'
+import {fetchList, sendTag} from '../../actions/eval'
 
-class Assessments extends React.Component {
+class Eval extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -21,15 +21,15 @@ class Assessments extends React.Component {
   }
 
   render () {
-    if (!this.props.assessmentTags) {
+    if (!this.props.evalTags) {
       return null
     }
     return (
-      <div className='assessments'>
+      <div className='eval'>
         <ul>
-          {this.props.assessmentTags.map((tag, id) => {
+          {this.props.evalTags.map((tag, id) => {
             return (
-              <Link key={id} to={`/assessments/${tag}`} onClick={this.updateTag}><li data-val={tag}>{tag}</li></Link>
+              <Link key={id} to={`/eval/${tag}`} onClick={this.updateTag}><li data-val={tag}>{tag}</li></Link>
             )
           })}
         </ul>
@@ -40,8 +40,8 @@ class Assessments extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    assessmentTags: state.assessmentTags
+    evalTags: state.evalTags
   }
 }
 
-export default connect(mapStateToProps)(Assessments)
+export default connect(mapStateToProps)(Eval)

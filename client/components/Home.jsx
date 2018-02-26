@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
 
-import AssessmentLink from './assessments/AssessmentLink'
+import evalLink from './eval/evalLink'
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
 
       <div className='container'>
         <h1>Home</h1>
-        <Route path='/' component={AssessmentLink} />
+        <Route path='/' component={evalLink} />
       </div>
 
     </div>

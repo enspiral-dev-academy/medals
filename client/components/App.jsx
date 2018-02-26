@@ -9,10 +9,10 @@ import SignIn from './SignIn'
 import Register from './Register'
 import Profile from './Profile'
 import ErrorMessage from './ErrorMessage'
-import Assessments from './assessments/Assessments'
-import AssessmentHome from './assessments/AssessmentHome'
-import Quiz from './assessments/Quiz'
-import CompletedEval from './assessments/CompletedEval'
+import Eval from './eval/Eval'
+import EvalHome from './eval/EvalHome'
+import EvalMe from './eval/EvalMe'
+import CompletedEval from './eval/CompletedEval'
 
 const App = () => {
   return (
@@ -24,10 +24,10 @@ const App = () => {
         <Route path='/register' component={Register} />
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
-        <Route exact path='/assessments' component={Assessments} />
-        <Route exact path='/assessments/:tags' component={AssessmentHome} />
-        <Route exact path='/assessments/:tags/question' component={Quiz} />
-        <Route exact path='/assessments/:tags/complete' component={CompletedEval} />
+        <Route exact path='/eval' component={Eval} />
+        <Route exact path='/eval/:tags' component={EvalHome} />
+        <Route exact path='/eval/:tags/question' component={EvalMe} />
+        <Route exact path='/eval/:tags/complete' component={CompletedEval} />
       </div>
     </Router>
   )
