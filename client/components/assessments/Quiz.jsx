@@ -47,8 +47,14 @@ class Quiz extends React.Component {
     }
   }
   displayNext () {
+    if (sampleQues.length === this.state.questionIndx + 1) {
+      this.props.history.push('complete')
+    }
     this.setState({
-      questionIndx: this.state.questionIndx + 1
+      questionIndx: this.state.questionIndx + 1,
+      check: '',
+      disabled: ''
+
     })
   }
 

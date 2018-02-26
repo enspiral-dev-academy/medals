@@ -12,6 +12,7 @@ import ErrorMessage from './ErrorMessage'
 import Assessments from './assessments/Assessments'
 import AssessmentHome from './assessments/AssessmentHome'
 import Quiz from './assessments/Quiz'
+import CompletedEval from './assessments/CompletedEval'
 
 const App = () => {
   return (
@@ -25,8 +26,8 @@ const App = () => {
         <Route path='/profile' component={Profile} />
         <Route exact path='/assessments' component={Assessments} />
         <Route exact path='/assessments/:topic' component={AssessmentHome} />
-        <Route exact path='/assessments/:id/:question' component={Quiz} />
-
+        <Route exact path='/assessments/:id/question' component={Quiz} />
+        <Route exact path='/assessments/:id/complete' component={CompletedEval} />
       </div>
     </Router>
   )
