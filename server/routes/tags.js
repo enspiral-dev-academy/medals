@@ -1,9 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
 const router = express.Router()
 const development = require('../db/knexfile').development
 const knex = require('knex')(development)
+
+module.exports = router
 
 router.use(bodyParser.json())
 
@@ -43,5 +44,3 @@ const getQuestions = (tag) => {
     .join('eval_responses', 'eval_questions.id', '=', 'eval_responses.question_id')
     .where('eval_tags.tag', tag)
 }
-
-module.exports = router

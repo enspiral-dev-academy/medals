@@ -1,5 +1,9 @@
 import request from 'superagent'
+
 export const GET_TAGS = 'GET_TAGS'
+export const FETCH_LIST = 'FETCH_LIST'
+export const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
+export const UPDATE_TAGS = 'UPDATE_TAGS'
 
 export const getTags = (list) => {
   return {
@@ -8,8 +12,6 @@ export const getTags = (list) => {
 
   }
 }
-
-export const FETCH_LIST = 'FETCH_LIST'
 
 export function fetchList () {
   return (dispatch) => {
@@ -30,8 +32,6 @@ export function fetchList () {
   }
 }
 
-export const FETCH_QUESTIONS = 'FETCH_QUESTIONS'
-
 export function getQuestions (questionTag) {
   return (dispatch) => {
     request
@@ -50,16 +50,12 @@ export const questions = (list) => {
   return {
     type: FETCH_QUESTIONS,
     questions: list
-
   }
 }
-
-export const UPDATE_TAGS = 'UPDATE_TAGS'
 
 export const sendTag = (tag) => {
   return {
     type: UPDATE_TAGS,
     questionTag: tag
-
   }
 }
