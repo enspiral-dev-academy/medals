@@ -9,7 +9,9 @@ const initialState = {
   location: 'I am a location',
   githubLink: 'I am a github link',
   linkedinLink: 'I am a linkedin link',
-  portfolio: 'I am a portfolio',
+  portfolioLinkOne: 'I am a portfolio',
+  portfolioLinkTwo: 'I am a portfolio',
+  portfolioLinkThree: 'I am a portfolio',
   previousExperience: 'I am a previousExperience',
   interests: 'I am an interest'
 }
