@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {getQuestions} from '../../actions/eval'
 import {connect} from 'react-redux'
 
@@ -11,7 +11,7 @@ class EvalHome extends React.Component {
   render () {
     return (
       <div className='eval-home'>
-        <Link to={`/eval/${this.props.questionTag}/question`}><button>Let's Evaluate</button></Link>
+        <Link to={`/eval/${this.props.questionTag}/question`}><button>Let&rsquo;s Evaluate</button></Link>
       </div>
     )
   }
