@@ -16,7 +16,8 @@ class EvalMe extends React.Component {
       key: '',
       reason: '',
       check: '',
-      disabled: ''
+      disabled: '',
+      enableButton: 'disabled'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -28,7 +29,8 @@ class EvalMe extends React.Component {
     this.setState({
       answer: selectedAnswer,
       key: evt.target.value,
-      reason: reasoning
+      reason: reasoning,
+      enableButton: ''
     })
   }
 
@@ -36,12 +38,14 @@ class EvalMe extends React.Component {
     if (Number(this.state.key) === 1) {
       this.setState({
         check: 'Correct!',
-        disabled: 'disabled'
+        disabled: 'disabled',
+        enableButton: 'disabled'
       })
     } else {
       this.setState({
         check: 'Not Quite',
-        disabled: 'disabled'
+        disabled: 'disabled',
+        enableButton: 'disabled'
       })
     }
   }
@@ -76,7 +80,7 @@ class EvalMe extends React.Component {
           })}
         </form>
         {this.state.check && <Check feedback={this.state} displayNext={this.displayNext} />}
-        <button type='button' onClick={this.handleSubmit}>Submit Answer</button>
+        <button type='button' disabled={this.state.enableButton} onClick={this.handleSubmit}>Submit Answer</button>
       </div>
     )
   }
