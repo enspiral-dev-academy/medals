@@ -63,8 +63,6 @@ class EvalMe extends React.Component {
   }
 
   render () {
-    console.log(this.props.evalQuestions)
-    console.log(this.props)
     return (
       <div className='eval-me'>
         <h2>{this.props.evalQuestions[this.state.questionIndx].question}</h2>
