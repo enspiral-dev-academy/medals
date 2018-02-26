@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-class EditableComponent extends React.Component {
+class EditableLinkComponent extends React.Component {
   constructor (props) {
     super(props)
   }
@@ -13,14 +13,16 @@ class EditableComponent extends React.Component {
         {this.props.isEditable
           ? <div>
             <textarea name={this.props.type} onChange={this.props.handleChange} placeholder={this.props.content}/>
-            <Link to='/grad-profile'><button onClick={() => this.props.addGradProfile()}>Save Changes
-            </button></Link>
+            <button onClick={() => this.props.addGradProfile()}>Save Changes
+            </button>
           </div>
-          : <p>{this.props.content}</p>
+          : this.props.img
+            ? <a href={`${this.props.content}`} target='_blank'><img src={this.props.img} /></a>
+            : <a href={`${this.props.content}`} target='_blank'>{this.props.content}</a>
         }
       </div>
     )
   }
 }
 
-export default EditableComponent
+export default EditableLinkComponent

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import EditableComponent from './EditableComponent'
+import EditableLinkComponent from './EditableLinkComponent'
 
 import {saveGradProfile} from '../actions/gradProfileSaveEdit'
 import {getGradProfile} from '../actions/gradProfile'
@@ -12,10 +13,12 @@ class GradProfile extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      userId: 1
+      userId: 1,
+      editable: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.addGradProfile = this.addGradProfile.bind(this)
+    this.setEditable = this.setEditable.bind(this)
   }
 
   componentDidMount () {
@@ -37,6 +40,10 @@ class GradProfile extends React.Component {
     })
   }
 
+  setEditable () {
+    this.setState({editable: !this.state.editable})
+  }
+
   addGradProfile () {
     const currentUser = this.state
     this.props.dispatch(saveGradProfile(currentUser))
@@ -48,29 +55,21 @@ class GradProfile extends React.Component {
     return (
       <div className='grad-profile'>
         <div className='container'>
-          <h1>Name | Email | Phone</h1>
-          <Link to='/grad-profile/edit'><button>
-          Edit Profile
-          </button></Link>
           <div className='about-me'>
-
-            {/* Current Work v v v */}
             <div className='about-me-title'>
-            About Me:
+            About Me: <button type='button' onClick={() => this.setEditable()}>Edit</button>
+
             </div>
             <div className='about-me-content'>
-              <EditableComponent content={aboutMe} type='aboutMe' handleChange={this.handleChange} addGradProfile={this.addGradProfile}/>
+              <EditableComponent content={aboutMe} type='aboutMe' handleChange={this.handleChange} addGradProfile={this.addGradProfile} editable={this.setEditable} isEditable={this.state.editable}/>
             </div>
           </div>
-
-          {/* Current Work ^ ^ ^ */}
-
           <div className='location'>
             <div className='location-title'>
             Location:
             </div>
             <div className='location-content'>
-              <EditableComponent content={location} type='location' handleChange={this.handleChange} addGradProfile={this.addGradProfile}/>
+              <EditableComponent content={location} type='location' handleChange={this.handleChange} addGradProfile={this.addGradProfile} editable={this.setEditable} isEditable={this.state.editable}/>
             </div>
           </div>
           <div className='github-link'>
@@ -78,7 +77,7 @@ class GradProfile extends React.Component {
             Github Link:
             </div>
             <div className='github-link-content'>
-              <a href={`${githubLink}`}>{githubLink}</a>
+              <EditableLinkComponent content={githubLink} type='githubLink' handleChange={this.handleChange} addGradProfile={this.addGradProfile} editable={this.setEditable} isEditable={this.state.editable} img="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"/>
             </div>
           </div>
           <div className='portfolio'>
@@ -86,7 +85,7 @@ class GradProfile extends React.Component {
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <p>{portfolio}</p>
+              <EditableLinkComponent content={portfolio} type='portfolio' handleChange={this.handleChange} addGradProfile={this.addGradProfile} editable={this.setEditable} isEditable={this.state.editable}/>
             </div>
           </div>
           <div className='previous-experience'>
@@ -94,7 +93,7 @@ class GradProfile extends React.Component {
             Previous Experience:
             </div>
             <div className='previous-experience-content'>
-              <p>{previousExperience}</p>
+              <EditableComponent content={previousExperience} type='previousExperience' handleChange={this.handleChange} addGradProfile={this.addGradProfile} editable={this.setEditable} isEditable={this.state.editable}/>
             </div>
           </div>
           <div className='interests'>
@@ -102,7 +101,7 @@ class GradProfile extends React.Component {
             Interests:
             </div>
             <div className='interests-content'>
-              <p>{interests}</p>
+              <EditableComponent content={interests} type='interests' handleChange={this.handleChange} addGradProfile={this.addGradProfile} editable={this.setEditable} isEditable={this.state.editable}/>
             </div>
           </div>
         </div>
@@ -114,7 +113,8 @@ class GradProfile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userData: state.getUserReducer
+    userData: state.getUserReducer,
+    loggedUser: state.userDetails
   }
 }
 

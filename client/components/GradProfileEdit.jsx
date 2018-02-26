@@ -10,7 +10,7 @@ class GradProfileEdit extends React.Component {
     super(props)
     this.state = {
       userLoggedIn: false,
-      userId: 2,
+      userId: 1,
       aboutMe: '',
       location: '',
       githubLink: '',
