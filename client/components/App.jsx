@@ -6,12 +6,14 @@ import '../styling/main.css'
 import Home from './Home'
 import Header from './Header'
 import SignIn from './SignIn'
+import Sprint from './Sprint'
 import Profile from './Profile'
 import WaitList from './WaitList'
 import Register from './Register'
-import ErrorMessage from './ErrorMessage'
+import Assignment from './Assignment'
 import GradProfile from './GradProfile'
 import GradProfileEdit from './GradProfileEdit'
+import ErrorMessage from './ErrorMessage'
 
 class App extends React.Component {
   componentDidMount () {
@@ -34,6 +36,8 @@ class App extends React.Component {
         <Route path='/' component={ErrorMessage} />
         <Route path='/signin' component={SignIn} />
         <Route path='/profile' component={Profile} />
+        <Route exact path='/sprints/:number' component={Sprint} />
+        <Route path='/sprints/:number/assignments/:id' component={Assignment} />
         <Route exact path='/grad-profile' component={GradProfile} />
         <Route path='/grad-profile/edit' component={GradProfileEdit} />
         <Route path='/waitlist' component={WaitList}/>
