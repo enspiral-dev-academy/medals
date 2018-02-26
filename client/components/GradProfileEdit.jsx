@@ -44,7 +44,6 @@ class GradProfileEdit extends React.Component {
     const currentUser = this.state
     this.props.dispatch(saveGradProfile(currentUser))
   }
-  
 
   render () {
     const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
