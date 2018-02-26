@@ -41,12 +41,7 @@ export function getQuestions (questionTopic) {
           // eslint-disable-next-line no-console
           console.error(err)
         }
-        const list = res.body.ids
-        const send = []
-        for (let i = 0; i < list.length; i++) {
-          send.push(list[i].id)
-        }
-        dispatch(questions(send))
+        dispatch(questions(res.body))
       })
   }
 }
