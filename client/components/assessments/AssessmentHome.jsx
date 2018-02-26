@@ -9,13 +9,13 @@ class AssessmentHome extends React.Component {
     this.state = {}
   }
   componentDidMount () {
-    this.props.dispatch(getQuestions(this.props.questionTopic))
+    this.props.dispatch(getQuestions(this.props.questionTag))
   }
 
   render () {
     return (
       <div className='AssessmentHome'>
-        <Link to={`/assessments/${this.props.questionTopic}/:question`}><button>Let's Quiz</button></Link>
+        <Link to={`/assessments/${this.props.questionTag}/question`}><button>Let's Quiz</button></Link>
       </div>
     )
   }
@@ -24,7 +24,7 @@ class AssessmentHome extends React.Component {
 const mapStateToProps = (state) => {
   return {
     assessmentQuestions: state.assessmentQuestions,
-    questionTopic: state.questionTopic
+    questiontag: state.questionTag
   }
 }
 
