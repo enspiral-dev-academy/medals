@@ -1,13 +1,15 @@
 import {combineReducers} from 'redux'
 
-import errorMessage from './error-message'
-import userDetails from './user-details'
 import busy from './busy'
+import allUsers from './all-users'
+import userDetails from './user-details'
+import errorMessage from './error-message'
 import getUserReducer from './gradProfileDetails'
 
 export default combineReducers({
-  errorMessage,
-  userDetails,
   busy,
+  allUsers,
+  userDetails,
+  errorMessage,
   getUserReducer
 })
