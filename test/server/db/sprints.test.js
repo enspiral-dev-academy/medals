@@ -60,6 +60,6 @@ test('test inerting comment into table', () => {
   }
   return db.createComment(comment, testDb)
     .then(num => {
-      expect(num[0]).toBe(5)
+      expect(typeof num[0]).toBe('number')
     })
 })
