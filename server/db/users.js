@@ -8,7 +8,9 @@ module.exports = {
   getUserById,
   getUserByName,
   updateUser,
-  findOrCreateGitHubUser
+  findOrCreateGitHubUser,
+  updateGradProfile,
+  getGradProfileById
 }
 
 function createUser (username, password, conn, ghid = null) {
@@ -60,6 +62,14 @@ function getUserById (id, conn) {
     .first()
 }
 
+function getGradProfileById (id, conn) {
+  const db = conn || connection
+  return db('grad_profiles')
+    .select()
+    .where('id', id)
+    .first()
+}
+
 function getUserByName (username, conn) {
   const db = conn || connection
   return db('users')
@@ -83,6 +93,21 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
       return db('users')
         .update({username, hash: newPasswordHash})
         .where('id', user.id)
+    })
+}
+
+function updateGradProfile (updatedUser, conn) {
+  // console.log(updatedUser)
+  const db = conn || connection
+  return db('grad_profiles')
+    .where('id', updatedUser.userId)
+    .update({
+      aboutMe: updatedUser.aboutMe,
+      location: updatedUser.location,
+      githubLink: updatedUser.githubLink,
+      portfolio: updatedUser.portfolio,
+      previousExperience: updatedUser.previousExperience,
+      interests: updatedUser.interests
     })
 }
 
