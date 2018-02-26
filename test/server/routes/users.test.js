@@ -13,7 +13,7 @@ jest.mock('../../../server/db/users', () => ({
 
 jest.mock('../../../server/routes/github', () => () => {})
 
-// eslint-disable-next-line
+// eslint-disable-next-line import/first
 import server from '../../../server/server'
 
 test('/ route returns an object of length 2', () => {
@@ -25,7 +25,6 @@ test('/ route returns an object of length 2', () => {
       expect(res.body.length).toBe(2)
       expect(res.body[1].username).toBe('foo')
     })
-    .catch(err => expect(err).toBeNull())
 })
 
 test('/:id route returns correct object', () => {
@@ -36,5 +35,4 @@ test('/:id route returns correct object', () => {
     .then((res) => {
       expect(res.body.username).toBe('test')
     })
-    .catch(err => expect(err).toBeNull())
 })
