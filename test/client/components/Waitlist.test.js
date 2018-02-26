@@ -6,7 +6,7 @@ import {MemoryRouter as Router} from 'react-router'
 
 import WaitList from '../../../client/components/WaitList'
 
-test('<WaitList /> Displays User Table When route is accessed', () => {
+test.skip('<WaitList /> Displays User Table When route is accessed', () => {
   const mockStore = configureStore()({
     allUsers: [{
       ghid: 3232,
