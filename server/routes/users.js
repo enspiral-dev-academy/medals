@@ -21,9 +21,9 @@ router.get('/', token.decode, (req, res) => {
     })
 })
 
-router.put('/approvals', token.decode, (req, res) => {
-  console.log(req.body)
-})
+// router.put('/approvals', token.decode, (req, res) => {
+//   console.log(req.body)
+// })
 
 // GET /users/:id
 router.get('/:id', token.decode, (req, res) => {
@@ -48,5 +48,3 @@ router.put('/:id', token.decode, (req, res) => {
       res.status(500).send(err.message)
     })
 })
-
-
