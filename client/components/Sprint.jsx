@@ -1,32 +1,16 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import request from 'superagent'
 
 class Sprint extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      assignments: []
-    }
-    this.getAssignments = this.getAssignments.bind(this)
-  }
-
-  getAssignments () {
-    const number = this.props.match.params.number
-    request.get('/api/v1/sprints/' + number)
-      .then(res => {
-        this.setState({
-          assignments: res.body
-        })
-      })
-  }
-
   render () {
+    const targetSprint = this.props.sprints.find(sprint => {
+      return sprint.id === Number(this.props.match.params.number)
+    })
     return (
       <div>
-        <button type='button' onClick={this.getAssignments}>Issue Sprint</button>
         <ul>
-          {this.state.assignments.map((assignment, key) => {
+          {targetSprint.assignments.map((assignment, key) => {
             return <li key={key}>
               <Link
                 to={`${this.props.match.url}/assignments/${assignment.id}`}>{assignment.title}
@@ -38,4 +22,10 @@ class Sprint extends React.Component {
   }
 }
 
-export default Sprint
+const mapStateToProps = (state) => {
+  return {
+    sprints: state.sprints
+  }
+}
+
+export default connect(mapStateToProps)(Sprint)
