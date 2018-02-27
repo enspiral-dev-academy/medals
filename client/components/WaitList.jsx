@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {getAllUsers, updateUserApprovals} from '../actions/auth'
 
-class WaitList extends React.Component {
+export class WaitList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
