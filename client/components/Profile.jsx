@@ -1,8 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
+// import {saveUserProfile} from '../actions/userProfileSaveEdit'
+
+// import {getUserProfile} from './actions/userProfile'
+
+import {showError, clearError} from './ErrorMessage'
 import {updateProfile} from '../actions/auth'
-import {showError, clearError} from '../actions/error'
 
 class Profile extends React.Component {
   constructor (props) {
@@ -88,8 +93,9 @@ class Profile extends React.Component {
                   onChange={this.handleChange} value={confirm} />
 
                 {showMatch && !match && <span style={this.styles.match}>*</span>}
-                <button className='pure-button pure-button-primary'
-                  onClick={this.handleSubmit}>Update profile</button>
+                <Link to='/user-profile'>
+                  <button className='pure-button pure-button-primary'
+                    onClick={this.handleSubmit}>Update profile</button></Link>
               </fieldset>
             </form>
           </div>

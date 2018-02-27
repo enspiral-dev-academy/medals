@@ -13,7 +13,10 @@ class GradProfileEdit extends React.Component {
       aboutMe: '',
       location: '',
       githubLink: '',
-      portfolio: '',
+      linkedinLink: '',
+      portfolioLinkOne: '',
+      portfolioLinkTwo: '',
+      portfolioLinkThree: '',
       previousExperience: '',
       interests: ''
     }
@@ -46,7 +49,7 @@ class GradProfileEdit extends React.Component {
   }
 
   render () {
-    const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
+    const {aboutMe, location, githubLink, linkedinLink, portfolioLinkOne, portfolioLinkTwo, portfolioLinkThree, previousExperience, interests} = this.props.userData
     return (
       <div>
         <form className='submit-form'>
@@ -63,16 +66,25 @@ class GradProfileEdit extends React.Component {
             <input name='location' onChange={this.handleChange} placeholder={location}/>
           </div>
           <h3>
-            Github:
+            Links:
           </h3>
           <div>
             <input name='githubLink' onChange={this.handleChange} placeholder={githubLink}/>
+          </div>
+          <div>
+            <input name='linkedinLink' onChange={this.handleChange} placeholder={linkedinLink}/>
           </div>
           <h3>
             Portfolio:
           </h3>
           <div>
-            <input name='portfolio' onChange={this.handleChange} placeholder={portfolio}/>
+            <input name='portfolioLinkOne' onChange={this.handleChange} placeholder={portfolioLinkOne}/>
+          </div>
+          <div>
+            <input name='portfolioLinkTwo' onChange={this.handleChange} placeholder={portfolioLinkTwo}/>
+          </div>
+          <div>
+            <input name='portfolioLinkThree' onChange={this.handleChange} placeholder={portfolioLinkThree}/>
           </div>
           <h3>
             Previous Experience:

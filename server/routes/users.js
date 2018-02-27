@@ -55,6 +55,17 @@ router.get('/grad/:id', token.decode, (req, res) => {
     })
 })
 
+// GET a grads profile including tags data from /users/tags/:id
+router.get('/grad/tags/:id', token.decode, (req, res) => {
+  db.getGradTagsById(Number(req.params.id))
+    .then(user => {
+      res.json(user)
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
+})
+
 // PUT /users/:id
 router.put('/:id', token.decode, (req, res) => {
   const id = Number(req.params.id)

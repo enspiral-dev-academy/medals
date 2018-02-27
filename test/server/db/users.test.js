@@ -69,6 +69,19 @@ test('createUser fails if username already exists', () => {
     .then(() => expect(createNewUser()).rejects.toBeDefined())
 })
 
+test('getGradProfileById returns the user at id 1', () => {
+  return db.getGradProfileById(1, testDb)
+    .then(user => {
+      expect(user.id).toBe(1)
+    })
+})
+
+test('getGradProfileById returns a user with the correct AboutMe info', () => {
+  return db.getGradProfileById(1, testDb)
+    .then(user => {
+      expect(user.aboutMe).toBe('Who are you, and what do you care about?')
+    })
+
 test('getAllUsers returns all users', () => {
   return db.getAllUsers(testDb)
     .then(allUsers => expect(allUsers.length).toBe(5))

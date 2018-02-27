@@ -10,6 +10,7 @@ module.exports = {
   getUserByName,
   updateGradProfile,
   getGradProfileById,
+  getGradTagsById,
   updateUserApprovals,
   findOrCreateGitHubUser
 }
@@ -81,6 +82,15 @@ function getGradProfileById (id, conn) {
     .first()
 }
 
+function getGradTagsById (id, conn) {
+  const db = conn || connection
+  return db('grad_profiles')
+    .join('grad_profiles_tags', 'grad_profiles.id', '=', 'grad_profiles_tags.grad_profiles_id')
+    .join('profile_tags', 'profile_tags.id', '=', 'grad_profiles_tags.profile_tags_id')
+    .where('grad_profiles.id', id)
+    .select('profile_tags.tag')
+}
+
 function getUserByName (username, conn) {
   const db = conn || connection
   return db('users')
@@ -115,7 +125,10 @@ function updateGradProfile (updatedUser, conn) {
       aboutMe: updatedUser.aboutMe,
       location: updatedUser.location,
       githubLink: updatedUser.githubLink,
-      portfolio: updatedUser.portfolio,
+      linkedinLink: updatedUser.linkedinLink,
+      portfolioLinkOne: updatedUser.portfolioLinkOne,
+      portfolioLinkTwo: updatedUser.portfolioLinkTwo,
+      portfolioLinkThree: updatedUser.portfolioLinkThree,
       previousExperience: updatedUser.previousExperience,
       interests: updatedUser.interests
     })
