@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {profile} from './Profile'
+import {Profile} from './Profile'
 import {getGradProfile} from '../actions/gradProfile'
 
 class GradProfile extends React.Component {
