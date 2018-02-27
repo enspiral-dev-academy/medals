@@ -67,11 +67,11 @@ class EvalMe extends React.Component {
       <div className='eval-me'>
         <h2>{this.props.evalQuestions[this.state.questionIndx].question}</h2>
         <form>
-
           {this.props.evalQuestions[this.state.questionIndx].responses.map((answer) => {
             return (
               <div key={answer.id}>
                 <input readOnly type='radio' name='answer'
+                  className={answer.id}
                   value={answer.key} data-ans={answer.response}
                   data-fbk={answer.reason}
                   onChange={this.handleChange}
@@ -82,7 +82,7 @@ class EvalMe extends React.Component {
           })}
         </form>
         {this.state.check && <Check feedback={this.state} displayNext={this.displayNext} />}
-        <button type='button' disabled={this.state.enableButton} onClick={this.handleSubmit}>Submit Answer</button>
+        <button name='submit-btn' type='button' disabled={this.state.enableButton} onClick={this.handleSubmit}>Submit Answer</button>
         <div>
           <p>{this.state.currentQuestion}/{this.props.evalQuestions.length}</p>
         </div>
