@@ -21,11 +21,14 @@
     "seed": "yarn knex seed:run",
     "lint": "eslint client server test --ignore-pattern 'bundle.js'",
     "lint:assert": "yarn lint && yarn assert",
-    "postinstall": "npm run build && npm run knex migrate:latest",
+    "postinstall": "yarn build && yarn knex migrate:latest",
     "test": "jest test/client test/server",
     "test:watch": "yarn test --watchAll",
     "test:assert": "yarn test && yarn assert",
     "start": "node server"
+  },
+  "engines": {
+    "node": ">=8.9.1 <=8.9.4"
   },
   "babel": {
     "presets": [
