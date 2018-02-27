@@ -2,9 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {saveUserProfile} from '../actions/userProfileSaveEdit'
+// import {saveUserProfile} from '../actions/userProfileSaveEdit'
 
-import {getUserProfile} from './actions/userProfile'
+// import {getUserProfile} from './actions/userProfile'
+
+import {showError, clearError} from './ErrorMessage'
+import {updateProfile} from '../actions/auth'
 
 class Profile extends React.Component {
   constructor (props) {
@@ -30,23 +33,6 @@ class Profile extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  componentDidMount () {
-    this.getUserDetails()
-  }
-
-  componentWillReceiveProps (props) {
-    this.setState(props.userData)
-  }
-
-  getUserDetails () {
-    this.props.dispatch(getUserProfile(this.state.username))
-  }
-
-  addUserProfile () {
-    const currentUser = this.state
-    this.props.dispatch(saveUserProfile(currentUser))
   }
 
   render () {
