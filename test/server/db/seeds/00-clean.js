@@ -8,7 +8,7 @@ exports.seed = (knex, Promise) => {
     .then(empty('assignments'))
     .then(empty('sprints'))
     .then(empty('eval_responses'))
-    .then(empty('eval_question_tags'))
+    .then(empty('eval_questions_tags'))
     .then(empty('eval_questions'))
     .then(empty('eval_questions_types'))
     .then(empty('eval_tags'))
