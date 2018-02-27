@@ -4,7 +4,8 @@ import {Route, Link} from 'react-router-dom'
 
 import evalLink from './eval/EvalLink'
 import {getSprint} from '../actions/sprints'
-import request from '../lib/api.js'
+// import request from '../lib/api.js'
+import request from 'superagent'
 
 class Home extends React.Component {
   constructor (props) {
@@ -21,7 +22,15 @@ class Home extends React.Component {
 
   handleClick (e) {
     const sprintId = e.target.id
-    request('post', '/sprints/', {id: sprintId})
+    // request('post', '/sprints/', {id: sprintId})
+    request.post('/api/v1/sprints')
+      .send({id: sprintId})
+      .then((res) => {
+        console.log('yay')
+      })
+      .catch(() => {
+        console.log('noo')
+      })
   }
 
   render () {

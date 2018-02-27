@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
             })
             sprint.assignments.push(assignment)
           })
-          res.json(sprints)
+          return res.json(sprints)
         })
     })
     .catch(() => {
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
       })
       db.populateAssignedTasks(tasks)
         .then(() => {
-          res.status(200).end()
+          res.status(200).send({})
         })
     })
     .catch(() => {
