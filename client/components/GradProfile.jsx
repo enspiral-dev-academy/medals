@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-// import {Profile} from './Profile'
-import {getGradProfile} from '../actions/gradProfile'
+import {getGradProfile, getGradTags} from '../actions/gradProfile'
+// import GradProfileEdit from './GradProfileEdit'
 
 class GradProfile extends React.Component {
   constructor (props) {
@@ -18,6 +18,7 @@ class GradProfile extends React.Component {
 
   getGradsDetails () {
     this.props.dispatch(getGradProfile(this.state.userId))
+    this.props.dispatch(getGradTags(this.state.userId))
   }
 
   render () {
@@ -71,18 +72,34 @@ class GradProfile extends React.Component {
               </a>
             </div>
           </div>
+          <div className='tags'>
+            <div className='portfolio-title'>
+            tags:
+            </div>
+            <div className='portfolio-content'>
+              {this.props.tags.map((tag, id) => {
+                return <p key={id}>{tag.tag}</p>
+              })}
+            </div>
+          </div>
           <div className='portfolio'>
             <div className='portfolio-title'>
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <p>{portfolioLinkOne}</p>
+              <a href={`${portfolioLinkOne}`} target='_blank'>
+                {portfolioLinkOne}
+              </a>
             </div>
             <div className='portfolio-content'>
-              <p>{portfolioLinkTwo}</p>
+              <a href={`${portfolioLinkTwo}`} target='_blank'>
+                {portfolioLinkTwo}
+              </a>
             </div>
             <div className='portfolio-content'>
-              <p>{portfolioLinkThree}</p>
+              <a href={`${portfolioLinkThree}`} target='_blank'>
+                {portfolioLinkThree}
+              </a>
             </div>
           </div>
           <div className='previous-experience'>
@@ -110,7 +127,8 @@ class GradProfile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userData: state.getUserReducer
+    userData: state.getUserReducer,
+    tags: state.getGradTags
   }
 }
 

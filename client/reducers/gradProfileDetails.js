@@ -25,6 +25,7 @@ const getUserReducer = (state = initialState, action) => {
       return {
         loading: action.loading
       }
+
     default:
       return state
   }
