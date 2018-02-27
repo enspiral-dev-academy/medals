@@ -28,7 +28,7 @@ class GradProfile extends React.Component {
     return (
       <div className='grad-profile'>
         <div className='container'>
-          <h1>Name | Email | Phone</h1>
+          <h1> Name | Email | Phone </h1>
           <Link to='/grad-profile/edit'><button>
           Edit Profile
           </button></Link>
