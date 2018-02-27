@@ -1,7 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {getQuestions} from '../../actions/eval'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+
+import {getQuestions} from '../../actions/eval'
 
 class EvalHome extends React.Component {
   componentDidMount () {
@@ -11,8 +12,9 @@ class EvalHome extends React.Component {
   render () {
     return (
       <div className='eval-home'>
-        <Link to={`/eval/${this.props.questionTag}/question`}>
-          <button>Let&rsquo;s Evaluate</button>
+        <Link className='button'
+          to={`/eval/${this.props.questionTag}/question`}>
+          Let&apos;s Evaluate
         </Link>
       </div>
     )

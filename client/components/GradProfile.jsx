@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {getGradProfile, getGradTags} from '../actions/gradProfile'
 import {getUserProfile} from '../actions/userProfile'
+import {getGradProfile, getGradTags} from '../actions/gradProfile'
 
 class GradProfile extends React.Component {
   constructor (props) {
@@ -12,6 +12,7 @@ class GradProfile extends React.Component {
       userId: 1
     }
   }
+
   componentDidMount () {
     this.getGradsDetails()
   }
@@ -29,11 +30,12 @@ class GradProfile extends React.Component {
       previousExperience, gitHubLink, linkedInLink,
       portfolioLink1, portfolioLink2, portfolioLink3
     } = this.props.userData
+
     return (
       <div className='grad-profile'>
         <div className='user-header'>
           <div className='user-image-name'>
-            <img src={`${profilePic}`} alt="student profile picture"/>
+            <img src={profilePic} alt="student profile picture"/>
             <h1>{preferredName}</h1>
             <h1>{surname}</h1>
           </div>
@@ -67,12 +69,12 @@ class GradProfile extends React.Component {
             Links:
             </div>
             <div className='github-link-content'>
-              <a href={`${gitHubLink}`} target='_blank'>
+              <a href={gitHubLink} target='_blank'>
                 <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="35px" width="35px"/>
               </a>
             </div>
             <div className='linkedin-link-content'>
-              <a href={`${linkedInLink}`} target='_blank'>
+              <a href={linkedInLink} target='_blank'>
                 <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" height="35px" width="35px"/>
               </a>
             </div>
@@ -92,17 +94,17 @@ class GradProfile extends React.Component {
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <a href={`${portfolioLink1}`} target='_blank'>
+              <a href={portfolioLink1} target='_blank'>
                 {portfolioLink1}
               </a>
             </div>
             <div className='portfolio-content'>
-              <a href={`${portfolioLink2}`} target='_blank'>
+              <a href={portfolioLink2} target='_blank'>
                 {portfolioLink2}
               </a>
             </div>
             <div className='portfolio-content'>
-              <a href={`${portfolioLink3}`} target='_blank'>
+              <a href={portfolioLink3} target='_blank'>
                 {portfolioLink3}
               </a>
             </div>
