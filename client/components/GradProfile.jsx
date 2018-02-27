@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {getGradProfile} from '../actions/gradProfile'
+import {getGradProfile, getGradTags} from '../actions/gradProfile'
 // import GradProfileEdit from './GradProfileEdit'
 
 class GradProfile extends React.Component {
@@ -19,6 +19,7 @@ class GradProfile extends React.Component {
   getGradsDetails () {
     // this.props.dispatch(requestGradProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
+    this.props.dispatch(getGradTags(this.state.userId))
   }
 
   onClick () {
@@ -27,6 +28,8 @@ class GradProfile extends React.Component {
 
   render () {
     const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
+    const {tags} = this.props.tags || ['hello']
+     console.log(tags)
     return (
       <div className='grad-profile'>
         <div className='container'>
@@ -59,6 +62,16 @@ class GradProfile extends React.Component {
                 <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"/>
               </a>
             </div>
+          </div>
+          <div className='tags'>
+            <div className='portfolio-title'>
+            tags:
+            </div>
+            {/* <div className='portfolio-content'>
+              {tags.map((tag, id) => {
+                return <p key={id}>{tag}</p>
+              })}
+            </div> */}
           </div>
           <div className='portfolio'>
             <div className='portfolio-title'>
@@ -93,7 +106,8 @@ class GradProfile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userData: state.getUserReducer
+    userData: state.getUserReducer,
+    tags: state.getGradTags
   }
 }
 
