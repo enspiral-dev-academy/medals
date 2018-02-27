@@ -10,9 +10,7 @@ const Students = (props) => {
   return (
     <form>
       <div className='field'>
-        <button className='button is-primary gh-login'>
-          <a href={`${baseUrl}/auth/github`}>Continue with GitHub</a>
-        </button>
+        <a className='button is-primary gh-login' href={`${baseUrl}/auth/github`}>Continue with GitHub</a>
       </div>
     </form>
   )
