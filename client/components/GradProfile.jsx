@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 
 import {getGradProfile, getGradTags} from '../actions/gradProfile'
 import {getUserProfile} from '../actions/userProfile'
-// import GradProfileEdit from './GradProfileEdit'
 
 class GradProfile extends React.Component {
   constructor (props) {
@@ -24,20 +23,19 @@ class GradProfile extends React.Component {
   }
 
   render () {
-    // const {preferredName, surname, email, phone} = this.props.userProfileData
+    const {preferredName, profilePic, surname, email, phone} = this.props.userProfileData
     const {aboutMe, location, githubLink, linkedinLink, portfolioLinkOne, portfolioLinkTwo, portfolioLinkThree, previousExperience, interests} = this.props.userData
     return (
       <div className='grad-profile'>
         <div className='user-header'>
           <div className='user-image-name'>
-            <h1>Name | Email | Phone</h1>
-            {/* <img src={`${profilePic}`} alt="student profile picture"/>
+            <img src={`${profilePic}`} alt="student profile picture"/>
             <h1>{preferredName}</h1>
             <h1>{surname}</h1>
           </div>
           <div className='user-contact'>
             <h3>{email}</h3>
-            <h3>{phone}</h3> */}
+            <h3>{phone}</h3>
           </div>
         </div>
         <div className='container'>
@@ -130,7 +128,7 @@ class GradProfile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userProfileData: state.getUserProfileReducer,
+    userProfileData: state.userProfile,
     userData: state.getUserReducer,
     tags: state.getGradTags
   }
