@@ -1,9 +1,16 @@
 exports.seed = (knex, Promise) => {
   const empty = table => () => knex(table).del()
-  return empty('comments')()
+  return empty('profile_tags')()
+    .then(empty('grad_profiles'))
+    .then(empty('comments'))
     .then(empty('assignedTasks'))
     .then(empty('tasks'))
     .then(empty('assignments'))
     .then(empty('sprints'))
+    .then(empty('eval_responses'))
+    .then(empty('eval_question_tags'))
+    .then(empty('eval_questions'))
+    .then(empty('eval_questions_types'))
+    .then(empty('eval_tags'))
     .then(empty('users'))
 }
