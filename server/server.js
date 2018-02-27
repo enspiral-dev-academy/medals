@@ -15,6 +15,7 @@ server.use('/api/v1/auth', authRoutes)
 server.use('/api/v1/users', userRoutes)
 server.use('/api/v1/tags', tagRoutes)
 server.use('/api/v1/sprints', sprintRoutes)
+// server.use('/api/v1/profile')
 
 // Default route for non-API requests
 server.get('*', (req, res) => {
