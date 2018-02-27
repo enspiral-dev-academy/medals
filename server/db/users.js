@@ -77,7 +77,18 @@ function getUserById (id, conn) {
 function getGradProfileById (id, conn) {
   const db = conn || connection
   return db('grad_profiles')
-    .select()
+    .select(
+      'id',
+      'about_me as aboutMe',
+      'location',
+      'github_link as gitHubLink',
+      'linkedin_link as linkedInLink',
+      'portfolio_link1 as portfolioLink1',
+      'portfolio_link2 as portfolioLink2',
+      'portfolio_link3 as portfolioLink3',
+      'previous_experience as previousExperience',
+      'interests'
+    )
     .where('id', id)
     .first()
 }
@@ -85,8 +96,8 @@ function getGradProfileById (id, conn) {
 function getGradTagsById (id, conn) {
   const db = conn || connection
   return db('grad_profiles')
-    .join('grad_profiles_tags', 'grad_profiles.id', '=', 'grad_profiles_tags.grad_profiles_id')
-    .join('profile_tags', 'profile_tags.id', '=', 'grad_profiles_tags.profile_tags_id')
+    .join('grad_profile_tags', 'grad_profiles.id', '=', 'grad_profile_tags.grad_profile_id')
+    .join('profile_tags', 'profile_tags.id', '=', 'grad_profile_tags.profile_tag_id')
     .where('grad_profiles.id', id)
     .select('profile_tags.tag')
 }
@@ -122,14 +133,14 @@ function updateGradProfile (updatedUser, conn) {
   return db('grad_profiles')
     .where('id', updatedUser.userId)
     .update({
-      aboutMe: updatedUser.aboutMe,
+      about_me: updatedUser.aboutMe,
       location: updatedUser.location,
-      githubLink: updatedUser.githubLink,
-      linkedinLink: updatedUser.linkedinLink,
-      portfolioLinkOne: updatedUser.portfolioLinkOne,
-      portfolioLinkTwo: updatedUser.portfolioLinkTwo,
-      portfolioLinkThree: updatedUser.portfolioLinkThree,
-      previousExperience: updatedUser.previousExperience,
+      github_link: updatedUser.gitHubLink,
+      linkedin_link: updatedUser.linkedInLink,
+      portfolio_link1: updatedUser.portfolioLink1,
+      portfolio_link2: updatedUser.portfolioLink2,
+      portfolio_link3: updatedUser.portfolioLink3,
+      previous_experience: updatedUser.previousExperience,
       interests: updatedUser.interests
     })
 }

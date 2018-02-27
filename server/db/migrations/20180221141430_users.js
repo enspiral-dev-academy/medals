@@ -4,6 +4,7 @@ exports.up = (knex, Promise) => {
     table.string('ghid')
     table.string('username')
     table.binary('hash')
+    table.boolean('is_approved')
   })
 }
 

@@ -44,8 +44,8 @@ router.get('/:tags', (req, res) => {
 
 const getQuestionsByTag = (tag) => {
   return knex('eval_questions')
-    .join('eval_questions_tags', 'eval_questions_tags.question_id', '=', 'eval_questions.id')
-    .join('eval_tags', 'eval_questions_tags.tag_id', '=', 'eval_tags.id')
+    .join('eval_question_tags', 'eval_question_tags.question_id', '=', 'eval_questions.id')
+    .join('eval_tags', 'eval_question_tags.tag_id', '=', 'eval_tags.id')
     .where('eval_tags.tag', tag)
 }
 

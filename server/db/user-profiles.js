@@ -1,5 +1,4 @@
 const connection = require('./connection')
-// const hash = require('../auth/hash')
 
 module.exports = {
   getProfileByUserId,

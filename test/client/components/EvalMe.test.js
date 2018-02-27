@@ -12,7 +12,8 @@ test.skip('<EvalMe /> shows 4 answers', () => {
   const wrapper = render(<EvalMe />)
   expect(wrapper.find('input').length).toBe(4)
 })
-// working to simulate click test
+
+// attempting to simulate click test
 test.skip('<EvalMe /> shows <Check /> on submit', () => {
   const wrapper = shallow(<EvalMe />)
   wrapper.find('button').simulate('click')

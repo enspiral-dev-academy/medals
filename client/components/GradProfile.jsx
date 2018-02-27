@@ -24,7 +24,11 @@ class GradProfile extends React.Component {
 
   render () {
     const {preferredName, profilePic, surname, email, phone} = this.props.userProfileData
-    const {aboutMe, location, githubLink, linkedinLink, portfolioLinkOne, portfolioLinkTwo, portfolioLinkThree, previousExperience, interests} = this.props.userData
+    const {
+      aboutMe, location, interests,
+      previousExperience, gitHubLink, linkedInLink,
+      portfolioLink1, portfolioLink2, portfolioLink3
+    } = this.props.userData
     return (
       <div className='grad-profile'>
         <div className='user-header'>
@@ -63,12 +67,12 @@ class GradProfile extends React.Component {
             Links:
             </div>
             <div className='github-link-content'>
-              <a href={`${githubLink}`} target='_blank'>
+              <a href={`${gitHubLink}`} target='_blank'>
                 <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="35px" width="35px"/>
               </a>
             </div>
             <div className='linkedin-link-content'>
-              <a href={`${linkedinLink}`} target='_blank'>
+              <a href={`${linkedInLink}`} target='_blank'>
                 <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" height="35px" width="35px"/>
               </a>
             </div>
@@ -88,18 +92,18 @@ class GradProfile extends React.Component {
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <a href={`${portfolioLinkOne}`} target='_blank'>
-                {portfolioLinkOne}
+              <a href={`${portfolioLink1}`} target='_blank'>
+                {portfolioLink1}
               </a>
             </div>
             <div className='portfolio-content'>
-              <a href={`${portfolioLinkTwo}`} target='_blank'>
-                {portfolioLinkTwo}
+              <a href={`${portfolioLink2}`} target='_blank'>
+                {portfolioLink2}
               </a>
             </div>
             <div className='portfolio-content'>
-              <a href={`${portfolioLinkThree}`} target='_blank'>
-                {portfolioLinkThree}
+              <a href={`${portfolioLink3}`} target='_blank'>
+                {portfolioLink3}
               </a>
             </div>
           </div>

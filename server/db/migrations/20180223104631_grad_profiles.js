@@ -1,18 +1,18 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.createTable('grad_profiles', table => {
+  return knex.schema.createTableIfNotExists('grad_profiles', table => {
     table.increments('id').primary()
-    table.string('aboutMe')
+    table.string('about_me')
     table.string('location')
-    table.string('githubLink')
-    table.string('linkedinLink')
-    table.string('portfolioLinkOne')
-    table.string('portfolioLinkTwo')
-    table.string('portfolioLinkThree')
-    table.string('previousExperience')
+    table.string('github_link')
+    table.string('linkedin_link')
+    table.string('portfolio_link1')
+    table.string('portfolio_link2')
+    table.string('portfolio_link3')
+    table.string('previous_experience')
     table.string('interests')
   })
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('grad_profiles')
+  return knex.schema.dropTableIfExists('grad_profiles')
 }
