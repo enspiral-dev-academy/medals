@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+
 import {fetchList, sendTag} from '../../actions/eval'
 
 class Eval extends React.Component {
@@ -27,9 +28,11 @@ class Eval extends React.Component {
     return (
       <div className='eval'>
         <ul>
-          {this.props.evalTags.map((tag, id) => {
+          {this.props.evalTags.map(tag => {
             return (
-              <Link key={id} to={`/eval/${tag}`} onClick={this.updateTag}><li data-val={tag}>{tag}</li></Link>
+              <Link key={tag} to={`/eval/${tag}`} onClick={this.updateTag}>
+                <li data-val={tag}>{tag}</li>
+              </Link>
             )
           })}
         </ul>
@@ -40,7 +43,7 @@ class Eval extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    evalTags: state.evalTags
+    evalTags: state.evalTags.sort()
   }
 }
 

@@ -9,6 +9,8 @@ import errorMessage from './error-message'
 import evalQuestions from './eval-questions'
 import questionTag from './eval-update-tags'
 import getUserReducer from './gradProfileDetails'
+import getGradTags from './getGradTags'
+import userProfile from './userProfileDetails'
 
 export default combineReducers({
   busy,
@@ -19,5 +21,7 @@ export default combineReducers({
   questionTag,
   errorMessage,
   evalQuestions,
-  getUserReducer
+  getUserReducer,
+  getGradTags,
+  userProfile
 })

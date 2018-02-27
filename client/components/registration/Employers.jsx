@@ -29,7 +29,8 @@ class Employers extends React.Component {
   }
 
   render () {
-    const {fullname, email, companyName, companyUrl, username, password, confirm, showMatch, match} = this.state
+    const {fullname, email, companyName, companyUrl,
+      username, password, confirm, showMatch, match} = this.state
 
     return (
       <form>

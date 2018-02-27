@@ -13,7 +13,9 @@ router.get('/', (req, res) => {
     .then(function (tags) {
       res.send({tags})
     })
-  // do we need a catch?
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
 })
 
 const getList = () => {
@@ -22,24 +24,31 @@ const getList = () => {
 
 router.get('/:tags', (req, res) => {
   const questionTag = req.params.tags
-  getQuestions(questionTag)
-    .then((questions) => {
-      res.send(questions)
-    }
-    )
-})
-// router.get('/:tag', (req, res) => {
-//   const questionTag = req.params.tag
-//   getQuestions(questionTag)
-//     .then(function (questions) {
-//       res.send({questions})
-//     })
-// })
+  const questions = getQuestionsByTag(questionTag)
+  const responses = getAllResponses()
 
-const getQuestions = (tag) => {
+  Promise.all([questions, responses])
+    .then(([questionResult, answerResult]) => {
+      const questionsWithResponses = questionResult.map(question => {
+        return {
+          ...question,
+          responses: answerResult.filter(answer => question.question_id === answer.question_id)
+        }
+      })
+      res.send(questionsWithResponses)
+    })
+    .catch(err => {
+      res.status(500).send(err.message)
+    })
+})
+
+const getQuestionsByTag = (tag) => {
   return knex('eval_questions')
-    .join('eval_questions_tags', 'eval_questions_tags.question_id', '=', 'eval_questions.id')
-    .join('eval_tags', 'eval_questions_tags.tag_id', '=', 'eval_tags.id')
-    .join('eval_responses', 'eval_questions.id', '=', 'eval_responses.question_id')
+    .join('eval_question_tags', 'eval_question_tags.question_id', '=', 'eval_questions.id')
+    .join('eval_tags', 'eval_question_tags.tag_id', '=', 'eval_tags.id')
     .where('eval_tags.tag', tag)
+}
+
+const getAllResponses = () => {
+  return knex('eval_responses')
 }
