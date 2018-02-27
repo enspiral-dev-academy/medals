@@ -7,7 +7,10 @@ test('getUserReducer initial state of undefined', () => {
     aboutMe: 'I am an about section',
     location: 'I am a location',
     githubLink: 'I am a github link',
-    portfolio: 'I am a portfolio',
+    linkedinLink: 'I am a linkedin link',
+    portfolioLinkOne: 'I am a portfolio',
+    portfolioLinkTwo: 'I am a portfolio',
+    portfolioLinkThree: 'I am a portfolio',
     previousExperience: 'I am a previousExperience',
     interests: 'I am an interest'
   }
@@ -23,7 +26,10 @@ test('RECEIVE_GRAD_PROFILE receives profile', () => {
     aboutMe: 'I am an about section',
     location: 'I am a location',
     githubLink: 'I am a github link',
-    portfolio: 'I am a portfolio',
+    linkedinLink: 'I am a linkedin link',
+    portfolioLinkOne: 'I am a portfolio',
+    portfolioLinkTwo: 'I am a portfolio',
+    portfolioLinkThree: 'I am a portfolio',
     previousExperience: 'I am a previousExperience',
     interests: 'I am an interest'
   }
@@ -34,7 +40,10 @@ test('RECEIVE_GRAD_PROFILE receives profile', () => {
       aboutMe: 'Elyse',
       location: 'Elyse',
       githubLink: 'Elyse',
-      portfolio: 'Elyse',
+      linkedinlink: 'Elyse',
+      portfolioLinkOne: 'Elyse',
+      portfolioLinkTwo: 'Elyse',
+      portfolioLinkThree: 'Elyse',
       previousExperience: 'Elyse',
       interests: 'Elyse'
     }
@@ -44,7 +53,10 @@ test('RECEIVE_GRAD_PROFILE receives profile', () => {
     aboutMe: 'Elyse',
     location: 'Elyse',
     githubLink: 'Elyse',
-    portfolio: 'Elyse',
+    linkedinlink: 'Elyse',
+    portfolioLinkOne: 'Elyse',
+    portfolioLinkTwo: 'Elyse',
+    portfolioLinkThree: 'Elyse',
     previousExperience: 'Elyse',
     interests: 'Elyse'
   }
