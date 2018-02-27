@@ -60,9 +60,10 @@ test('getCommentsByAssignedTaskID returns the comment for an assigned task', () 
 })
 
 test('getAssignedTasksByAssignmentId returns the assigned tasks array', () => {
+  const expected = 'You\'re ready to start work on an assignment? Drag it to the \'In progress\' column.'
   return db.getAssignedTasksByAssignmentId(1, 1, testDb)
     .then(assignedTasks => {
-      expect(assignedTasks[0].description).toBe('You\'re ready to start work on an assignment? Drag it to the \'In progress\' column.')
+      expect(assignedTasks[0].description).toBe(expected)
     })
 })
 

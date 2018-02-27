@@ -7,5 +7,5 @@ exports.up = (knex, Promise) => {
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('tasks')
+  return knex.schema.dropTableIfExists('tasks')
 }

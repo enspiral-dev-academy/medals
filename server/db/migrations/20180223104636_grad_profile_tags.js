@@ -1,5 +1,5 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.createTable('grad_profile_tags', table => {
+  return knex.schema.createTableIfNotExists('grad_profile_tags', table => {
     table.increments('id').primary()
     table.integer('grad_profile_id').references('grad_profiles.id')
     table.integer('profile_tag_id').references('profile_tags.id')
@@ -7,5 +7,5 @@ exports.up = (knex, Promise) => {
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('grad_profile_tags')
+  return knex.schema.dropTableIfExists('grad_profile_tags')
 }

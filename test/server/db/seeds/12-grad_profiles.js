@@ -1,10 +1,16 @@
 exports.seed = (knex, Promise) => {
-  // Deletes ALL existing entries
-  return knex('grad_profiles').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('grad_profiles').insert([
-        {id: 1, aboutMe: 'Who are you, and what do you care about?', location: 'e.g. Auckland, NZ', githubLink: 'https://github.com/[your-github-profile-url]', linkedinLink: 'https://nz.linkedin.com/[your-linkedin-profile-url]', portfolioLinkOne: 'Project URL', portfolioLinkTwo: 'Project URL', portfolioLinkThree: 'Project URL', previousExperience: 'Where have you worked or studied before?', interests: 'What do you love doing outside of coding?'}
-      ])
-    })
+  return knex('grad_profiles').insert([
+    {
+      id: 1,
+      about_me: 'Who are you, and what do you care about?',
+      location: 'e.g. Auckland, NZ',
+      github_link: 'https://github.com/[your-github-profile-url]',
+      linkedin_link: 'https://nz.linkedin.com/[your-linkedin-profile-url]',
+      portfolio_link1: 'Project URL 1',
+      portfolio_link2: 'Project URL 2',
+      portfolio_link3: 'Project URL 3',
+      previous_experience: 'Where have you worked or studied before?',
+      interests: 'What do you love doing outside of coding?'
+    }
+  ])
 }
