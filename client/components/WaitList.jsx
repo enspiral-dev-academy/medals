@@ -65,7 +65,7 @@ export class WaitList extends React.Component {
                   <td> {user.ghid} </td>
                   <td> {user.username} </td>
                   <td>
-                    <input type='checkbox' id={user.id} onClick = {this.flipCheckbox}/>
+                    <input type='checkbox' id={user.id} defaultChecked={!!user.isApproved} onClick = {this.flipCheckbox}/>
                   </td>
                 </tr>
               )

@@ -181,12 +181,15 @@ export function updateUserApprovals (updatedUsers) {
   return (dispatch) => {
     dispatch(requestApprovalUpdate)
     request('put', '/users/approvals', updatedUsers)
-      .then(res => {
-        dispatch(receiveAllUsers(res.body))
-        dispatch(clearError())
+      .then(() => {
+        return request('get', `/users`)
+          .then(res => {
+            dispatch(receiveAllUsers(res.body))
+            dispatch(clearError())
+          })
       })
       .catch(() => {
-        dispatch(showError('An unexpected error has occurred.'))
+        dispatch(showError('An unexpected error has occurred. update'))
       })
   }
 }

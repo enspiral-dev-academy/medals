@@ -22,8 +22,15 @@ router.get('/', token.decode, (req, res) => {
 })
 // GET /users/approvals
 router.put('/approvals', token.decode, (req, res) => {
-  const {users.id, users.username, users.isApproved} = req.body
-  // db.updateUserApprovals()
+  db.updateUserApprovals(req.body.users)
+    .then(() => {
+      res.status(202).end()
+    })
+    .catch(() => {
+      res.status(400).send({
+        errorType: 'DATABASE_ERROR'
+      })
+    })
 })
 
 // GET /users/:id
