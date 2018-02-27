@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import {getGradProfile, getGradTags} from '../actions/gradProfile'
-// import GradProfileEdit from './GradProfileEdit'
+import {getUserProfile} from '../actions/userProfile'
 
 class GradProfile extends React.Component {
   constructor (props) {
@@ -17,24 +17,25 @@ class GradProfile extends React.Component {
   }
 
   getGradsDetails () {
+    this.props.dispatch(getUserProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
     this.props.dispatch(getGradTags(this.state.userId))
   }
 
   render () {
+    const {preferredName, profilePic, surname, email, phone} = this.props.userProfileData
     const {aboutMe, location, githubLink, linkedinLink, portfolioLinkOne, portfolioLinkTwo, portfolioLinkThree, previousExperience, interests} = this.props.userData
     return (
       <div className='grad-profile'>
         <div className='user-header'>
           <div className='user-image-name'>
-            <h1>Name | Email | Phone</h1>
-            {/* <img src={`${this.props.profile.profilePic}`} alt="student profile picture"/>
-            <h1>{this.props.profile.preferredName}</h1>
-            <h1>{this.props.profile.surname}</h1>
+            <img src={`${profilePic}`} alt="student profile picture"/>
+            <h1>{preferredName}</h1>
+            <h1>{surname}</h1>
           </div>
           <div className='user-contact'>
-            <h3>{this.props.profile.email}</h3>
-            <h3>{this.props.profile.phone}</h3> */}
+            <h3>{email}</h3>
+            <h3>{phone}</h3>
           </div>
         </div>
         <div className='container'>
@@ -127,6 +128,7 @@ class GradProfile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    userProfileData: state.userProfile,
     userData: state.getUserReducer,
     tags: state.getGradTags
   }

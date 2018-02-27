@@ -11,17 +11,17 @@ export const requestUserProfile = () => {
   }
 }
 
-export const receiveUserProfile = (userData) => {
+export const receiveUserProfile = (userProfileData) => {
   return {
     type: RECEIVE_USER_PROFILE,
-    userData
+    userProfileData
   }
 }
 
 export function getUserProfile (userId) {
   return (dispatch) => {
     dispatch(requestUserProfile())
-    request('get', `/users/grad/${userId}`)
+    request('get', `/profile/${userId}`)
       .then(res => {
         dispatch(receiveUserProfile(res.body))
       })
