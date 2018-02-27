@@ -4,14 +4,15 @@ const hash = require('../auth/hash')
 module.exports = {
   createUser,
   userExists,
+  updateUser,
   getAllUsers,
   getUserById,
   getUserByName,
-  updateUser,
-  findOrCreateGitHubUser,
   updateGradProfile,
   getGradProfileById,
-  getGradTagsById
+  getGradTagsById,
+  updateUserApprovals,
+  findOrCreateGitHubUser
 }
 
 function createUser (username, password, conn, ghid = null) {
@@ -42,7 +43,17 @@ function createUser (username, password, conn, ghid = null) {
 function getAllUsers (conn) {
   const db = conn || connection
   return db('users')
-    .select()
+    .select('id', 'username', 'ghid', 'is_approved as isApproved')
+}
+
+function updateUserApprovals (users, conn) {
+  const db = conn || connection
+  const promises = users.map(user => {
+    return db('users')
+      .update({is_approved: user.isApproved})
+      .where('id', user.id)
+  })
+  return Promise.all(promises)
 }
 
 function userExists (username, conn) {
@@ -75,11 +86,9 @@ function getGradTagsById (id, conn) {
   const db = conn || connection
   return db('grad_profiles')
     .join('grad_profiles_tags', 'grad_profiles.id', '=', 'grad_profiles_tags.grad_profiles_id')
-    // .then((result) => { console.log(result, id) })
     .join('profile_tags', 'profile_tags.id', '=', 'grad_profiles_tags.profile_tags_id')
     .where('grad_profiles.id', id)
     .select('profile_tags.tag')
-    // .then((result) => { console.log(result, id) })
 }
 
 function getUserByName (username, conn) {

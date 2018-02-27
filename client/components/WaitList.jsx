@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 
 import {getAllUsers, updateUserApprovals} from '../actions/auth'
 
-class WaitList extends React.Component {
+export class WaitList extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       users: []
     }
     this.flipCheckbox = this.flipCheckbox.bind(this)
-    // this.submitChanges = this.submitChanges.bind(this)
+    this.submitChanges = this.submitChanges.bind(this)
   }
   componentDidMount () {
     this.props.dispatch(getAllUsers())
@@ -65,7 +65,7 @@ class WaitList extends React.Component {
                   <td> {user.ghid} </td>
                   <td> {user.username} </td>
                   <td>
-                    <input type='checkbox' id={user.id} onClick = {this.flipCheckbox}/>
+                    <input type='checkbox' id={user.id} defaultChecked={!!user.isApproved} onClick = {this.flipCheckbox}/>
                   </td>
                 </tr>
               )
@@ -73,7 +73,7 @@ class WaitList extends React.Component {
             }
           </tbody>
         </table>
-        {/* <button type='submit' onClick={this.submitChanges}> Update Approvals </button> */}
+        <button type='submit' onClick={this.submitChanges}> Update Approvals </button>
       </div>
     )
   }

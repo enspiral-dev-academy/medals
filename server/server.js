@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const github = require('./routes/github')
 const authRoutes = require('./routes/auth')
@@ -10,6 +11,7 @@ const userProfile = require('./routes/profile')
 
 const server = express()
 server.use(express.static(path.join(__dirname, 'public')))
+server.use(bodyParser.json())
 
 server.use('/auth/github', github)
 server.use('/api/v1/auth', authRoutes)

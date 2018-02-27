@@ -4,8 +4,13 @@ import {Route, Link} from 'react-router-dom'
 
 import evalLink from './eval/EvalLink'
 import {getSprint} from '../actions/sprints'
+import request from '../lib/api.js'
 
 class Home extends React.Component {
+  constructor (props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
   componentDidMount () {
     this.getSprintInfo()
   }
@@ -14,18 +19,24 @@ class Home extends React.Component {
     this.props.dispatch(getSprint())
   }
 
+  handleClick (e) {
+    const sprintId = e.target.id
+    request('post', '/sprints/', {id: sprintId})
+  }
+
   render () {
     return (
       <div className='home section'>
         <div className='container'>
           <h1>Home</h1>
-
           <h2>Phase 0</h2>
           <ul>
             {this.props.sprints.map((sprint, key) => {
               return (
                 <li key={key}>
                   <Link to={`/sprints/${sprint.id}`}>Sprint {sprint.number}</Link>
+                  <br />
+                  <button id={sprint.id} type='button' onClick={this.handleClick}>Issue Sprint</button>
                 </li>
               )
             })}
