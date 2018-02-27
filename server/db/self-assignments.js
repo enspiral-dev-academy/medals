@@ -2,18 +2,28 @@ const connection = require('./connection')
 
 module.exports = {
   getSprints,
+  getAssignments,
   getUserById,
   getSprintById,
   getAssignmentsBySprintId,
+  getTasksBySprintId,
   getTasksByAssignmentId,
+  populateAssignedTasks,
   getAssignedTasks,
   getCommentsByAssignedTaskID,
-  createComment
+  createComment,
+  getAssignedTasksByAssignmentId
 }
 
 function getSprints (conn) {
   const db = conn || connection
   return db('sprints')
+    .select()
+}
+
+function getAssignments (conn) {
+  const db = conn || connection
+  return db('assignments')
     .select()
 }
 
@@ -41,12 +51,35 @@ function getAssignmentsBySprintId (sprintId, conn) {
     .select('sprints.id', 'assignments.title')
 }
 
+function getTasksBySprintId (sprintId, conn) {
+  const db = conn || connection
+  return db('assignments')
+    .join('tasks', 'assignments.id', 'tasks.assignment_id')
+    .where('assignments.sprint_id', sprintId)
+    .select('tasks.id')
+}
+
 function getTasksByAssignmentId (assignmentId, conn) {
   const db = conn || connection
   return db('assignments')
     .join('tasks', 'assignments.id', 'tasks.assignment_id')
     .where('assignments.id', assignmentId)
     .select('assignments.id', 'tasks.description')
+}
+
+function getAssignedTasksByAssignmentId (userId, assignmentId, conn) {
+  const db = conn || connection
+  return db('tasks')
+    .join('assignedTasks', 'tasks.assignment_id', 'assignedTasks.task_id')
+    .where('assignedTasks.user_id', userId)
+    .andWhere('tasks.assignment_id', assignmentId)
+    .select('tasks.id', 'tasks.description', 'assignedTasks.id', 'assignedTasks.complete')
+}
+
+function populateAssignedTasks (tasks, conn) {
+  const db = conn || connection
+  return db('assignedTasks')
+    .insert(tasks)
 }
 
 function getAssignedTasks (userId, taskId, conn) {
