@@ -11,8 +11,7 @@ test('requestGradProfile returns the correct action type', () => {
 
 test('requestGradProfile returns the correct action', () => {
   const expected = {
-    type: 'REQUEST_GRAD_PROFILE',
-    loading: true
+    type: 'REQUEST_GRAD_PROFILE'
   }
 
   const actual = requestGradProfile()

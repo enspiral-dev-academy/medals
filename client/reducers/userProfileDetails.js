@@ -1,7 +1,4 @@
-import {
-  RECEIVE_USER_PROFILE,
-  REQUEST_USER_PROFILE
-} from '../actions/userProfile'
+import {RECEIVE_USER_PROFILE} from '../actions/userProfile'
 
 const initialState = {
   username: 'this is the users username',
@@ -23,10 +20,6 @@ const getUserProfileReducer = (state = initialState, action) => {
     case RECEIVE_USER_PROFILE:
       return action.userProfileData
 
-    case REQUEST_USER_PROFILE:
-      return {
-        loading: action.loading
-      }
     default:
       return state
   }

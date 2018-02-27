@@ -8,8 +8,7 @@ export const RECEIVE_GRAD_TAGS = 'RECEIVE_GRAD_TAGS'
 
 export const requestGradProfile = () => {
   return {
-    type: REQUEST_GRAD_PROFILE,
-    loading: true
+    type: REQUEST_GRAD_PROFILE
   }
 }
 

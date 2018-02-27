@@ -6,8 +6,7 @@ export const RECEIVE_USER_PROFILE = 'RECEIVE_USER_PROFILE'
 
 export const requestUserProfile = () => {
   return {
-    type: REQUEST_USER_PROFILE,
-    loading: true
+    type: REQUEST_USER_PROFILE
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Route, Link} from 'react-router-dom'
+import {Route, Link, withRouter} from 'react-router-dom'
 
 import evalLink from './eval/EvalLink'
 import {getSprint} from '../actions/sprints'
@@ -21,7 +21,8 @@ class Home extends React.Component {
 
   handleClick (e) {
     const sprintId = e.target.id
-    request('post', '/sprints/', {id: sprintId})
+    request('post', '/sprints', {id: sprintId})
+      .then(() => this.props.history.push(`/sprints/${sprintId}`))
   }
 
   render () {
@@ -31,12 +32,16 @@ class Home extends React.Component {
           <h1>Home</h1>
           <h2>Phase 0</h2>
           <ul>
-            {this.props.sprints.map((sprint, key) => {
+            {this.props.sprints.map(sprint => {
               return (
-                <li key={key}>
-                  <Link to={`/sprints/${sprint.id}`}>Sprint {sprint.number}</Link>
-                  <br />
-                  <button id={sprint.id} type='button' onClick={this.handleClick}>Issue Sprint</button>
+                <li key={sprint.id}>
+                  <Link to={`/sprints/${sprint.id}`}>
+                    Sprint {sprint.number}
+                  </Link>{' '}
+                  <button id={sprint.id} className='button'
+                    onClick={this.handleClick}>
+                    Issue sprint {sprint.number} tasks
+                  </button>
                 </li>
               )
             })}
@@ -59,4 +64,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Home)
+export default withRouter(
+  connect(mapStateToProps)(Home)
+)

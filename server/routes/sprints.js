@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
       })
       db.populateAssignedTasks(tasks)
         .then(() => {
-          res.status(200).end()
+          res.status(200).json({})
         })
     })
     .catch(() => {

@@ -1,7 +1,4 @@
-import {
-  RECEIVE_GRAD_PROFILE,
-  REQUEST_GRAD_PROFILE
-} from '../actions/gradProfile'
+import {RECEIVE_GRAD_PROFILE} from '../actions/gradProfile'
 
 const initialState = {
   userId: 1,
@@ -20,11 +17,6 @@ const getUserReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_GRAD_PROFILE:
       return action.userData
-
-    case REQUEST_GRAD_PROFILE:
-      return {
-        loading: action.loading
-      }
 
     default:
       return state
