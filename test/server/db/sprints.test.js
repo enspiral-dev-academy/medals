@@ -59,14 +59,14 @@ test('getCommentsByAssignedTaskID returns the comment for an assigned task', () 
     })
 })
 
-test('getAssignedTasksByAssignmentId returns the assignmented tasks array', () => {
+test('getAssignedTasksByAssignmentId returns the assigned tasks array', () => {
   return db.getAssignedTasksByAssignmentId(1, 1, testDb)
     .then(assignedTasks => {
       expect(assignedTasks[0].description).toBe('You\'re ready to start work on an assignment? Drag it to the \'In progress\' column.')
     })
 })
 
-test('test inerting comment into table', () => {
+test('test inserting comment into table', () => {
   const comment = {
     userId: 1,
     content: 'hello lunnar',
