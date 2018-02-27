@@ -1,7 +1,7 @@
 {
   "output": "./logs",
   "helpers": {
-     "Nightmare": {
+    "Nightmare": {
       "url": "http://localhost:3000",
       "show": false,
       "restart": false
