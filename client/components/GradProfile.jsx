@@ -28,8 +28,7 @@ class GradProfile extends React.Component {
 
   render () {
     const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
-    const {tags} = this.props.tags || ['hello']
-     console.log(tags)
+
     return (
       <div className='grad-profile'>
         <div className='container'>
@@ -67,11 +66,11 @@ class GradProfile extends React.Component {
             <div className='portfolio-title'>
             tags:
             </div>
-            {/* <div className='portfolio-content'>
-              {tags.map((tag, id) => {
-                return <p key={id}>{tag}</p>
+            <div className='portfolio-content'>
+              {this.props.tags.map((tag, id) => {
+                return <p key={id}>{tag.tag}</p>
               })}
-            </div> */}
+            </div>
           </div>
           <div className='portfolio'>
             <div className='portfolio-title'>

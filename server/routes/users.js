@@ -51,7 +51,6 @@ router.get('/grad/:id', token.decode, (req, res) => {
 router.get('/grad/tags/:id', token.decode, (req, res) => {
   db.getGradTagsById(Number(req.params.id))
     .then(user => {
-    //  console.log(user)
       res.json(user)
     })
     .catch(err => {

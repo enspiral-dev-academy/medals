@@ -32,9 +32,7 @@ export function getGradProfile (userId) {
     dispatch(requestGradProfile())
     request('get', `/users/grad/${userId}`)
       .then(res => {
-        // console.log(res)
         dispatch(receiveGradProfile(res.body))
-      // dispatch(clearError())
       })
       .catch(() => {
         dispatch(showError('An unexpected error in getting user info'))
@@ -48,7 +46,6 @@ export function getGradTags (userId) {
     request('get', `/users/grad/tags/${userId}`)
       .then(res => {
         dispatch(receiveGradTags(res.body))
-        // dispatch(clearError())
       })
       .catch(() => {
         dispatch(showError('An unexpected error in getting user info'))
