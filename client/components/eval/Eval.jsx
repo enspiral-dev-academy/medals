@@ -29,7 +29,9 @@ class Eval extends React.Component {
         <ul>
           {this.props.evalTags.map((tag, id) => {
             return (
-              <Link key={id} to={`/eval/${tag}`} onClick={this.updateTag}><li data-val={tag}>{tag}</li></Link>
+              <Link key={id} to={`/eval/${tag}`} onClick={this.updateTag}>
+                <li data-val={tag}>{tag}</li>
+              </Link>
             )
           })}
         </ul>
@@ -40,7 +42,7 @@ class Eval extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    evalTags: state.evalTags
+    evalTags: state.evalTags.sort()
   }
 }
 
