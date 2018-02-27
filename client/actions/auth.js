@@ -12,7 +12,6 @@ export const RECEIVE_USER_DETAILS = 'RECEIVE_USER_DETAILS'
 export const REQUEST_UPDATE_PROFILE = 'REQUEST_UPDATE_PROFILE'
 export const RECEIVE_UPDATE_PROFILE = 'RECEIVE_UPDATE_PROFILE'
 export const REQUEST_APPROVAL_UPDATE = 'REQUEST_APPROVAL_UPDATE'
-export const RECIEVE_APPROVAL_UPDATE = 'RECIEVE_APPROVAL_UPDATE'
 export const REQUEST_USER_REGISTRATION = 'REQUEST_USER_REGISTRATION'
 export const RECEIVE_USER_REGISTRATION = 'RECEIVE_USER_REGISTRATION'
 
@@ -89,12 +88,6 @@ const receiveUpdateProfile = () => {
 const requestApprovalUpdate = () => {
   return {
     type: REQUEST_APPROVAL_UPDATE
-  }
-}
-
-const recieveApprovalUpdate = () => {
-  return {
-    type: RECIEVE_APPROVAL_UPDATE
   }
 }
 
@@ -189,12 +182,11 @@ export function updateUserApprovals (updatedUsers) {
     dispatch(requestApprovalUpdate)
     request('put', '/users/approvals', updatedUsers)
       .then(res => {
-        dispatch(recieveApprovalUpdate(updatedUsers))
-        dispatch(receiveAllUsers())
+        dispatch(receiveAllUsers(res.body))
         dispatch(clearError())
       })
       .catch(() => {
-        dispatch(showError('Am unexpected error has occured.'))
+        dispatch(showError('An unexpected error has occurred.'))
       })
   }
 }

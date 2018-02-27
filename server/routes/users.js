@@ -20,10 +20,11 @@ router.get('/', token.decode, (req, res) => {
       res.status(500).send(err.message)
     })
 })
-
-// router.put('/approvals', token.decode, (req, res) => {
-//   console.log(req.body)
-// })
+// GET /users/approvals
+router.put('/approvals', token.decode, (req, res) => {
+  const {users.id, users.username, users.isApproved} = req.body
+  // db.updateUserApprovals()
+})
 
 // GET /users/:id
 router.get('/:id', token.decode, (req, res) => {

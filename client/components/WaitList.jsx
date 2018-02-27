@@ -10,7 +10,7 @@ class WaitList extends React.Component {
       users: []
     }
     this.flipCheckbox = this.flipCheckbox.bind(this)
-    // this.submitChanges = this.submitChanges.bind(this)
+    this.submitChanges = this.submitChanges.bind(this)
   }
   componentDidMount () {
     this.props.dispatch(getAllUsers())
@@ -73,7 +73,7 @@ class WaitList extends React.Component {
             }
           </tbody>
         </table>
-        {/* <button type='submit' onClick={this.submitChanges}> Update Approvals </button> */}
+        <button type='submit' onClick={this.submitChanges}> Update Approvals </button>
       </div>
     )
   }
