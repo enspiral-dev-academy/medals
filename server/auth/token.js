@@ -12,6 +12,8 @@ module.exports = {
   createToken // exported for testing
 }
 
+const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
+
 function issue (req, res) {
   db.getUserByName(req.body.username)
     .then(user => {
@@ -39,7 +41,7 @@ function issueFromGitHub (req, res, next) {
       })
     }
     const token = createToken(user, process.env.JWT_SECRET)
-    res.redirect(`http://localhost:3000/?token=${token}`)
+    res.redirect(`${baseUrl}/?token=${token}`)
   })(req, res, next)
 }
 
