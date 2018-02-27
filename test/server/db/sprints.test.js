@@ -45,6 +45,13 @@ test('getAssignedTasks returns a boolean for complete', () => {
     })
 })
 
+test('getTasksBySprintId returns array of task ids', () => {
+  return db.getTasksBySprintId(1, testDb)
+    .then(tasks => {
+      expect(tasks[0].id).toBe(1)
+    })
+})
+
 test('getCommentsByAssignedTaskID returns the comment for an assigned task', () => {
   return db.getCommentsByAssignedTaskID(2, testDb)
     .then(comment => {

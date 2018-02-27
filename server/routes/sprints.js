@@ -1,4 +1,5 @@
 const express = require('express')
+
 const router = express.Router()
 
 const db = require('../db/self-assignments')
@@ -22,6 +23,28 @@ router.get('/', (req, res) => {
     })
     .catch(() => {
       res.status(400).send({
+        errorType: 'DATABASE_ERROR'
+      })
+    })
+})
+
+router.post('/', (req, res) => {
+  db.getTasksBySprintId(Number(req.body.id))
+    .then(taskIds => {
+      const tasks = taskIds.map(taskId => {
+        return {
+          user_id: 1,
+          task_id: taskId.id,
+          complete: false
+        }
+      })
+      db.populateAssignedTasks(tasks)
+        .then(() => {
+          res.status(200).end()
+        })
+    })
+    .catch(() => {
+      res.status(500).send({
         errorType: 'DATABASE_ERROR'
       })
     })

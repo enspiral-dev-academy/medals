@@ -6,7 +6,9 @@ module.exports = {
   getUserById,
   getSprintById,
   getAssignmentsBySprintId,
+  getTasksBySprintId,
   getTasksByAssignmentId,
+  populateAssignedTasks,
   getAssignedTasks,
   getCommentsByAssignedTaskID,
   createComment
@@ -48,12 +50,26 @@ function getAssignmentsBySprintId (sprintId, conn) {
     .select('sprints.id', 'assignments.title')
 }
 
+function getTasksBySprintId (sprintId, conn) {
+  const db = conn || connection
+  return db('assignments')
+    .join('tasks', 'assignments.id', 'tasks.assignment_id')
+    .where('assignments.sprint_id', sprintId)
+    .select('tasks.id')
+}
+
 function getTasksByAssignmentId (assignmentId, conn) {
   const db = conn || connection
   return db('assignments')
     .join('tasks', 'assignments.id', 'tasks.assignment_id')
     .where('assignments.id', assignmentId)
     .select('assignments.id', 'tasks.description')
+}
+
+function populateAssignedTasks (tasks, conn) {
+  const db = conn || connection
+  return db('assignedTasks')
+    .insert(tasks)
 }
 
 function getAssignedTasks (userId, taskId, conn) {
