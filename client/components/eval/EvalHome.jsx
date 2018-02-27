@@ -11,7 +11,9 @@ class EvalHome extends React.Component {
   render () {
     return (
       <div className='eval-home'>
-        <Link to={`/eval/${this.props.questionTag}/question`}><button>Let&rsquo;s Evaluate</button></Link>
+        <Link to={`/eval/${this.props.questionTag}/question`}>
+          <button>Let&rsquo;s Evaluate</button>
+        </Link>
       </div>
     )
   }

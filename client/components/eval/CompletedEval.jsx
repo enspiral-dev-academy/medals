@@ -1,8 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const CompletedEval = () => {
   return (
-    <h2>Well Done, You completed the Evaluation </h2>
+    <div className="completed-eval">
+      <h2>Well Done, you completed the Evaluation!</h2>
+      <Link to='/eval'><button>Evaluate Again</button></Link>
+    </div>
   )
 }
 

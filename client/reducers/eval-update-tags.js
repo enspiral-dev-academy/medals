@@ -1,6 +1,6 @@
 import {UPDATE_TAGS} from '../actions/eval'
 
-const updateTag = (state = ['test'], action) => {
+const updateTag = (state = [''], action) => {
   switch (action.type) {
     case UPDATE_TAGS:
       return action.questionTag
