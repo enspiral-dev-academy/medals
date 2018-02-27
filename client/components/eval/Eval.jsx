@@ -15,8 +15,7 @@ class Eval extends React.Component {
     this.props.dispatch(fetchList())
   }
 
-  updateTag (e) {
-    const selectedTag = e.target.getAttribute('data-val')
+  updateTag (selectedTag) {
     this.props.dispatch(sendTag(selectedTag))
   }
 
@@ -28,9 +27,10 @@ class Eval extends React.Component {
       <div className='eval'>
         <ul>
           {this.props.evalTags.map((tag, id) => {
+            // in browser <li> is clicked, on click send updateTags, on e2e <Link> is clicked and sends updateTag
             return (
-              <Link key={id} to={`/eval/${tag}`} onClick={this.updateTag}>
-                <li data-val={tag}>{tag}</li>
+              <Link className='eval-link'key={id} to={`/eval/${tag}`} onClick={() => this.updateTag(tag)}>
+                <li>{tag}</li>
               </Link>
             )
           })}
