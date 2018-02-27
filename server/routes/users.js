@@ -20,10 +20,18 @@ router.get('/', token.decode, (req, res) => {
       res.status(500).send(err.message)
     })
 })
-
-// router.put('/approvals', token.decode, (req, res) => {
-//   console.log(req.body)
-// })
+// GET /users/approvals
+router.put('/approvals', token.decode, (req, res) => {
+  db.updateUserApprovals(req.body.users)
+    .then(() => {
+      res.status(202).end()
+    })
+    .catch(() => {
+      res.status(400).send({
+        errorType: 'DATABASE_ERROR'
+      })
+    })
+})
 
 // GET /users/:id
 router.get('/:id', token.decode, (req, res) => {

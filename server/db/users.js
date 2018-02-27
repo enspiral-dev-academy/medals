@@ -4,13 +4,14 @@ const hash = require('../auth/hash')
 module.exports = {
   createUser,
   userExists,
+  updateUser,
   getAllUsers,
   getUserById,
   getUserByName,
-  updateUser,
-  findOrCreateGitHubUser,
   updateGradProfile,
-  getGradProfileById
+  getGradProfileById,
+  updateUserApprovals,
+  findOrCreateGitHubUser
 }
 
 function createUser (username, password, conn, ghid = null) {
@@ -41,7 +42,17 @@ function createUser (username, password, conn, ghid = null) {
 function getAllUsers (conn) {
   const db = conn || connection
   return db('users')
-    .select()
+    .select('id', 'username', 'ghid', 'is_approved as isApproved')
+}
+
+function updateUserApprovals (users, conn) {
+  const db = conn || connection
+  const promises = users.map(user => {
+    return db('users')
+      .update({is_approved: user.isApproved})
+      .where('id', user.id)
+  })
+  return Promise.all(promises)
 }
 
 function userExists (username, conn) {
@@ -97,7 +108,6 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
 }
 
 function updateGradProfile (updatedUser, conn) {
-  // console.log(updatedUser)
   const db = conn || connection
   return db('grad_profiles')
     .where('id', updatedUser.userId)
