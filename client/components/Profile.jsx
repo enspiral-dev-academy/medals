@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-import {updateProfile} from '../actions/auth'
-import {showError, clearError} from '../actions/error'
+import {saveUserProfile} from '../actions/userProfileSaveEdit'
+
+import {getUserProfile} from './actions/userProfile'
 
 class Profile extends React.Component {
   constructor (props) {
@@ -28,6 +30,23 @@ class Profile extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount () {
+    this.getUserDetails()
+  }
+
+  componentWillReceiveProps (props) {
+    this.setState(props.userData)
+  }
+
+  getUserDetails () {
+    this.props.dispatch(getUserProfile(this.state.username))
+  }
+
+  addUserProfile () {
+    const currentUser = this.state
+    this.props.dispatch(saveUserProfile(currentUser))
   }
 
   render () {
@@ -88,8 +107,9 @@ class Profile extends React.Component {
                   onChange={this.handleChange} value={confirm} />
 
                 {showMatch && !match && <span style={this.styles.match}>*</span>}
-                <button className='pure-button pure-button-primary'
-                  onClick={this.handleSubmit}>Update profile</button>
+                <Link to='/user-profile'>
+                  <button className='pure-button pure-button-primary'
+                    onClick={this.handleSubmit}>Update profile</button></Link>
               </fieldset>
             </form>
           </div>
