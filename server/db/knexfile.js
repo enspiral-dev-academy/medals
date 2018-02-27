@@ -21,6 +21,9 @@ const sqliteDefaults = Object.assign({
 
 const postgresDefaults = Object.assign({
   client: 'postgresql',
+  seeds: {
+    directory: path.join(__dirname, '../../test/server/db/seeds')
+  },
   pool: {
     min: 2,
     max: 10
