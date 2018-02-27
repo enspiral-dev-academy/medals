@@ -25,7 +25,6 @@ export function getGradProfile (userId) {
     request('get', `/users/grad/${userId}`)
       .then(res => {
         dispatch(receiveGradProfile(res.body))
-        // dispatch(clearError())
       })
       .catch(() => {
         dispatch(showError('An unexpected error in getting user info'))
