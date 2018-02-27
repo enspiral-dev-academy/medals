@@ -23,7 +23,7 @@
     "lint:assert": "yarn lint && yarn assert",
     "postinstall": "yarn build && yarn knex migrate:latest",
     "test": "jest test/client test/server",
-    "test:watch": "yarn test --watch",
+    "test:watch": "yarn test --watchAll",
     "test:assert": "yarn test && yarn assert",
     "start": "node server"
   },
