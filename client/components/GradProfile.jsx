@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {profile} from './Profile'
+// import {Profile} from './Profile'
 import {getGradProfile} from '../actions/gradProfile'
 
 class GradProfile extends React.Component {
@@ -26,13 +26,14 @@ class GradProfile extends React.Component {
       <div className='grad-profile'>
         <div className='user-header'>
           <div className='user-image-name'>
-            <img src={`${this.props.profile.profilePic}`} alt="student profile picture"/>
+            <h1>Name | Email | Phone</h1>
+            {/* <img src={`${this.props.profile.profilePic}`} alt="student profile picture"/>
             <h1>{this.props.profile.preferredName}</h1>
             <h1>{this.props.profile.surname}</h1>
           </div>
           <div className='user-contact'>
             <h3>{this.props.profile.email}</h3>
-            <h3>{this.props.profile.phone}</h3>
+            <h3>{this.props.profile.phone}</h3> */}
           </div>
         </div>
         <div className='container'>
