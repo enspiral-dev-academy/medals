@@ -7,6 +7,7 @@ import Home from './Home'
 import Header from './Header'
 import SignIn from './SignIn'
 import Sprint from './Sprint'
+import Credits from './Credits'
 import Profile from './Profile'
 import WaitList from './WaitList'
 import Register from './Register'
@@ -39,6 +40,7 @@ class App extends React.Component {
         <Route path='/' component={Header} />
         <Route path='/' component={ErrorMessage} />
         <Route path='/signin' component={SignIn} />
+        <Route path='/credits' component={Credits} />
         <Route path='/profile' component={Profile} />
         <Route exact path='/eval' component={Eval} />
         <Route exact path='/eval/:tags' component={EvalHome} />
