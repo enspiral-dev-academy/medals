@@ -11,9 +11,10 @@
   },
   "scripts": {
     "assert": "exit 0",
-    "build": "webpack --config ./client/webpack.config.js",
-    "dev": "nodemon --watch server & yarn build --watch",
-    "debug": "node --inspect server & yarn build --watch",
+    "build:dev": "webpack --config ./client/webpack.dev.js",
+    "build:prod": "webpack --config ./client/webpack.prod.js",
+    "dev": "nodemon --watch server & yarn build:dev --watch",
+    "debug": "node --inspect server & yarn build:dev --watch",
     "e2e:sh": "cd ./test/e2e && codeceptjs shell",
     "e2e:debug": "codeceptjs run -c ./test/e2e/codecept.json --debug",
     "e2e": "codeceptjs run -c ./test/e2e/codecept.json",
@@ -22,7 +23,7 @@
     "seed": "yarn knex seed:run",
     "lint": "eslint client server test --ignore-pattern 'bundle.js'",
     "lint:assert": "yarn lint && yarn assert",
-    "postinstall": "yarn build && yarn knex migrate:latest",
+    "postinstall": "yarn build:prod && yarn knex migrate:latest",
     "test": "jest test/client test/server",
     "test:watch": "yarn test --watchAll",
     "test:assert": "yarn test && yarn assert",
@@ -113,6 +114,8 @@
     "redux-mock-store": "^1.3.0",
     "sqlite3": "^3.1.9",
     "supertest": "^3.0.0",
-    "webpack-dev-server": "^2.4.5"
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-merge": "^4.1.2"
   }
 }
