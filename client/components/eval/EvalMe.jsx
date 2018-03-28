@@ -73,6 +73,7 @@ class EvalMe extends React.Component {
             return (
               <div key={answer.id}>
                 <input readOnly type='radio' name='answer'
+                  className={answer.id}
                   value={answer.key} data-ans={answer.response}
                   data-fbk={answer.reason}
                   onChange={this.handleChange}

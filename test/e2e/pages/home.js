@@ -8,6 +8,7 @@ module.exports = {
   splash: '.home',
   header: '.header',
   hamburger: '.navbar-burger',
+  eval: '.eval',
   _init () {
     I = actor()
   },

@@ -47,7 +47,7 @@ class Home extends React.Component {
             })}
           </ul>
 
-          <h2>Eval(me)</h2>
+          <h2 className='eval'>Eval(me)</h2>
           <Route path='/' component={evalLink} />
 
           <h2>My Grad Profile</h2>

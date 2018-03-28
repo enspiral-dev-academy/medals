@@ -16,8 +16,7 @@ class Eval extends React.Component {
     this.props.dispatch(fetchList())
   }
 
-  updateTag (e) {
-    const selectedTag = e.target.getAttribute('data-val')
+  updateTag (selectedTag) {
     this.props.dispatch(sendTag(selectedTag))
   }
 
