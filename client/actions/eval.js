@@ -16,15 +16,12 @@ export const getTags = (list) => {
 }
 
 export function fetchList () {
-  console.log('baseUrl:', baseUrl)
-  console.log('NODE_ENV:', process.env.NODE_ENV)
   return (dispatch) => {
     request
       .get(`${baseUrl}/api/v1/tags`)
       .end((err, res) => {
         if (err) {
           dispatch(showError('An unexpected error has occurred.'))
-          console.log(err)
         }
         const list = res.body.tags
         const send = []
