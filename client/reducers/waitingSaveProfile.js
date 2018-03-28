@@ -1,7 +1,7 @@
 import {
   REQUEST_SAVE_GRAD_PROFILE,
   RECEIVE_SAVE_GRAD_PROFILE
-} from '../actions'
+} from '../../client/actions/gradProfileSaveEdit'
 
 const waitingSaveProfile = (state = false, action) => {
   switch (action.type) {

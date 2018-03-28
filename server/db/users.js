@@ -4,13 +4,15 @@ const hash = require('../auth/hash')
 module.exports = {
   createUser,
   userExists,
+  updateUser,
   getAllUsers,
   getUserById,
   getUserByName,
-  updateUser,
-  findOrCreateGitHubUser,
   updateGradProfile,
-  getGradProfileById
+  getGradProfileById,
+  getGradTagsById,
+  updateUserApprovals,
+  findOrCreateGitHubUser
 }
 
 function createUser (username, password, conn, ghid = null) {
@@ -41,7 +43,17 @@ function createUser (username, password, conn, ghid = null) {
 function getAllUsers (conn) {
   const db = conn || connection
   return db('users')
-    .select()
+    .select('id', 'username', 'ghid', 'is_approved as isApproved')
+}
+
+function updateUserApprovals (users, conn) {
+  const db = conn || connection
+  const promises = users.map(user => {
+    return db('users')
+      .update({is_approved: user.isApproved})
+      .where('id', user.id)
+  })
+  return Promise.all(promises)
 }
 
 function userExists (username, conn) {
@@ -65,9 +77,29 @@ function getUserById (id, conn) {
 function getGradProfileById (id, conn) {
   const db = conn || connection
   return db('grad_profiles')
-    .select()
+    .select(
+      'id',
+      'about_me as aboutMe',
+      'location',
+      'github_link as gitHubLink',
+      'linkedin_link as linkedInLink',
+      'portfolio_link1 as portfolioLink1',
+      'portfolio_link2 as portfolioLink2',
+      'portfolio_link3 as portfolioLink3',
+      'previous_experience as previousExperience',
+      'interests'
+    )
     .where('id', id)
     .first()
+}
+
+function getGradTagsById (id, conn) {
+  const db = conn || connection
+  return db('grad_profiles')
+    .join('grad_profile_tags', 'grad_profiles.id', '=', 'grad_profile_tags.grad_profile_id')
+    .join('profile_tags', 'profile_tags.id', '=', 'grad_profile_tags.profile_tag_id')
+    .where('grad_profiles.id', id)
+    .select('profile_tags.tag')
 }
 
 function getUserByName (username, conn) {
@@ -97,16 +129,18 @@ function updateUser (id, username, currentPassword, newPassword, conn) {
 }
 
 function updateGradProfile (updatedUser, conn) {
-  // console.log(updatedUser)
   const db = conn || connection
   return db('grad_profiles')
     .where('id', updatedUser.userId)
     .update({
-      aboutMe: updatedUser.aboutMe,
+      about_me: updatedUser.aboutMe,
       location: updatedUser.location,
-      githubLink: updatedUser.githubLink,
-      portfolio: updatedUser.portfolio,
-      previousExperience: updatedUser.previousExperience,
+      github_link: updatedUser.gitHubLink,
+      linkedin_link: updatedUser.linkedInLink,
+      portfolio_link1: updatedUser.portfolioLink1,
+      portfolio_link2: updatedUser.portfolioLink2,
+      portfolio_link3: updatedUser.portfolioLink3,
+      previous_experience: updatedUser.previousExperience,
       interests: updatedUser.interests
     })
 }

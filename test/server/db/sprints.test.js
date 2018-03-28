@@ -45,6 +45,13 @@ test('getAssignedTasks returns a boolean for complete', () => {
     })
 })
 
+test('getTasksBySprintId returns array of task ids', () => {
+  return db.getTasksBySprintId(1, testDb)
+    .then(tasks => {
+      expect(tasks[0].id).toBe(1)
+    })
+})
+
 test('getCommentsByAssignedTaskID returns the comment for an assigned task', () => {
   return db.getCommentsByAssignedTaskID(2, testDb)
     .then(comment => {
@@ -52,7 +59,15 @@ test('getCommentsByAssignedTaskID returns the comment for an assigned task', () 
     })
 })
 
-test('test inerting comment into table', () => {
+test('getAssignedTasksByAssignmentId returns the assigned tasks array', () => {
+  const expected = 'You\'re ready to start work on an assignment? Drag it to the \'In progress\' column.'
+  return db.getAssignedTasksByAssignmentId(1, 1, testDb)
+    .then(assignedTasks => {
+      expect(assignedTasks[0].description).toBe(expected)
+    })
+})
+
+test('test inserting comment into table', () => {
   const comment = {
     userId: 1,
     content: 'hello lunnar',

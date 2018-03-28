@@ -3,6 +3,7 @@ const passport = require('passport')
 const verifyJwt = require('express-jwt')
 
 const db = require('../db/users')
+const baseUrl = require('../../shared/baseUrl')
 const jwtTestSecret = require('../../test/server/routes/jwt-test-secret')
 
 module.exports = {
@@ -39,7 +40,7 @@ function issueFromGitHub (req, res, next) {
       })
     }
     const token = createToken(user, process.env.JWT_SECRET)
-    res.redirect(`http://localhost:3000/?token=${token}`)
+    res.redirect(`${baseUrl}/?token=${token}`)
   })(req, res, next)
 }
 

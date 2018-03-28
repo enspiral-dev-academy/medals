@@ -1,16 +1,14 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+
+const db = require('../db/tags')
+
 const router = express.Router()
-const development = require('../db/knexfile').development
-const knex = require('knex')(development)
 
 module.exports = router
 
-router.use(bodyParser.json())
-
 router.get('/', (req, res) => {
-  getList()
-    .then(function (tags) {
+  db.getList()
+    .then(tags => {
       res.send({tags})
     })
     .catch(err => {
@@ -18,14 +16,10 @@ router.get('/', (req, res) => {
     })
 })
 
-const getList = () => {
-  return knex('eval_tags').select('tag')
-}
-
 router.get('/:tags', (req, res) => {
   const questionTag = req.params.tags
-  const questions = getQuestionsByTag(questionTag)
-  const responses = getAllResponses()
+  const questions = db.getQuestionsByTag(questionTag)
+  const responses = db.getAllResponses()
 
   Promise.all([questions, responses])
     .then(([questionResult, answerResult]) => {
@@ -41,14 +35,3 @@ router.get('/:tags', (req, res) => {
       res.status(500).send(err.message)
     })
 })
-
-const getQuestionsByTag = (tag) => {
-  return knex('eval_questions')
-    .join('eval_questions_tags', 'eval_questions_tags.question_id', '=', 'eval_questions.id')
-    .join('eval_tags', 'eval_questions_tags.tag_id', '=', 'eval_tags.id')
-    .where('eval_tags.tag', tag)
-}
-
-const getAllResponses = () => {
-  return knex('eval_responses')
-}

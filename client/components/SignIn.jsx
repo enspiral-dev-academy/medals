@@ -5,10 +5,7 @@ import {signIn} from '../actions/auth'
 import {clearError} from '../actions/error'
 import {withRouter} from 'react-router-dom'
 
-// TODO: Figure out how to use .env on the client side
-const baseUrl = process.env.NODE_ENV === 'production'
-  ? 'https://medals.devacademy.co.nz'
-  : 'http://localhost:3000'
+import baseUrl from '../../shared/baseUrl'
 
 class SignIn extends React.Component {
   constructor (props) {
@@ -28,10 +25,8 @@ class SignIn extends React.Component {
         <section className='section'>
           <div className='content'>
             <h1>Student Sign-in</h1>
-            <button className='button is-primary'>
-              <a href={`${baseUrl}/auth/github`}>Continue with GitHub</a>
-            </button>
-            <br/>
+            <a className='button is-primary'
+              href={`${baseUrl}/auth/github`}>Continue with GitHub</a>
           </div>
 
           <div className='content'>
@@ -80,8 +75,8 @@ class SignIn extends React.Component {
 
   handleSubmit (e) {
     const {username, password} = this.state
-    const goToEvents = () => this.props.history.push('/events')
-    this.props.signIn(username, password, goToEvents)
+    const goToHome = () => this.props.history.push('/')
+    this.props.signIn(username, password, goToHome)
     e.preventDefault()
   }
 }

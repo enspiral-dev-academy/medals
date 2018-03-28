@@ -2,8 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {getGradProfile} from '../actions/gradProfile'
-// import GradProfileEdit from './GradProfileEdit'
+import {getUserProfile} from '../actions/userProfile'
+import {getGradProfile, getGradTags} from '../actions/gradProfile'
 
 class GradProfile extends React.Component {
   constructor (props) {
@@ -12,25 +12,39 @@ class GradProfile extends React.Component {
       userId: 1
     }
   }
+
   componentDidMount () {
     this.getGradsDetails()
   }
 
   getGradsDetails () {
-    // this.props.dispatch(requestGradProfile(this.state.userId))
+    this.props.dispatch(getUserProfile(this.state.userId))
     this.props.dispatch(getGradProfile(this.state.userId))
-  }
-
-  onClick () {
-
+    this.props.dispatch(getGradTags(this.state.userId))
   }
 
   render () {
-    const {aboutMe, location, githubLink, portfolio, previousExperience, interests} = this.props.userData
+    const {preferredName, profilePic, surname, email, phone} = this.props.userProfileData
+    const {
+      aboutMe, location, interests,
+      previousExperience, gitHubLink, linkedInLink,
+      portfolioLink1, portfolioLink2, portfolioLink3
+    } = this.props.userData
+
     return (
       <div className='grad-profile'>
+        <div className='user-header'>
+          <div className='user-image-name'>
+            <img src={profilePic} alt="student profile picture"/>
+            <h1>{preferredName}</h1>
+            <h1>{surname}</h1>
+          </div>
+          <div className='user-contact'>
+            <h3>{email}</h3>
+            <h3>{phone}</h3>
+          </div>
+        </div>
         <div className='container'>
-          <h1>Name | Email | Phone</h1>
           <Link to='/grad-profile/edit'><button>
           Edit Profile
           </button></Link>
@@ -50,14 +64,29 @@ class GradProfile extends React.Component {
               <p>{location}</p>
             </div>
           </div>
-          <div className='github-link'>
-            <div className='github-link-title'>
-            Github Link:
+          <div className='links'>
+            <div className='links-title'>
+            Links:
             </div>
             <div className='github-link-content'>
-              <a href={`${githubLink}`} target='_blank'>
-                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"/>
+              <a href={gitHubLink} target='_blank'>
+                <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="35px" width="35px"/>
               </a>
+            </div>
+            <div className='linkedin-link-content'>
+              <a href={linkedInLink} target='_blank'>
+                <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" height="35px" width="35px"/>
+              </a>
+            </div>
+          </div>
+          <div className='tags'>
+            <div className='portfolio-title'>
+            tags:
+            </div>
+            <div className='portfolio-content'>
+              {this.props.tags.map((tag, id) => {
+                return <p key={id}>{tag.tag}</p>
+              })}
             </div>
           </div>
           <div className='portfolio'>
@@ -65,7 +94,19 @@ class GradProfile extends React.Component {
             Portfolio:
             </div>
             <div className='portfolio-content'>
-              <p>{portfolio}</p>
+              <a href={portfolioLink1} target='_blank'>
+                {portfolioLink1}
+              </a>
+            </div>
+            <div className='portfolio-content'>
+              <a href={portfolioLink2} target='_blank'>
+                {portfolioLink2}
+              </a>
+            </div>
+            <div className='portfolio-content'>
+              <a href={portfolioLink3} target='_blank'>
+                {portfolioLink3}
+              </a>
             </div>
           </div>
           <div className='previous-experience'>
@@ -93,7 +134,9 @@ class GradProfile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userData: state.getUserReducer
+    userProfileData: state.userProfile,
+    userData: state.getUserReducer,
+    tags: state.getGradTags
   }
 }
 

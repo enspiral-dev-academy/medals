@@ -1,14 +1,14 @@
-import {
-  RECEIVE_GRAD_PROFILE,
-  REQUEST_GRAD_PROFILE
-} from '../actions/gradProfile'
+import {RECEIVE_GRAD_PROFILE} from '../actions/gradProfile'
 
 const initialState = {
   userId: 1,
   aboutMe: 'I am an about section',
   location: 'I am a location',
   githubLink: 'I am a github link',
-  portfolio: 'I am a portfolio',
+  linkedinLink: 'I am a linkedin link',
+  portfolioLinkOne: 'I am a portfolio',
+  portfolioLinkTwo: 'I am a portfolio',
+  portfolioLinkThree: 'I am a portfolio',
   previousExperience: 'I am a previousExperience',
   interests: 'I am an interest'
 }
@@ -18,10 +18,6 @@ const getUserReducer = (state = initialState, action) => {
     case RECEIVE_GRAD_PROFILE:
       return action.userData
 
-    case REQUEST_GRAD_PROFILE:
-      return {
-        loading: action.loading
-      }
     default:
       return state
   }

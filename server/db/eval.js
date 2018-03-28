@@ -25,7 +25,7 @@ function getTagByName (tag, conn) {
 
 function getQuizTypeByName (type, conn) {
   const db = conn || connection
-  return db('eval_questions_types')
+  return db('eval_question_types')
     .select()
     .where('type', type)
     .first()
