@@ -3,6 +3,7 @@ const passport = require('passport')
 const verifyJwt = require('express-jwt')
 
 const db = require('../db/users')
+const baseUrl = require('../../shared/baseUrl')
 const jwtTestSecret = require('../../test/server/routes/jwt-test-secret')
 
 module.exports = {
@@ -11,8 +12,6 @@ module.exports = {
   issueFromGitHub,
   createToken // exported for testing
 }
-
-const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
 
 function issue (req, res) {
   db.getUserByName(req.body.username)

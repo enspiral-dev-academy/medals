@@ -29,6 +29,7 @@
     "test:assert": "yarn test && yarn assert",
     "start": "node server"
   },
+  "precommit": "lint:assert, test:assert, e2e:assert",
   "engines": {
     "node": ">=8.9.1 <=8.9.4"
   },
@@ -48,7 +49,6 @@
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },
-  "precommit": "lint:assert, test:assert, e2e:assert",
   "dependencies": {
     "babel-core": "^6.13.2",
     "babel-jest": "^21.0.2",

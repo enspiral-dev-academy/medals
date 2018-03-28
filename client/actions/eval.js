@@ -1,7 +1,7 @@
 import request from 'superagent'
 import {showError} from './error'
 
-import baseUrl from '../lib/base-url'
+import baseUrl from '../../shared/baseUrl'
 
 export const GET_TAGS = 'GET_TAGS'
 export const FETCH_LIST = 'FETCH_LIST'
