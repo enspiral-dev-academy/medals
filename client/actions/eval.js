@@ -17,6 +17,7 @@ export const getTags = (list) => {
 
 export function fetchList () {
   console.log('baseUrl:', baseUrl)
+  console.log('NODE_ENV:', process.env.NODE_ENV)
   return (dispatch) => {
     request
       .get(`${baseUrl}/api/v1/tags`)
