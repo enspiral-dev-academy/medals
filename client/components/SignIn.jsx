@@ -5,7 +5,7 @@ import {signIn} from '../actions/auth'
 import {clearError} from '../actions/error'
 import {withRouter} from 'react-router-dom'
 
-import baseUrl from '../lib/base-url'
+import baseUrl from '../../shared/baseUrl'
 
 class SignIn extends React.Component {
   constructor (props) {
